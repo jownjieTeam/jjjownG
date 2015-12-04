@@ -1,30 +1,32 @@
 package com.example.jownjie.nihingo.Models;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * Created by hebi5 on 12/2/2015.
  */
 public class GameLevel {
-    private long id;
-    private Drawable imageDr;
+
+    private Bitmap imageDr;
     private boolean answered;
-    private final int level = 0;
+    private int level;
     private String answer;
 
-    public GameLevel(){
+    public GameLevel(){}
 
-    }
-
-    public long getId() {
-        return id;
+    public GameLevel(Bitmap imageDr, boolean answered, int level, String answer) {
+        this.imageDr = imageDr;
+        this.answered = answered;
+        this.level = level;
+        this.answer = answer;
     }
 
     public boolean isAnswered() {
         return answered;
     }
 
-    public Drawable getImageDr() {
+    public Bitmap getImageDr() {
         return imageDr;
     }
 
@@ -36,19 +38,19 @@ public class GameLevel {
         return answer;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setImageDr(byte[] imageDr) {
+        Bitmap temp = BitmapFactory.decodeByteArray(imageDr,0,imageDr.length);
+        this.imageDr = temp;
     }
 
-    public void setImageDr(Drawable imageDr) {
-        this.imageDr = imageDr;
-    }
-
-    public void setAnswered(boolean answered) {
-        this.answered = answered;
+    public void setAnswered(int answered) {
+        this.answered = (( answered== 1 ) ? true : false);
     }
 
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public void setLevel(int level) { this.level = level; }
+
 }

@@ -1,7 +1,7 @@
 package com.example.jownjie.nihingo.Models;
 
 /**
- * Created by Andrew Paul Mago on 12/2/2015.
+ * Created by User on 12/2/2015.
  */
 public class BaseGame {
     private int gamePoints;
