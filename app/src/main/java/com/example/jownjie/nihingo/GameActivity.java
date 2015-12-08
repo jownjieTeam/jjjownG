@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseConnector;
-import com.example.jownjie.nihingo.Models.GameLevel;
+import com.example.jownjie.nihingo.Models.GamePool;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class GameActivity extends AppCompatActivity {
     DatabaseConnector dc;
-    GameLevel temp;
+    GamePool temp;
 
     @Bind(R.id.textView)
     TextView textView;
@@ -50,11 +50,11 @@ public class GameActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         dc = new DatabaseConnector(this,1);
 
-        if(dc.insertGameLevel(new GameLevel(null,false,2,"TEST"),createFileFromResource(R.drawable.test,"test.png")))
+        if(dc.insertGameLevel(new GamePool(null,"TEST","TESTHINT"),createFileFromResource(R.drawable.advanced_avocado,"advanced_avocado.png")))
             Toast.makeText(this,"SUCCESS!", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this,"FAILED!", Toast.LENGTH_SHORT).show();
-        temp = dc.getGameLevel(this,"2");
+        temp = dc.getGameLevel("TEST");
         if(temp!=null) {
             imageView.setImageBitmap(temp.getImageDr());
             Toast.makeText(this,String.valueOf(temp.getAnswer()),Toast.LENGTH_LONG);

@@ -1,28 +1,19 @@
 package com.example.jownjie.nihingo.Models;
 
+import java.util.List;
+
 /**
  * Created by hebi5 on 12/2/2015.
+ * edited by User on 12/8/2015 : reconstructed class.
  */
-abstract class Game extends BaseGame {
-    private int currentLevel;
+abstract class Game {
+    private List<GamePool> questionsPool;
 
-    public Game(){}
-
-    public Game(int currentLevel, int gamePoints, int easyLevel, int hardLevel, String[] optionsPreference){
-        super(gamePoints, easyLevel, hardLevel, optionsPreference);
-
-        this.currentLevel = currentLevel;
+    public List<GamePool> getQuestionsPool() {
+        return questionsPool;
     }
 
-    public int getCurrentLevel() {
-        return currentLevel;
+    public void setQuestionsPool(List<GamePool> questionsPool) {
+        this.questionsPool = questionsPool;
     }
-
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
-    }
-
-    public abstract void play();
-    public abstract void buyClue(int gamePoints);
-    public abstract String generateRandomLetters();
 }
