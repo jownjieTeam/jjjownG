@@ -9,14 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.jownjie.nihingo.Database.DatabaseConnector;
+import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.example.jownjie.nihingo.Models.GamePool;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +21,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button[] buttons;
     private int wordCount=0;
     private String newAnswer;
-    DatabaseConnector dc;
+    DatabaseController dc;
     GamePool temp;
 
     @Bind(R.id.ans_container)
@@ -83,28 +77,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
 
-        dc = new DatabaseConnector(this,1);
+        dc = new DatabaseController(this,1);
 
         /***/
-        newAnswer = "COCK";
-        int newDr = R.drawable.advanced_coconut;
-        String fileName = "advanced_coconut.png";
+        newAnswer = "barbecue";
+        int newDr = R.drawable.expert_barbecue;
+        String fileName = "expert_barbecue.png";
         /****/
 
         buttons = new Button[newAnswer.length()];
         initAnswerContainer(buttons.length);
 
-        if(dc.insertGameLevel(new GamePool(null,newAnswer,"TESTHINT"),createFileFromResource(newDr,fileName)))
+        if(dc.insertGamePool(new GamePool(newDr, fileName, "TESTHINT")))
             Toast.makeText(this,"SUCCESS!", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this,"FAILED!", Toast.LENGTH_SHORT).show();
-        temp = dc.getGameLevel(newAnswer);
+        temp = dc.getGamePool(newAnswer);
         if(temp!=null) {
-            imageView.setImageBitmap(temp.getImageDr());
-            Toast.makeText(this, String.valueOf(temp.getAnswer()), Toast.LENGTH_LONG);
+            imageView.setImageResource(temp.getImageRes());
+            Toast.makeText(this, String.valueOf(temp.getImageRes()) + " AND " + newDr + " AND " + temp.getHint(), Toast.LENGTH_LONG).show();
         }
+
     }
 
+    /*
     public File createFileFromResource(int resId, String fileName)
     {
         File f;
@@ -130,10 +126,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         return f;
     }
+    */
 
     @Override
     public void onClick(View v) {
         Button button = (Button)v;
         button.setText("");
     }
+
 }
