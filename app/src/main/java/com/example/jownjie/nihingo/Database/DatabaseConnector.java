@@ -6,56 +6,55 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.jownjie.nihingo.Models.GamePool;
+import com.example.jownjie.nihingo.Models.TopPlayer;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 12/2/2015.
  */
 public class DatabaseConnector {
 
-    //TEST TABLE
-    public static final String DATA_GAMELEVEL_NAME = "TESTTABLE";
-    public static final String DATA_GAMELEVEL_IMAGEDR = "imageDr";
-    public static final String DATA_GAMELEVEL_ANSWER = "answer";
-    public static final String DATA_GAMELEVEL_HINT = "hint";
+    //DATABASE NAME
+    public static final String DATABASE_NAME = "UNOFFICIAL_SPELLIT";
 
-    //TEST TABLE CREATION
-    public static final String TABLE_GAMELEVEL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMELEVEL_NAME +
-            "( "+ DATA_GAMELEVEL_IMAGEDR +" BLOB," +
-            DATA_GAMELEVEL_HINT +" TEXT," +
-            DATA_GAMELEVEL_ANSWER +" TEXT);";
+    //GAMEPOOL TABLE VARIABLES
+    public static final String DATA_GAMEPOOL_NAME = "GamePool";
+    public static final String DATA_GAMEPOOL_IMAGERES = "imageRes";
+    public static final String DATA_GAMEPOOL_ANSWER = "answer";
+    public static final String DATA_GAMEPOOL_HINT = "hint";
+    public static final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
 
-    //TEST TABLE QUERY
-    public static final String[] QUERY_TABLE_GAMELEVEL = {DATA_GAMELEVEL_IMAGEDR,
-            DATA_GAMELEVEL_HINT,DATA_GAMELEVEL_ANSWER};
-
-
-
-
-
-
-    //RANKINGS TABLE
+    //TOPPLAYER TABLE VARIABLES
     public static final String DATA_TOPPLAYERS_NAME = "TopPlayers";
     public static final String DATA_TOPPLAYERS_GAMEPOINTS = "gamePoints";
     public static final String DATA_TOPPLAYERS_GAMEMODE = "gameMode";
     public static final String DATA_TOPPLAYERS_PLAYERNAME = "playerName";
 
-    //RANKINGS TABLE CREATION
+    //GAMEPOOL TABLE CREATION
+    public static final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
+            "( "+ DATA_GAMEPOOL_IMAGERES +" INTEGER PRIMARY KEY," +
+            DATA_GAMEPOOL_HINT +" TEXT," +
+            DATA_GAMEPOOL_ANSWER +" TEXT," +
+            DATA_GAMEPOOL_GAMEMODE+ " INTEGER);";
+
+    //TOPPLAYER TABLE CREATION
     public static final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
                                                     "( "+ DATA_TOPPLAYERS_PLAYERNAME+" TEXT," +
                                                     DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER," +
-                                                    DATA_TOPPLAYERS_GAMEMODE+" TEXT);";
-    //RANKINGS TABLE QUERY
+                                                    DATA_TOPPLAYERS_GAMEMODE+" INTEGER);";
+
+    //GAMEPOOL TABLE QUERY
+    public static final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_HINT,
+                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE};
+
+    //TOPPLAYER TABLE QUERY
     public static final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS,
                                                     DATA_TOPPLAYERS_GAMEMODE};
-
-
 
     //GAME OPTIONS TABLE
     public static final String DATA_BASEGAME_OPTIONSPREFERENCE = "optionsPreference";
@@ -72,7 +71,7 @@ public class DatabaseConnector {
      * @param version, type int : version of database to be created/opened.
      */
     public DatabaseConnector(Context context, int version) {
-        dbHelper = new SQLHelper(context,DATA_GAMELEVEL_NAME,version);
+        dbHelper = new SQLHelper(context,DATABASE_NAME,version);
         try {
             sqldb = dbHelper.getWritableDatabase();
         } catch(SQLiteException ex) {
@@ -81,49 +80,105 @@ public class DatabaseConnector {
     }
 
     /*
-     * Test method for database insertion at test table
+     * inserts data to GamePool table
      * @param gl, type GameLevel : model for insertion
-     * @param file, type File : image to be inserted
+     * @return bool
      */
-    public boolean insertGameLevel(GamePool gl, File file) {
+    public boolean addGamePool(GamePool gp) {
         ContentValues cv = new ContentValues();
         try {
-            FileInputStream fis = new FileInputStream(file);
-            byte[] imageDr = new byte[fis.available()];
-            fis.read(imageDr);
 
-            cv.put(DATA_GAMELEVEL_IMAGEDR, imageDr);
-            cv.put(DATA_GAMELEVEL_ANSWER, gl.getAnswer());
-            cv.put(DATA_GAMELEVEL_HINT, gl.getHint());
+            cv.put(DATA_GAMEPOOL_IMAGERES, gp.getImageRes());
+            cv.put(DATA_GAMEPOOL_ANSWER, gp.getAnswer());
+            cv.put(DATA_GAMEPOOL_HINT, gp.getHint());
+            cv.put(DATA_GAMEPOOL_GAMEMODE, gp.getGameMode());
 
-            sqldb.insert(DATA_GAMELEVEL_NAME, null, cv);
-            fis.close();
+            sqldb.insert(DATA_GAMEPOOL_NAME, null, cv);
             return true;
 
         } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
 
     /*
-     * Test method for retrieval of data in test table
-     * @param level, type String : level of GameLevel to be retrieved. (level is unique in database)
+     * retrieves specific row from GamePool table
+     * @param answer, type String : answer of GamePool to be retrieved. (answer is unique in database/no 2 or more questions have the same answer)
+     * @return GamePool
      */
-    public GamePool getGameLevel(String answer) {
-        Cursor cursor = sqldb.query(DATA_GAMELEVEL_NAME,QUERY_TABLE_GAMELEVEL, DATA_GAMELEVEL_ANSWER + " =?",new String[] {answer},null,null,null);
+    public GamePool getGamePool(String answer) {
+        Cursor cursor = sqldb.query(DATA_GAMEPOOL_NAME,QUERY_GAMEPOOL, DATA_GAMEPOOL_ANSWER + " =?",new String[] {answer},null,null,null);
         if(cursor.moveToFirst()) {
             GamePool gl = new GamePool();
-            gl.setImageDr(cursor.getBlob(0));
+            gl.setImageRes(cursor.getInt(0));
             gl.setHint(cursor.getString(1));
             gl.setAnswer(cursor.getString(2));
+            gl.setGameMode(cursor.getInt(3));
+            Log.e("TEST!!!!!!!!!!!!!!!!", String.valueOf(cursor.getInt(0)));
             return gl;
         }
         return null;
+    }
+
+    /*
+     * retrieves data from GamePool table with respect to game mode.
+     * @param gameMode, type int : gameMode to be retrieved from GamePool table.
+     * @return List of GamePool
+     */
+    public List<GamePool> getGamePool(int gameMode) {
+        List<GamePool> gamePoolList = new ArrayList<GamePool>();
+        Cursor cursor = sqldb.query(DATA_GAMEPOOL_NAME, QUERY_GAMEPOOL, DATA_GAMEPOOL_GAMEMODE + " =?", new String[]{String.valueOf(gameMode)}, null, null, null);
+        GamePool gl;
+        while (cursor.moveToNext()) {
+            gl = new GamePool();
+            gl.setImageRes(cursor.getInt(0));
+            gl.setHint(cursor.getString(1));
+            gl.setAnswer(cursor.getString(2));
+            gl.setGameMode(cursor.getInt(3));
+            gamePoolList.add(gl);
+        }
+        return gamePoolList;
+    }
+
+    /*
+     * inserts data to TopPlayer table
+     * @param tp, type TopPlayer : model for insertion
+     * @return bool
+     */
+    public boolean addTopPlayer(TopPlayer tp) {
+        ContentValues cv = new ContentValues();
+        try {
+            cv.put(DATA_TOPPLAYERS_PLAYERNAME, tp.getPlayerName());
+            cv.put(DATA_TOPPLAYERS_GAMEPOINTS, tp.getGamePoints());
+            cv.put(DATA_TOPPLAYERS_GAMEMODE, tp.getGameMode());
+
+            sqldb.insert(DATA_TOPPLAYERS_NAME, null, cv);
+            return true;
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /*
+     * retrieves data from TopPlayer table with respect to game mode.
+     * @param gameMode, type int : gameMode to be retrieved from TopPlayer table.
+     * @return Array of TopPlayer size:10
+     */
+    public TopPlayer[] getTopPlayer(int gameMode) {
+        TopPlayer[] topPlayerArray = new TopPlayer[10];
+        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, DATA_TOPPLAYERS_GAMEMODE + " =?", new String[] {String.valueOf(gameMode)}, null, null, DATA_TOPPLAYERS_GAMEPOINTS, String.valueOf("10"));
+        TopPlayer tp;
+        int count = 0;
+        while(cursor.moveToNext()) {
+            tp = new TopPlayer();
+            tp.setPlayerName(cursor.getString(0));
+            tp.setGamePoints(cursor.getInt(1));
+            tp.setGameMode(cursor.getInt(2));
+            topPlayerArray[count++] = tp;
+        }
+        return topPlayerArray;
     }
 
     //SQL helper class
@@ -148,7 +203,8 @@ public class DatabaseConnector {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(TABLE_GAMELEVEL);
+            db.execSQL(TABLE_GAMEPOOL);
+            db.execSQL(TABLE_TOPPLAYERS);
         }
 
         @Override
