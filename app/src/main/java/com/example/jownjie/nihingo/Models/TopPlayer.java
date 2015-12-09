@@ -3,15 +3,15 @@ package com.example.jownjie.nihingo.Models;
 /**
  * Created by User on 12/8/2015.
  */
-public class Rankings {
+public class TopPlayer {
     private int gamePoints;
     private String playerName;
-    private String gameMode;
+    private int gameMode;
 
-    public Rankings() {
+    public TopPlayer() {
     }
 
-    public Rankings(int gamePoints, String playerName, String gameMode) {
+    public TopPlayer(int gamePoints, String playerName, int gameMode) {
         this.gamePoints = gamePoints;
         this.playerName = playerName;
         this.gameMode = gameMode;
@@ -33,11 +33,11 @@ public class Rankings {
         this.playerName = playerName;
     }
 
-    public String getGameMode() {
+    public int getGameMode() {
         return gameMode;
     }
 
-    public void setGameMode(String gameMode) {
+    public void setGameMode(int gameMode) {
         this.gameMode = gameMode;
     }
 }
