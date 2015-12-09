@@ -48,7 +48,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             R.id.button9,
             R.id.button10})
     public void displayCharacters(Button button){
-        button.setVisibility(View.INVISIBLE);
+        //button.setVisibility(View.INVISIBLE);
         appendToContainer(button.getText().toString());
     }
 
