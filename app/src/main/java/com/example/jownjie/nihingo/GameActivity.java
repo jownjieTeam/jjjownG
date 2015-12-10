@@ -12,26 +12,19 @@ import android.widget.Toast;
 import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.example.jownjie.nihingo.Models.GamePool;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
-    private String answer="";
-    private Button[] buttons;
-    private int wordCount=0;
+public class GameActivity extends AppCompatActivity{
+    private Button[] answerList;
+    int[] buttonPosArr;
     private String newAnswer;
     DatabaseController dc;
     GamePool temp;
 
-    @Bind(R.id.ans_container)
-    LinearLayout ansContainer;
-
-
-    @Bind(R.id.imageView)
-    ImageView imageView;
-
-    @OnClick({R.id.button1,
+    @Bind({R.id.button1,
             R.id.button2,
             R.id.button3,
             R.id.button4,
@@ -41,33 +34,70 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             R.id.button8,
             R.id.button9,
             R.id.button10})
-    public void displayCharacters(Button button){
-        //button.setVisibility(View.INVISIBLE);
-        appendToContainer(button.getText().toString());
+    List<Button> choiceList;
+
+    @Bind(R.id.ans_container)
+    LinearLayout ansContainer;
+
+    @Bind(R.id.imageView)
+    ImageView imageView;
+
+    /**
+     * initializes
+     * the container for
+     * List<Button> choiceList
+     */
+
+    public void initChoiceContainer(){
+        for(int i = 0; i< choiceList.size();i++){
+            final int pos = i;
+            choiceList.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    choiceList.get(pos).setVisibility(View.INVISIBLE);
+                    appendToContainer(pos);
+                }
+            });
+        }
     }
 
-    public void initAnswerContainer(int count){
+    /**
+     * initializes
+     * container
+     * for Button[] answerList
+     */
+
+    public void initAnswerContainer(){
         for(int i = 0; i < newAnswer.length(); i++){
             LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            Button btn = new Button(this, null, android.R.attr.buttonStyleSmall);
-            btn.setLayoutParams(btnparams);
-            btn.setOnClickListener(this);
-            ansContainer.addView(btn);
-
-            buttons[i] = btn;
+            answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
+            answerList[i].setLayoutParams(btnparams);
+            final int pos = i;
+            answerList[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    choiceList.get(buttonPosArr[pos]).setVisibility(View.VISIBLE);
+                    answerList[pos].setText("");
+                }
+            });
+            ansContainer.addView(answerList[i]);
         }
     }
 
-    public void appendToContainer(String letter){
-        answer+=letter;
-        for(int i =0;i<buttons.length;i++){
-            if(buttons[i].getText().equals("")){
-                buttons[i].setText(letter);
+    /**
+     * append letter to
+     * the answerList container
+     * @param item, type int: position of appended letter from choiceList
+     */
+
+    public void appendToContainer(int item){
+        //answerList+=letter;
+        for(int i =0;i< answerList.length;i++){
+            if(answerList[i].getText().toString().equals("")){
+                answerList[i].setText(choiceList.get(item).getText().toString());
+                buttonPosArr[i]=item;
                 break;
             }
-        }
-        if(answer.equals(newAnswer)){
-            Toast.makeText(this, "congratulations dickface no one cares", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -85,8 +115,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         String fileName = "expert_barbecue.png";
         /****/
 
-        buttons = new Button[newAnswer.length()];
-        initAnswerContainer(buttons.length);
+        //TODO: asdasd ------------
+        initChoiceContainer();
+
+        //TODO: asdasd ------------
+
+        answerList = new Button[newAnswer.length()];
+        buttonPosArr = new int[newAnswer.length()];
+        initAnswerContainer();
 
         if(dc.insertGamePool(new GamePool(newDr, fileName, "TESTHINT")))
             Toast.makeText(this,"SUCCESS!", Toast.LENGTH_SHORT).show();
@@ -127,11 +163,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return f;
     }
     */
-
-    @Override
-    public void onClick(View v) {
-        Button button = (Button)v;
-        button.setText("");
-    }
 
 }
