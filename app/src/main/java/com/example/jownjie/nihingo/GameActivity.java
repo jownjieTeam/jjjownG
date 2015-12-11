@@ -3,7 +3,6 @@ package com.example.jownjie.nihingo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +16,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ *  edited by hebi5 on 12/10/15: added button functionality for choosing and removing letters
+ */
 public class GameActivity extends AppCompatActivity{
+    String answer = "";
+    int a=0;
     private Button[] answerList;
     int[] buttonPosArr;
     private String newAnswer;
@@ -54,8 +58,10 @@ public class GameActivity extends AppCompatActivity{
             choiceList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    choiceList.get(pos).setVisibility(View.INVISIBLE);
-                    appendToContainer(pos);
+                    if(a!=newAnswer.length()) {
+                        choiceList.get(pos).setVisibility(View.INVISIBLE);
+                        appendToContainer(pos);
+                    }
                 }
             });
         }
@@ -69,13 +75,15 @@ public class GameActivity extends AppCompatActivity{
 
     public void initAnswerContainer(){
         for(int i = 0; i < newAnswer.length(); i++){
-            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(60, 60);
+            btnparams.setMarginEnd(1);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
             answerList[i].setLayoutParams(btnparams);
             final int pos = i;
             answerList[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    a--;
                     choiceList.get(buttonPosArr[pos]).setVisibility(View.VISIBLE);
                     answerList[pos].setText("");
                 }
@@ -96,9 +104,14 @@ public class GameActivity extends AppCompatActivity{
             if(answerList[i].getText().toString().equals("")){
                 answerList[i].setText(choiceList.get(item).getText().toString());
                 buttonPosArr[i]=item;
+                a++;
                 break;
             }
         }
+    }
+
+    public void answerContainerFull(){
+
     }
 
     @Override
