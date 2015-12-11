@@ -196,10 +196,9 @@ public class GameActivity extends AppCompatActivity{
                     break;
         }
         gamePoolList = HomeScreen.dc.getGamePool(gameMode);
+        game.setT(timer);
+        game.getT().execute();
 
-
-        timerTask = new Timer(timer);
-        timerTask.execute();
     }
 
     private void newQuestion() {

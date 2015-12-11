@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class Timer extends AsyncTask<Void, Integer, Void> {
     private TextView tvTimer;
     private int time = 0;
+    private int totalTime = 0;
 
     public Timer(TextView tvTimer){
         this.tvTimer = tvTimer;
@@ -36,5 +37,13 @@ public class Timer extends AsyncTask<Void, Integer, Void> {
 
         }
         return null;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
     }
 }

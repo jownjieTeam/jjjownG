@@ -19,7 +19,7 @@ public class HomeScreen extends AppCompatActivity {
     @OnClick(R.id.button_play)
     public void playGame(){
         //TODO: diri tong new play game2 shit wtf bro
-        startActivity(new Intent(this, GameActivity.class).putExtra("GAME_MODE", BaseGame.MODE_BEGINNER));
+        startActivity(new Intent(this, ModeActivity.class));
     }
 
     @Override

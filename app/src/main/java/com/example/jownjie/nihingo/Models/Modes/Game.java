@@ -1,6 +1,9 @@
 package com.example.jownjie.nihingo.Models.Modes;
 
+import android.widget.TextView;
+
 import com.example.jownjie.nihingo.Database.DatabaseController;
+import com.example.jownjie.nihingo.Game.Timer;
 import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.TopPlayer;
@@ -15,9 +18,8 @@ import java.util.List;
 public abstract class Game {
     private List<GamePool> questionsPool;
     private TopPlayer tp;
-    private int totalTime;
-    private int answerTime;
     private DatabaseController dc;
+    private Timer t;
 
     public Game(DatabaseController dc) {
         this.dc = dc;
@@ -43,20 +45,16 @@ public abstract class Game {
         this.tp = tp;
     }
 
-    public int getTotalTime() {
-        return totalTime;
+    public Timer getT() {
+        return t;
     }
 
-    public void setTotalTime(int totalTime) {
-        this.totalTime = totalTime;
+    public void setT(Timer t) {
+        this.t = t;
     }
 
-    public int getAnswerTime() {
-        return answerTime;
-    }
-
-    public void setAnswerTime(int answerTime) {
-        this.answerTime = answerTime;
+    public void setT(TextView timer) {
+        this.t = new Timer(timer);
     }
 
     public List<String> randomize(String answer) {return null;}
