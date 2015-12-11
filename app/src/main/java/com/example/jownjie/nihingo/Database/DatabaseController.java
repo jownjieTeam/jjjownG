@@ -1,18 +1,24 @@
 package com.example.jownjie.nihingo.Database;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.provider.MediaStore;
+import android.util.Log;
 
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by User on 12/9/2015.
  */
-public class DatabaseController implements Serializable {
+public class DatabaseController implements Parcelable {
 
     //private DatabaseConnector variable
     private DatabaseConnector dc;
@@ -26,23 +32,28 @@ public class DatabaseController implements Serializable {
         dc = new DatabaseConnector(context,version);
     }
 
-    /*
-     * inserts data (GamePool)
-     * @param gp, type GamePool : object used to insert data
-     * @return bool
-     */
-    public boolean insertGamePool(GamePool gp) {
-        if(gp!=null)
-            return dc.addGamePool(gp);
-        else
-            return false;
+    protected DatabaseController(Parcel in) {
+        String[] passedData = new String[1];
+
     }
 
+    public static final Creator<DatabaseController> CREATOR = new Creator<DatabaseController>() {
+        @Override
+        public DatabaseController createFromParcel(Parcel in) {
+            return new DatabaseController(in);
+        }
+
+        @Override
+        public DatabaseController[] newArray(int size) {
+            return new DatabaseController[size];
+        }
+    };
+
     /*
-     * retrieves data (GamePool)
-     * @param answer, type String : used as condition in query
-     * @return GamePool
-     */
+         * retrieves data (GamePool)
+         * @param answer, type String : used as condition in query
+         * @return GamePool
+         */
     public GamePool getGamePool(String answer) {
         if(!answer.isEmpty())
             return dc.getGamePool(answer);
@@ -72,6 +83,16 @@ public class DatabaseController implements Serializable {
         if(validGameMode(gameMode))
             topPlayerArray = dc.getTopPlayer(gameMode);
         return topPlayerArray;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 
     //helper method to check validity of gameMode

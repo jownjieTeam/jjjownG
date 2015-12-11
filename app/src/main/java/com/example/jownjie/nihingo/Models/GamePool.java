@@ -11,15 +11,17 @@ import android.util.Log;
 public class GamePool {
 
     private int imageRes;
+    private int soundRes;
     private String answer;
     private String hint;
     private int gameMode;
 
     public GamePool(){}
 
-    public GamePool(int imageRes, String imageDr, String hint) {
+    public GamePool(int imageRes, int soundRes, String imageDr, String hint) {
         this.imageRes = imageRes;
-        this.answer = getAnswerValue(imageDr.split("_")[1]);
+        this.soundRes = soundRes;
+        this.answer = imageDr.split("_")[1];
         this.hint = hint;
         this.gameMode = getValue(imageDr.split("_")[0]);
     }
@@ -32,12 +34,20 @@ public class GamePool {
         this.imageRes = imageRes;
     }
 
+    public int getSoundRes() {
+        return soundRes;
+    }
+
+    public void setSoundRes(int soundRes) {
+        this.soundRes = soundRes;
+    }
+
     public String getAnswer() {
         return answer;
     }
 
     public void setAnswerResource(String answer) {
-        this.answer = getAnswerValue(answer.split("_")[1]);
+        this.answer = answer.split("_")[1];
     }
 
     public void setAnswer(String answer) { this.answer = answer; }
@@ -74,15 +84,8 @@ public class GamePool {
             return BaseGame.MODE_NULL;
     }
 
-    private String getAnswerValue(String answer) {
-        int index;
-        String newAnswer;
-        index = answer.lastIndexOf(".png");
-        if(index > 0)
-            return newAnswer = answer.substring(0, index);
-        index = answer.lastIndexOf(".jpg");
-        if(index > 0)
-            return newAnswer = answer.substring(0, index);
-        return null;
+    @Override
+    public String toString() {
+        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode;
     }
 }

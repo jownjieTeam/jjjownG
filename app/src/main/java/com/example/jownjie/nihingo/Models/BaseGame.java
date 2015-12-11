@@ -27,4 +27,5 @@ public class BaseGame {
     public void setOptionsPreference(String[] optionsPreference) {
         this.optionsPreference = optionsPreference;
     }
+
 }
