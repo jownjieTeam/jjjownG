@@ -1,8 +1,11 @@
 package com.example.jownjie.nihingo.Models.Modes;
 
+import com.example.jownjie.nihingo.Database.DatabaseController;
+import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,9 +17,22 @@ abstract class Game {
     private TopPlayer tp;
     private int totalTime;
     private int answerTime;
+    private DatabaseController dc;
+
+    public Game(DatabaseController dc) {
+        this.dc = dc;
+    }
 
     public List<GamePool> getQuestionsPool() {
         return questionsPool;
+    }
+
+    public void setQuestionsPool(List<GamePool> questionsPool) { this.questionsPool = questionsPool; }
+
+    public void setQuestionsPool(int gameMode) {
+        List<GamePool> gamePoolList = new ArrayList<GamePool>();
+        gamePoolList = dc.getGamePool(gameMode);
+        this.questionsPool = gamePoolList;
     }
 
     public TopPlayer getTp() {
@@ -45,7 +61,14 @@ abstract class Game {
 
     public List<String> randomize(String answer) {return null;}
 
+    public DatabaseController getDc() {
+        return dc;
+    }
 
-    public abstract void setQuestionsPool(List<GamePool> questionsPool);
+    public void setDc(DatabaseController dc) {
+        this.dc = dc;
+    }
+
+
     public abstract void play();
 }

@@ -1,8 +1,10 @@
 package com.example.jownjie.nihingo.Models.Modes;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
+import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,15 +12,8 @@ import java.util.List;
  */
 public class ExpertGame extends Game {
 
-    DatabaseController dc;
-
     public ExpertGame(DatabaseController dc) {
-        this.dc = dc;
-    }
-
-    @Override
-    public void setQuestionsPool(List<GamePool> questionsPool) {
-        
+        super(dc);
     }
 
     @Override
