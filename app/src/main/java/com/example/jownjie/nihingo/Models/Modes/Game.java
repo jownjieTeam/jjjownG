@@ -12,7 +12,7 @@ import java.util.List;
  * Created by hebi5 on 12/2/2015.
  * edited by User on 12/8/2015 : reconstructed class.
  */
-abstract class Game {
+public abstract class Game {
     private List<GamePool> questionsPool;
     private TopPlayer tp;
     private int totalTime;

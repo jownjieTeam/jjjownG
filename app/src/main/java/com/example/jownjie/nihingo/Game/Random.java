@@ -34,13 +34,17 @@ public class Random {
         for(int i = 0; i<word.length();){
             int randomIndex = r.nextInt(word.length());
             String letter = word.charAt(randomIndex)+"";
-            if(!indexList.contains(randomIndex + "")) {
+            if(!indexList.contains(randomIndex)) {
                 indexList.add(randomIndex);
                 newWord += letter;
                 i++;
             }
         }
         return newWord;
+    }
+
+    public static int getRandomNumber(int upperLimit) {
+        return r.nextInt(upperLimit);
     }
 
 }
