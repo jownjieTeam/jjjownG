@@ -11,6 +11,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.jownjie.nihingo.GameActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textViewTimer"
+        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
         android:gravity="center"
         android:layout_weight="0.4"
@@ -38,7 +45,6 @@
         android:layout_height="wrap_content"></LinearLayout>
 
     <LinearLayout
-        android:layout_weight="0.4"
         android:layout_below="@id/haha"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -56,44 +62,52 @@
                 android:gravity="center">
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A"
                     android:id="@+id/button1"
                     android:layout_column="0" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B"
                     android:id="@+id/button2"
                     android:layout_column="1" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="C"
                     android:id="@+id/button3"
                     android:layout_column="2" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="D"
                     android:id="@+id/button4"
                     android:layout_column="3" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="E"
                     android:id="@+id/button5"
                     android:layout_column="4" />
+
+                <Button
+                    android:visibility="gone"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button11"
+                    android:layout_column="5" />
 
             </TableRow>
 
@@ -103,47 +117,85 @@
                 android:gravity="center">
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="K"
                     android:id="@+id/button6"
                     android:layout_column="0" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="C"
                     android:id="@+id/button7"
                     android:layout_column="1" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="H"
                     android:id="@+id/button8"
                     android:layout_column="2" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I"
                     android:id="@+id/button9"
                     android:layout_column="3" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="O"
                     android:id="@+id/button10"
                     android:layout_column="4" />
+
+                <Button
+                    android:visibility="gone"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button12"
+                    android:layout_column="5" />
             </TableRow>
 
         </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.4">
+
+        <ImageButton
+            android:src="@android:drawable/ic_lock_silent_mode_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_playSound" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="show hint"
+            android:id="@+id/button_showHint" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="new game"
+            android:id="@+id/button_newGame" />
+
     </LinearLayout>
 
 </LinearLayout>
