@@ -20,7 +20,16 @@ public class Timer extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        tvTimer.setText(values[0] + "");
+        tvTimer.setText(setTime(values[0]));
+    }
+
+    private String setTime(int value) {
+        int minutes = value/60;
+        int seconds = value-(minutes*60);
+        if(seconds>9)
+            return "0"+minutes+":"+seconds;
+        else
+            return "0"+minutes+":0"+seconds;
     }
 
     @Override

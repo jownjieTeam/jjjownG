@@ -19,6 +19,11 @@
         </activity>
         <activity android:name=".ModeActivity" >
         </activity>
+        <activity
+            android:name=".RankingActivity"
+            android:label="@string/title_activity_ranking"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
