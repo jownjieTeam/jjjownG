@@ -1,5 +1,7 @@
 package com.example.jownjie.nihingo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,11 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Game.Random;
 import com.example.jownjie.nihingo.Game.Timer;
-import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
@@ -81,8 +81,6 @@ public class GameActivity extends AppCompatActivity{
     @OnClick(R.id.button_newGame)
     public void newGame() {
         newQuestion();
-
-
     }
 
 
@@ -98,7 +96,6 @@ public class GameActivity extends AppCompatActivity{
         int a = (gameMode==2)?0:2;
         int size = choiceList.size()-a;
         String rand = Random.randomize(Random.completeWord(Random.randomize(currentQuestion.getAnswer().toUpperCase()), size));
-        Toast.makeText(this,rand+" "+currentQuestion.getAnswer().toUpperCase(),Toast.LENGTH_SHORT).show();
 
         for (int i = 0; i < size; i++) {
             final int pos = i;
@@ -160,8 +157,36 @@ public class GameActivity extends AppCompatActivity{
         }
         currentAnswer = getAnswer();
         //Toast.makeText(this,currentAnswer.toLowerCase()+" AND "+currentQuestion.getAnswer(),Toast.LENGTH_SHORT).show();
-        if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase()))
-            newQuestion();
+        if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
+
+            //newQuestion();
+            AlertDialog ad = new AlertDialog.Builder(this)
+                    .setMessage("SUCCESS")
+                    .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            newGame();
+                        }
+                    })
+                    .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            game.getT().cancel(true);
+                            GameActivity.this.finish();
+                        }
+                    })
+                    .setNeutralButton("RETRY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            GameActivity.this.recreate();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create();
+            ad.show();
+
+        }
     }
 
     public boolean answerContainerFull(){
@@ -217,7 +242,7 @@ public class GameActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        timerTask.cancel(true);
+        game.getT().cancel(true);
 
     }
 
