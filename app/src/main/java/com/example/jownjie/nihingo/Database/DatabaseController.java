@@ -34,7 +34,7 @@ public class DatabaseController implements Parcelable {
 
     protected DatabaseController(Parcel in) {
         String[] passedData = new String[1];
-
+        in.readStringArray(passedData);
     }
 
     public static final Creator<DatabaseController> CREATOR = new Creator<DatabaseController>() {

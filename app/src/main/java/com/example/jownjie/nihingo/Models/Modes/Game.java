@@ -3,6 +3,7 @@ package com.example.jownjie.nihingo.Models.Modes;
 import android.widget.TextView;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
+import com.example.jownjie.nihingo.Game.Random;
 import com.example.jownjie.nihingo.Game.Timer;
 import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
@@ -34,7 +35,20 @@ public abstract class Game {
     public void setQuestionsPool(int gameMode) {
         List<GamePool> gamePoolList = new ArrayList<GamePool>();
         gamePoolList = dc.getGamePool(gameMode);
-        this.questionsPool = gamePoolList;
+        int i = 1;
+        while(!gamePoolList.isEmpty()) {
+            final int randomIndex = Random.getRandomNumber(gamePoolList.size());
+            try {
+                if(!questionsPool.contains(gamePoolList.get(randomIndex))) {
+                    gamePoolList.get(randomIndex).setLevel(i);
+                    this.questionsPool.add(gamePoolList.get(randomIndex));
+                    gamePoolList.remove(randomIndex);
+                    i++;
+                }
+            } catch (NullPointerException npe) {
+                continue;
+            }
+        }
     }
 
     public TopPlayer getTp() {

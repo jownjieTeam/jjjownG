@@ -9,12 +9,10 @@ import java.util.List;
  */
 public class Random {
     private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static java.util.Random r;
+    private static java.util.Random r = new java.util.Random();
     private static HashMap<Integer,Character> hashMapLetters;
 
     public Random(){
-        hashMapLetters = new HashMap<>(26);
-        r = new java.util.Random();
     }
 
     public void initLetters(){

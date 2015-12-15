@@ -38,8 +38,9 @@ public class GameActivity extends AppCompatActivity{
     int a=0;
     private Button[] answerList;
     int[] buttonPosArr;
+
+    //
     int gameMode;
-    List<GamePool> gamePoolList;
     Game game;
     GamePool currentQuestion;
     Random r;
@@ -220,22 +221,25 @@ public class GameActivity extends AppCompatActivity{
             default: Log.e("EXCEPTION", "INVALID GAME MODE!");
                     break;
         }
-        gamePoolList = HomeScreen.dc.getGamePool(gameMode);
+        game.setQuestionsPool(gameMode);
         game.setT(timer);
         game.getT().execute();
 
     }
 
     private void newQuestion() {
-        if(!gamePoolList.isEmpty()) {
-        int random = Random.getRandomNumber(gamePoolList.size());
-        currentQuestion = gamePoolList.get(random);
-        gamePoolList.remove(random);
+        int random;
+        if(!game.getQuestionsPool().isEmpty()) {
+            random = 0;
+            currentQuestion = game.getQuestionsPool().get(random);
+            game.getQuestionsPool().remove(random);
             buttonPosArr = new int[currentQuestion.getAnswer().length()];
-        initChoiceContainer(gameMode);
+            initChoiceContainer(gameMode);
             ansContainer.removeAllViews();
             initAnswerContainer(currentQuestion.getAnswer().length());
             imageView.setImageResource(currentQuestion.getImageRes());
+        } else {
+            game.setQuestionsPool(gameMode);
         }
     }
 
@@ -245,7 +249,6 @@ public class GameActivity extends AppCompatActivity{
         game.getT().cancel(true);
 
     }
-
 
     private String getAnswer() {
         String answer = "";

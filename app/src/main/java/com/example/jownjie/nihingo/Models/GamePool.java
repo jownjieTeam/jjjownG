@@ -15,15 +15,18 @@ public class GamePool {
     private String answer;
     private String hint;
     private int gameMode;
+    private int level;
 
     public GamePool(){}
 
     public GamePool(int imageRes, int soundRes, String imageDr, String hint) {
+        String[] splitString = imageDr.split("_");
         this.imageRes = imageRes;
         this.soundRes = soundRes;
-        this.answer = imageDr.split("_")[1];
+        this.answer = splitString[1];
         this.hint = hint;
-        this.gameMode = getValue(imageDr.split("_")[0]);
+        this.gameMode = getValue(splitString[0]);
+        this.level = Integer.valueOf(splitString[2]);
     }
 
     public int getImageRes() {
@@ -46,11 +49,9 @@ public class GamePool {
         return answer;
     }
 
-    public void setAnswerResource(String answer) {
-        this.answer = answer.split("_")[1];
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
-
-    public void setAnswer(String answer) { this.answer = answer; }
 
     public String getHint() {
         return hint;
@@ -64,12 +65,28 @@ public class GamePool {
         return gameMode;
     }
 
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setAnswerResource(String answer) {
+        this.answer = answer.split("_")[1];
+    }
+
     public void setGameMode(String gameMode) {
         this.gameMode = getValue(gameMode.split("_")[0]);
     }
 
-    public void setGameMode(int gameMode) {
-        this.gameMode = gameMode;
+    public void setLevelResource(String level) {
+        this.level = Integer.valueOf(answer.split("_")[2]);
     }
 
     //helper methods
@@ -86,6 +103,6 @@ public class GamePool {
 
     @Override
     public String toString() {
-        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode;
+        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode + "\nLevel :" + this.level;
     }
 }

@@ -36,6 +36,7 @@ public class DatabaseConnector {
     public  final String DATA_GAMEPOOL_ANSWER = "answer";
     public  final String DATA_GAMEPOOL_HINT = "hint";
     public  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
+    public final String DATA_GAMEPOOL_LEVEL = "level";
 
     //TOPPLAYER TABLE VARIABLES
     public  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
@@ -45,11 +46,12 @@ public class DatabaseConnector {
 
     //GAMEPOOL TABLE CREATION
     public  final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
-            "( "+ DATA_GAMEPOOL_IMAGERES +" INTEGER PRIMARY KEY," +
-            DATA_GAMEPOOL_SOUNDRES +" INTEGER," +
-            DATA_GAMEPOOL_HINT +" TEXT," +
-            DATA_GAMEPOOL_ANSWER +" TEXT," +
-            DATA_GAMEPOOL_GAMEMODE+ " INTEGER);";
+                                            "( "+ DATA_GAMEPOOL_IMAGERES +" INTEGER PRIMARY KEY," +
+                                            DATA_GAMEPOOL_SOUNDRES +" INTEGER," +
+                                            DATA_GAMEPOOL_HINT +" TEXT," +
+                                            DATA_GAMEPOOL_ANSWER +" TEXT," +
+                                            DATA_GAMEPOOL_GAMEMODE+ " INTEGER" +
+                                            DATA_GAMEPOOL_LEVEL + " INTEGER);";
 
     //TOPPLAYER TABLE CREATION
     public  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
@@ -59,7 +61,7 @@ public class DatabaseConnector {
 
     //GAMEPOOL TABLE QUERY
     public  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
-                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE};
+                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL};
 
     //TOPPLAYER TABLE QUERY
     public  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS,
@@ -102,6 +104,7 @@ public class DatabaseConnector {
             cv.put(DATA_GAMEPOOL_ANSWER, gp.getAnswer());
             cv.put(DATA_GAMEPOOL_HINT, gp.getHint());
             cv.put(DATA_GAMEPOOL_GAMEMODE, gp.getGameMode());
+            cv.put(DATA_GAMEPOOL_LEVEL, gp.getLevel());
             Log.e("GAME POOL",gp.toString());
             sqldb.insert(DATA_GAMEPOOL_NAME, null, cv);
             return true;
@@ -126,6 +129,7 @@ public class DatabaseConnector {
             gl.setHint(cursor.getString(2));
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
+            gl.setLevel(cursor.getInt(5));
             return gl;
         }
         return null;
@@ -147,6 +151,7 @@ public class DatabaseConnector {
             gl.setHint(cursor.getString(2));
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
+            gl.setLevel(cursor.getInt(5));
             gamePoolList.add(gl);
         }
         return gamePoolList;
