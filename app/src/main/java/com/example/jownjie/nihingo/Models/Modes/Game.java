@@ -39,12 +39,10 @@ public abstract class Game {
         while(!gamePoolList.isEmpty()) {
             final int randomIndex = Random.getRandomNumber(gamePoolList.size());
             try {
-                if(!questionsPool.contains(gamePoolList.get(randomIndex))) {
                     gamePoolList.get(randomIndex).setLevel(i);
                     this.questionsPool.add(gamePoolList.get(randomIndex));
                     gamePoolList.remove(randomIndex);
                     i++;
-                }
             } catch (NullPointerException npe) {
                 continue;
             }

@@ -31,15 +31,12 @@ import butterknife.OnClick;
 /**
  *  edited by hebi5 on 12/10/15: added button functionality for choosing and removing letters
  */
-public class GameActivity extends AppCompatActivity{
-    private Timer timerTask;
-    String answer = "";
-    int width=0, height=0;
+public class GameActivity extends AppCompatActivity {
     int a=0;
     private Button[] answerList;
     int[] buttonPosArr;
 
-    //
+    //For Gameplay variables
     int gameMode;
     Game game;
     GamePool currentQuestion;

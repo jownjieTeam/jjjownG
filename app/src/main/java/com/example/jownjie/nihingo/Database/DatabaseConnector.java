@@ -13,6 +13,7 @@ import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 import com.example.jownjie.nihingo.R;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,32 +21,32 @@ import java.util.List;
 /**
  * Created by User on 12/2/2015.
  */
-public class DatabaseConnector {
+public class DatabaseConnector implements Serializable {
 
     //first time setup variables
     private static int[] drawableIds;
     private static int[] rawIds;
 
     //DATABASE NAME
-    public  final String DATABASE_NAME = "UNOFFICIAL_SPELLIT";
+    private  final String DATABASE_NAME = "UNOFFICIAL_SPELLIT";
 
     //GAMEPOOL TABLE VARIABLES
-    public  final String DATA_GAMEPOOL_NAME = "GamePool";
-    public  final String DATA_GAMEPOOL_IMAGERES = "imageRes";
-    public  final String DATA_GAMEPOOL_SOUNDRES = "soundRes";
-    public  final String DATA_GAMEPOOL_ANSWER = "answer";
-    public  final String DATA_GAMEPOOL_HINT = "hint";
-    public  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
-    public final String DATA_GAMEPOOL_LEVEL = "level";
+    private  final String DATA_GAMEPOOL_NAME = "GamePool";
+    private  final String DATA_GAMEPOOL_IMAGERES = "imageRes";
+    private  final String DATA_GAMEPOOL_SOUNDRES = "soundRes";
+    private  final String DATA_GAMEPOOL_ANSWER = "answer";
+    private  final String DATA_GAMEPOOL_HINT = "hint";
+    private  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
+    private final String DATA_GAMEPOOL_LEVEL = "level";
 
     //TOPPLAYER TABLE VARIABLES
-    public  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
-    public  final String DATA_TOPPLAYERS_GAMEPOINTS = "gamePoints";
-    public  final String DATA_TOPPLAYERS_GAMEMODE = "gameMode";
-    public  final String DATA_TOPPLAYERS_PLAYERNAME = "playerName";
+    private  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
+    private  final String DATA_TOPPLAYERS_GAMEPOINTS = "gamePoints";
+    private  final String DATA_TOPPLAYERS_GAMEMODE = "gameMode";
+    private  final String DATA_TOPPLAYERS_PLAYERNAME = "playerName";
 
     //GAMEPOOL TABLE CREATION
-    public  final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
+    private  final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
                                             "( "+ DATA_GAMEPOOL_IMAGERES +" INTEGER PRIMARY KEY," +
                                             DATA_GAMEPOOL_SOUNDRES +" INTEGER," +
                                             DATA_GAMEPOOL_HINT +" TEXT," +
@@ -54,21 +55,21 @@ public class DatabaseConnector {
                                             DATA_GAMEPOOL_LEVEL + " INTEGER);";
 
     //TOPPLAYER TABLE CREATION
-    public  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
+    private  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
                                                     "( "+ DATA_TOPPLAYERS_PLAYERNAME+" TEXT," +
                                                     DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER," +
                                                     DATA_TOPPLAYERS_GAMEMODE+" INTEGER);";
 
     //GAMEPOOL TABLE QUERY
-    public  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
+    private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
                                                     DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL};
 
     //TOPPLAYER TABLE QUERY
-    public  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS,
+    private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS,
                                                     DATA_TOPPLAYERS_GAMEMODE};
 
     //GAME OPTIONS TABLE
-    public  final String DATA_BASEGAME_OPTIONSPREFERENCE = "optionsPreference";
+    private  final String DATA_BASEGAME_OPTIONSPREFERENCE = "optionsPreference";
 
     //SQLite database connector variable
     private SQLiteDatabase sqldb;
