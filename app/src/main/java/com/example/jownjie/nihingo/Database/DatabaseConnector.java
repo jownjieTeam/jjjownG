@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by User on 12/2/2015.
  */
-public class DatabaseConnector implements Serializable {
+public class DatabaseConnector {
 
     //first time setup variables
     private static int[] drawableIds;

@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
-import com.example.jownjie.nihingo.Game.Random;
-import com.example.jownjie.nihingo.Models.BaseGame;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

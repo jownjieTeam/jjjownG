@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by User on 12/9/2015.
  */
-public class DatabaseController implements Serializable {
+public class DatabaseController {
 
     //private DatabaseConnector variable
     private DatabaseConnector dc;

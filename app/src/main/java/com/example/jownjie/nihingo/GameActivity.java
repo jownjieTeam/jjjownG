@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.example.jownjie.nihingo.Game.Random;
 import com.example.jownjie.nihingo.Game.Timer;
+import com.example.jownjie.nihingo.Models.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
@@ -37,10 +39,10 @@ public class GameActivity extends AppCompatActivity {
     int[] buttonPosArr;
 
     //For Gameplay variables
-    int gameMode;
-    Game game;
-    GamePool currentQuestion;
-    Random r;
+    private int gameMode;
+    private Game game;
+    private GamePool currentQuestion;
+    private Random r;
 
     @Bind({R.id.button1,
             R.id.button2,
@@ -81,7 +83,13 @@ public class GameActivity extends AppCompatActivity {
         newQuestion();
     }
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+        ButterKnife.bind(this);
+        initActivity();
+    }
 
     /**
      * initializes
@@ -170,7 +178,7 @@ public class GameActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            game.getT().cancel(true);
+                            game.getTimer().cancel(true);
                             GameActivity.this.finish();
                         }
                     })
@@ -198,34 +206,34 @@ public class GameActivity extends AppCompatActivity {
         return flag;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        ButterKnife.bind(this);
-        r = new Random();
+    private void initActivity() {
+        try {
+            /*
+            r = new Random();
+            gameMode = getIntent().getExtras().getInt("GAME_MODE");
+            game = (Game) this.getIntent().getExtras().getSerializable("GAME");
+            switch(gameMode) {
+                case BaseGame.MODE_BEGINNER : game.getBeginnerGame().retrieveQuestionsPool();
+                    break;
+                case BaseGame.MODE_ADVANCED : game.getAdvancedGame().retrieveQuestionsPool();
+                    break;
+                case BaseGame.MODE_EXPERT : game.getExpertGame().retrieveQuestionsPool();
+                    break;
+                case BaseGame.MODE_NULL : Log.e("ERROR!", "GAME MODE NOT RECOGNIZED!");
+                    break;
+            }
+            game.newT(timer);
+            game.getTimer().execute();
+            */
 
-        switch(this.getIntent().getIntExtra("GAME_MODE",3)) {
-            case 0: game = new BeginnerGame(HomeScreen.dc);
-                    gameMode = 0;
-                    break;
-            case 1: game = new AdvancedGame(HomeScreen.dc);
-                    gameMode = 1;
-                    break;
-            case 2: game = new ExpertGame(HomeScreen.dc);
-                    gameMode = 2;
-                    break;
-            default: Log.e("EXCEPTION", "INVALID GAME MODE!");
-                    break;
+        } catch(NullPointerException npe) {
+            npe.printStackTrace();
         }
-        game.setQuestionsPool(gameMode);
-        game.setT(timer);
-        game.getT().execute();
-
     }
 
     private void newQuestion() {
         int random;
+        /*
         if(!game.getQuestionsPool().isEmpty()) {
             random = 0;
             currentQuestion = game.getQuestionsPool().get(random);
@@ -236,14 +244,16 @@ public class GameActivity extends AppCompatActivity {
             initAnswerContainer(currentQuestion.getAnswer().length());
             imageView.setImageResource(currentQuestion.getImageRes());
         } else {
-            game.setQuestionsPool(gameMode);
+            game.getT().cancel(true);
+            GameActivity.this.finish();
         }
+        */
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        game.getT().cancel(true);
+        game.getTimer().cancel(true);
 
     }
 

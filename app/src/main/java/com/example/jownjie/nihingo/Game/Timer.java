@@ -4,10 +4,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 /**
  * Created by hebi5 on 12/12/2015.
  */
-public class Timer extends AsyncTask<Void, Integer, Void> {
+public class Timer extends AsyncTask<Void, Integer, Void> implements Serializable {
     private TextView tvTimer;
     private int time = 0;
     private int totalTime = 0;
