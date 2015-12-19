@@ -1,20 +1,20 @@
 package com.example.jownjie.nihingo.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by User on 12/8/2015.
  */
-public class TopPlayer {
+public class TopPlayer implements Serializable {
     private int gamePoints;
     private String playerName;
-    private int gameMode;
 
     public TopPlayer() {
     }
 
-    public TopPlayer(int gamePoints, String playerName, int gameMode) {
+    public TopPlayer(int gamePoints, String playerName) {
         this.gamePoints = gamePoints;
         this.playerName = playerName;
-        this.gameMode = gameMode;
     }
 
     public int getGamePoints() {
@@ -31,13 +31,5 @@ public class TopPlayer {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
-    }
-
-    public int getGameMode() {
-        return gameMode;
-    }
-
-    public void setGameMode(int gameMode) {
-        this.gameMode = gameMode;
     }
 }

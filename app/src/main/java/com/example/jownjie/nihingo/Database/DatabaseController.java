@@ -51,6 +51,19 @@ public class DatabaseController {
     }
 
     /*
+     * adds topPlayer to database (if included in top 10)
+     * @param topPlayer, type TopPlayer : object to be inserted into database.
+     * @return bool
+     */
+    public boolean addTopPlayer(TopPlayer tp) {
+        boolean ok = false;
+        if(tp!=null) {
+            ok = dc.addTopPlayer(tp);
+        }
+        return ok;
+    }
+
+    /*
      * retrieves data (TopPlayer)
      * @param gameMode, type int : used as condition in query
      * @return TopPlayer[]

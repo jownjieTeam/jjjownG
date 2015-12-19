@@ -2,6 +2,7 @@ package com.example.jownjie.nihingo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,16 +15,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.example.jownjie.nihingo.Game.Random;
-import com.example.jownjie.nihingo.Game.Timer;
-import com.example.jownjie.nihingo.Models.BaseGame;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
 import com.example.jownjie.nihingo.Models.Modes.ExpertGame;
-import com.example.jownjie.nihingo.Models.Modes.Game;
+import com.example.jownjie.nihingo.Models.Game;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,9 +40,10 @@ public class GameActivity extends AppCompatActivity {
 
     //For Gameplay variables
     private int gameMode;
-    private Game game;
+    private Game game = null;
+    private BaseGame baseGame;
     private GamePool currentQuestion;
-    private Random r;
+    private int RESULT_CODE = 1;
 
     @Bind({R.id.button1,
             R.id.button2,
@@ -80,7 +81,9 @@ public class GameActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_newGame)
     public void newGame() {
-        newQuestion();
+            game.getTimer().setPause(false);
+            game.getTimer().setTheTime(0);
+            newQuestion();
     }
 
     @Override
@@ -164,8 +167,9 @@ public class GameActivity extends AppCompatActivity {
         currentAnswer = getAnswer();
         //Toast.makeText(this,currentAnswer.toLowerCase()+" AND "+currentQuestion.getAnswer(),Toast.LENGTH_SHORT).show();
         if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
-
-            //newQuestion();
+            game.getTimer().setPause(true);
+            game.getTimer().setTotalTime(game.getTimer().getTotalTime()+game.getTimer().getTime());
+            game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESS")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
@@ -208,46 +212,66 @@ public class GameActivity extends AppCompatActivity {
 
     private void initActivity() {
         try {
-            /*
-            r = new Random();
             gameMode = getIntent().getExtras().getInt("GAME_MODE");
-            game = (Game) this.getIntent().getExtras().getSerializable("GAME");
+            game = (Game)getIntent().getExtras().getSerializable("GAME");
+            int currentLevel = getIntent().getExtras().getInt("CURRENT_LEVEL");
             switch(gameMode) {
-                case BaseGame.MODE_BEGINNER : game.getBeginnerGame().retrieveQuestionsPool();
+                case BaseGame.MODE_BEGINNER : baseGame = new BeginnerGame();
+                    baseGame.setGamePoolList(game.getBeginnerGame().getGamePoolList());
+                    baseGame.setQuestionsSize(game.getBeginnerGame().getQuestionsSize());
                     break;
-                case BaseGame.MODE_ADVANCED : game.getAdvancedGame().retrieveQuestionsPool();
+                case BaseGame.MODE_ADVANCED : baseGame = new AdvancedGame();
+                    baseGame.setGamePoolList(game.getAdvancedGame().getGamePoolList());
+                    baseGame.setQuestionsSize(game.getAdvancedGame().getQuestionsSize());
                     break;
-                case BaseGame.MODE_EXPERT : game.getExpertGame().retrieveQuestionsPool();
+                case BaseGame.MODE_EXPERT : baseGame = new ExpertGame();
+                    baseGame.setGamePoolList(game.getExpertGame().getGamePoolList());
+                    baseGame.setQuestionsSize(game.getExpertGame().getQuestionsSize());
                     break;
-                case BaseGame.MODE_NULL : Log.e("ERROR!", "GAME MODE NOT RECOGNIZED!");
+                case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
+                    GameActivity.this.finish();
                     break;
             }
+            baseGame.setCurrentLevel(currentLevel);
+            newQuestion();
             game.newT(timer);
             game.getTimer().execute();
-            */
-
         } catch(NullPointerException npe) {
             npe.printStackTrace();
         }
     }
 
     private void newQuestion() {
-        int random;
-        /*
-        if(!game.getQuestionsPool().isEmpty()) {
-            random = 0;
-            currentQuestion = game.getQuestionsPool().get(random);
-            game.getQuestionsPool().remove(random);
-            buttonPosArr = new int[currentQuestion.getAnswer().length()];
-            initChoiceContainer(gameMode);
-            ansContainer.removeAllViews();
-            initAnswerContainer(currentQuestion.getAnswer().length());
-            imageView.setImageResource(currentQuestion.getImageRes());
+        if(!baseGame.isAccomplished()) {
+            currentQuestion = baseGame.getNextLevel();
+            if(currentQuestion!=null) {
+                buttonPosArr = new int[currentQuestion.getAnswer().length()];
+                initChoiceContainer(gameMode);
+                ansContainer.removeAllViews();
+                initAnswerContainer(currentQuestion.getAnswer().length());
+                imageView.setImageResource(currentQuestion.getImageRes());
+            }
         } else {
-            game.getT().cancel(true);
-            GameActivity.this.finish();
+            game.getTimer().cancel(true);
+            AlertDialog ad = new AlertDialog.Builder(this)
+                    .setMessage("SUCCESSULLY ANSWERED ALL QUESTIONS!")
+                    .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            GameActivity.this.finish();
+                        }
+                    })
+                    .setNeutralButton("RETRY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            GameActivity.this.recreate();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create();
+            ad.show();
         }
-        */
     }
 
     @Override
@@ -255,6 +279,17 @@ public class GameActivity extends AppCompatActivity {
         super.onBackPressed();
         game.getTimer().cancel(true);
 
+    }
+
+    @Override
+    public void finish() {
+        Intent intent = new Intent();
+        intent.putExtra("GAME_MODE",gameMode);
+        intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
+        intent.putExtra("CURRENT_LEVEL", baseGame.getCurrentLevel());
+        intent.putExtra("TIMER", game.getTimer().getTotalTime());
+        this.setResult(RESULT_CODE,intent);
+        super.finish();
     }
 
     private String getAnswer() {

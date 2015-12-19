@@ -1,14 +1,14 @@
 package com.example.jownjie.nihingo.Models;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+
+import java.io.Serializable;
 
 /**
  * Created by hebi5 on 12/2/2015.
  * edited by User on 12/5/2015 : added hint, renamed from GameLevel->GamePool.
  */
-public class GamePool {
+public class GamePool implements Serializable {
 
     private int imageRes;
     private int soundRes;
@@ -17,7 +17,7 @@ public class GamePool {
     private int gameMode;
     private int level;
 
-    public GamePool(){}
+    public GamePool(){ this.level = 0; }
 
     public GamePool(int imageRes, int soundRes, String imageDr, String hint) {
         String[] splitString = imageDr.split("_");

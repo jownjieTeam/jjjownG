@@ -25,6 +25,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
-        dc = new DatabaseController(this,1);
+        if(dc == null)
+            dc = new DatabaseController(this,1);
     }
 }

@@ -13,10 +13,12 @@ public class Timer extends AsyncTask<Void, Integer, Void> implements Serializabl
     private TextView tvTimer;
     private int time = 0;
     private int totalTime = 0;
+    private boolean pause = false;
+
+    public Timer() {}
 
     public Timer(TextView tvTimer){
         this.tvTimer = tvTimer;
-        Log.e("wtf", "timer staato!");
     }
 
     @Override
@@ -37,15 +39,16 @@ public class Timer extends AsyncTask<Void, Integer, Void> implements Serializabl
     @Override
     protected Void doInBackground(Void... params) {
         while(true){
-            try {
-                Thread.sleep(1000);
-                time++;
-                publishProgress(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while(!pause) {
+                try {
+                    Thread.sleep(1000);
+                    time++;
+                    publishProgress(time);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            if(isCancelled())break;
-
+            if (isCancelled()) break;
         }
         return null;
     }
@@ -57,4 +60,10 @@ public class Timer extends AsyncTask<Void, Integer, Void> implements Serializabl
     public void setTotalTime(int totalTime) {
         this.totalTime = totalTime;
     }
+
+    public int getTime() { return time; }
+
+    public void setTheTime(int time) { this.time = time; }
+
+    public void setPause(boolean pause) { this.pause = pause; }
 }

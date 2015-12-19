@@ -1,14 +1,9 @@
 package com.example.jownjie.nihingo.Models.Modes;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
-import com.example.jownjie.nihingo.Game.Random;
-import com.example.jownjie.nihingo.HomeScreen;
-import com.example.jownjie.nihingo.Models.BaseGame;
-import com.example.jownjie.nihingo.Models.GamePool;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 12/10/2015.
@@ -19,54 +14,12 @@ public class BeginnerGame extends BaseGame implements Serializable {
     private final int SCORE_PARTIAL = 15;
     private final int ALLOTED_TIME = 300;
 
-    private int questionsSize;
-    private int currentLevel;
-    private List<GamePool> questionsPool;
-
     public BeginnerGame() {
-        retrieveQuestionsPool();
-        currentLevel = 0;
-        questionsSize = questionsPool.size();
+        super();
     }
 
-    public int getQuestionsSize() {
-        return questionsSize;
-    }
-
-    public void setQuestionsSize(int questionsSize) {
-        this.questionsSize = questionsSize;
-    }
-
-    public int getCurrentLevel() {
-        return currentLevel;
-    }
-
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
-    }
-
-    public List<GamePool> getQuestionsPool() {
-        return questionsPool;
-    }
-
-    public void setQuestionsPool(List<GamePool> questionsPool) { this.questionsPool = questionsPool; }
-
-    @Override
-    public void retrieveQuestionsPool() {
-        List<GamePool> gamePoolList = new ArrayList<GamePool>();
-        gamePoolList = HomeScreen.dc.getGamePool(BaseGame.MODE_BEGINNER);
-        int i = 1;
-        while(!gamePoolList.isEmpty()) {
-            final int randomIndex = Random.getRandomNumber(gamePoolList.size());
-            try {
-                gamePoolList.get(randomIndex).setLevel(i);
-                this.questionsPool.add(gamePoolList.get(randomIndex));
-                gamePoolList.remove(randomIndex);
-                i++;
-            } catch (NullPointerException npe) {
-                continue;
-            }
-        }
+    public BeginnerGame(int gameMode,DatabaseController dc) {
+        super(gameMode,dc);
     }
 
     @Override

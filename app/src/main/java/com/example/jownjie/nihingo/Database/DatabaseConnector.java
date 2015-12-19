@@ -37,12 +37,11 @@ public class DatabaseConnector {
     private  final String DATA_GAMEPOOL_ANSWER = "answer";
     private  final String DATA_GAMEPOOL_HINT = "hint";
     private  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
-    private final String DATA_GAMEPOOL_LEVEL = "level";
+    private  final String DATA_GAMEPOOL_LEVEL = "level";
 
     //TOPPLAYER TABLE VARIABLES
     private  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
     private  final String DATA_TOPPLAYERS_GAMEPOINTS = "gamePoints";
-    private  final String DATA_TOPPLAYERS_GAMEMODE = "gameMode";
     private  final String DATA_TOPPLAYERS_PLAYERNAME = "playerName";
 
     //GAMEPOOL TABLE CREATION
@@ -51,22 +50,20 @@ public class DatabaseConnector {
                                             DATA_GAMEPOOL_SOUNDRES +" INTEGER," +
                                             DATA_GAMEPOOL_HINT +" TEXT," +
                                             DATA_GAMEPOOL_ANSWER +" TEXT," +
-                                            DATA_GAMEPOOL_GAMEMODE+ " INTEGER" +
+                                            DATA_GAMEPOOL_GAMEMODE+ " INTEGER," +
                                             DATA_GAMEPOOL_LEVEL + " INTEGER);";
 
     //TOPPLAYER TABLE CREATION
     private  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
                                                     "( "+ DATA_TOPPLAYERS_PLAYERNAME+" TEXT," +
-                                                    DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER," +
-                                                    DATA_TOPPLAYERS_GAMEMODE+" INTEGER);";
+                                                    DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER);";
 
     //GAMEPOOL TABLE QUERY
     private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
                                                     DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL};
 
     //TOPPLAYER TABLE QUERY
-    private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS,
-                                                    DATA_TOPPLAYERS_GAMEMODE};
+    private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS};
 
     //GAME OPTIONS TABLE
     private  final String DATA_BASEGAME_OPTIONSPREFERENCE = "optionsPreference";
@@ -168,7 +165,6 @@ public class DatabaseConnector {
         try {
             cv.put(DATA_TOPPLAYERS_PLAYERNAME, tp.getPlayerName());
             cv.put(DATA_TOPPLAYERS_GAMEPOINTS, tp.getGamePoints());
-            cv.put(DATA_TOPPLAYERS_GAMEMODE, tp.getGameMode());
 
             sqldb.insert(DATA_TOPPLAYERS_NAME, null, cv);
             return true;
@@ -185,14 +181,13 @@ public class DatabaseConnector {
      */
     public TopPlayer[] getTopPlayer(int gameMode) {
         TopPlayer[] topPlayerArray = new TopPlayer[10];
-        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, DATA_TOPPLAYERS_GAMEMODE + " =?", new String[] {String.valueOf(gameMode)}, null, null, DATA_TOPPLAYERS_GAMEPOINTS, String.valueOf("10"));
+        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, null, null, null, null, DATA_TOPPLAYERS_GAMEPOINTS, String.valueOf("10"));
         TopPlayer tp;
         int count = 0;
         while(cursor.moveToNext()) {
             tp = new TopPlayer();
             tp.setPlayerName(cursor.getString(0));
             tp.setGamePoints(cursor.getInt(1));
-            tp.setGameMode(cursor.getInt(2));
             topPlayerArray[count++] = tp;
         }
         return topPlayerArray;
