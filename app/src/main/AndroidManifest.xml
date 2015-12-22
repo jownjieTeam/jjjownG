@@ -24,6 +24,8 @@
             android:label="@string/title_activity_ranking"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity android:name=".LevelSelectionActivity" >
+        </activity>
     </application>
 
 </manifest>

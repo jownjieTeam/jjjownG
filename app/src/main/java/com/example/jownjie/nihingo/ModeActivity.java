@@ -1,19 +1,14 @@
 package com.example.jownjie.nihingo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.jownjie.nihingo.Game.Timer;
-import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
-import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.Game;
-import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
-import com.example.jownjie.nihingo.Models.Modes.ExpertGame;
-import com.example.jownjie.nihingo.Models.TopPlayer;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -64,7 +59,8 @@ public class ModeActivity extends AppCompatActivity {
         if(playerName.getText().toString().length()!=0) {
             game.getTopPlayer().setPlayerName(playerName.getText().toString());
         }
-        Intent intent = new Intent(this, GameActivity.class);
+        //Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, LevelSelectionActivity.class);
         intent.putExtra("GAME_MODE", gameMode);
         intent.putExtra("GAME", game);
         intent.putExtra("CURRENT_LEVEL",currentLevel);
