@@ -1,5 +1,7 @@
 package com.example.jownjie.nihingo.Models.Modes;
 
+import android.util.Log;
+
 import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.example.jownjie.nihingo.Game.Random;
 import com.example.jownjie.nihingo.Models.GamePool;
@@ -82,6 +84,7 @@ public abstract class BaseGame implements Serializable{
             try {
                 gamePoolList.get(randomIndex).setLevel(i);
                 this.questionsPool.add(gamePoolList.get(randomIndex));
+                Log.e("GAME POOL", gamePoolList.get(randomIndex).toString());
                 gamePoolList.remove(randomIndex);
                 i++;
             } catch(NullPointerException npe) {
