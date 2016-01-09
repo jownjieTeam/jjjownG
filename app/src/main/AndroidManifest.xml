@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".LevelSelectionActivity" >
         </activity>
+        <activity android:name=".DifficultySelectionActivity" >
+        </activity>
     </application>
 
 </manifest>

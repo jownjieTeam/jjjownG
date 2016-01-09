@@ -21,6 +21,11 @@ public abstract class BaseGame implements Serializable{
     public static final int MODE_EXPERT = 2;
     public static final int MODE_NULL = 3;
 
+    public static final int POOL_SHORT = 0;
+    public static final int POOL_MEDIUM = 1;
+    public static final int POOL_LONG = 2;
+    public static final int POOL_NULL = 3;
+
     private int questionsSize;
     private int currentLevel;
     private List<GamePool> questionsPool;
@@ -73,6 +78,21 @@ public abstract class BaseGame implements Serializable{
             return questionsPool.get(currentLevel - 1);
         }
         return null;
+    }
+
+    public List<GamePool> retrieveClass(int classification) {
+        if(questionsPool.isEmpty())
+            return null;
+
+        List<GamePool> gamePoolList = new ArrayList<>();
+
+        for(GamePool gp : questionsPool) {
+            if(gp.getClassification()==classification) {
+                gamePoolList.add(gp);
+            }
+        }
+
+        return gamePoolList;
     }
 
     private void retrieveQuestionsPool(int gameMode,DatabaseController dc) {

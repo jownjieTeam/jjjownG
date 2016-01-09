@@ -7,8 +7,9 @@ import java.io.Serializable;
 /**
  * Created by hebi5 on 12/2/2015.
  * edited by User on 12/5/2015 : added hint, renamed from GameLevel->GamePool.
+ * edited by User on 01/06/2016 : added new attribute : classification (datatype: int)
  */
-public class GamePool implements Serializable {
+public class  GamePool implements Serializable {
 
     private int imageRes;
     private int soundRes;
@@ -16,6 +17,7 @@ public class GamePool implements Serializable {
     private String hint;
     private int gameMode;
     private int level;
+    private int classi;
 
     public GamePool(){ this.level = 0; }
 
@@ -27,6 +29,7 @@ public class GamePool implements Serializable {
         this.hint = hint;
         this.gameMode = getValue(splitString[0]);
         this.level = Integer.valueOf(splitString[2]);
+        this.classi = getClass(this.answer.length());
     }
 
     public int getImageRes() {
@@ -89,6 +92,16 @@ public class GamePool implements Serializable {
         this.level = Integer.valueOf(answer.split("_")[2]);
     }
 
+    public int getClassification() {
+        return classi;
+    }
+
+    public void setClassification(int classification) {
+        this.classi = getClass(classification);
+    }
+
+    public void setClassi(int classification) {this.classi = classification; }
+
     //helper methods
     private int getValue(String gameMode) {
         if(gameMode.contentEquals("beginner"))
@@ -101,8 +114,19 @@ public class GamePool implements Serializable {
             return BaseGame.MODE_NULL;
     }
 
+    private int getClass(int answerLength) {
+        if(answerLength <= 5)
+            return BaseGame.POOL_SHORT;
+        else if(answerLength <= 7)
+            return BaseGame.POOL_MEDIUM;
+        else if(answerLength <= 9)
+            return BaseGame.POOL_LONG;
+        else
+            return BaseGame.POOL_NULL;
+    }
+
     @Override
     public String toString() {
-        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode + "\nLevel :" + this.level;
+        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode + "\nLevel :" + this.level + "\nClassification :" + this.classi;
     }
 }

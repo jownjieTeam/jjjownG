@@ -38,6 +38,7 @@ public class DatabaseConnector {
     private  final String DATA_GAMEPOOL_HINT = "hint";
     private  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
     private  final String DATA_GAMEPOOL_LEVEL = "level";
+    private  final String DATA_GAMEPOOL_CLASS = "class";
 
     //TOPPLAYER TABLE VARIABLES
     private  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
@@ -51,7 +52,8 @@ public class DatabaseConnector {
                                             DATA_GAMEPOOL_HINT +" TEXT," +
                                             DATA_GAMEPOOL_ANSWER +" TEXT," +
                                             DATA_GAMEPOOL_GAMEMODE+ " INTEGER," +
-                                            DATA_GAMEPOOL_LEVEL + " INTEGER);";
+                                            DATA_GAMEPOOL_LEVEL + " INTEGER," +
+                                            DATA_GAMEPOOL_CLASS + " INTEGER);";
 
     //TOPPLAYER TABLE CREATION
     private  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
@@ -60,7 +62,7 @@ public class DatabaseConnector {
 
     //GAMEPOOL TABLE QUERY
     private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
-                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL};
+                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL,DATA_GAMEPOOL_CLASS};
 
     //TOPPLAYER TABLE QUERY
     private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS};
@@ -103,6 +105,7 @@ public class DatabaseConnector {
             cv.put(DATA_GAMEPOOL_HINT, gp.getHint());
             cv.put(DATA_GAMEPOOL_GAMEMODE, gp.getGameMode());
             cv.put(DATA_GAMEPOOL_LEVEL, gp.getLevel());
+            cv.put(DATA_GAMEPOOL_CLASS, gp.getClassification());
             Log.e("GAME POOL",gp.toString());
             sqldb.insert(DATA_GAMEPOOL_NAME, null, cv);
             return true;
@@ -128,6 +131,7 @@ public class DatabaseConnector {
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
             gl.setLevel(cursor.getInt(5));
+            gl.setClassi(cursor.getInt(6));
             return gl;
         }
         return null;
@@ -150,6 +154,7 @@ public class DatabaseConnector {
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
             gl.setLevel(cursor.getInt(5));
+            gl.setClassi(cursor.getInt(6));
             gamePoolList.add(gl);
         }
         return gamePoolList;
@@ -305,6 +310,7 @@ public class DatabaseConnector {
                     gp.setAnswerResource(Imagetemp);
                     gp.setGameMode(Imagetemp);
                     gp.setHint("NO HINT FOR YOU!");
+                    gp.setClassification(gp.getAnswer().length());
                     gamePoolList.add(gp);
                 }
             }
@@ -314,12 +320,14 @@ public class DatabaseConnector {
                         final String Audiotemp = resources.getResourceEntryName(rawIds[i]);
                         if (gpo.getAnswer().contentEquals(Audiotemp)) {
                             gpo.setSoundRes(rawIds[i]);
-                            addGamePool(gpo, sqldb);
-                            Log.e("insertGamePool", gpo.toString());
                             break;
                         }
                     }
                 }
+            }
+            for(GamePool gpo : gamePoolList) {
+                addGamePool(gpo, sqldb);
+                Log.e("insertGamePool", gpo.toString());
             }
         }
     }

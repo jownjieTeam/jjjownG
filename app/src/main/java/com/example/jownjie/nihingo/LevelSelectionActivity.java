@@ -3,6 +3,7 @@ package com.example.jownjie.nihingo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -73,13 +74,39 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
 
     @Override
     public void finish() {
-        /*Intent intent = new Intent();
+        Intent intent = new Intent();
         intent.putExtra("GAME_MODE",gameMode);
         intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
         intent.putExtra("CURRENT_LEVEL", currentLevel);
         intent.putExtra("TIMER", game.getTimer().getTotalTime());
-        this.setResult(RESULT_CODE,intent);*/
+        this.setResult(RESULT_CODE,intent);
         super.finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(REQUEST_CODE == requestCode) {
+            if(RESULT_CODE == resultCode) {
+                int gamePoints = data.getExtras().getInt("TOP_PLAYER");
+                game.getTopPlayer().setGamePoints(gamePoints);
+                int totalTime = data.getExtras().getInt("TIMER");
+                game.getTimer().setTotalTime(totalTime);
+                gameMode = data.getExtras().getInt("GAME_MODE");
+                int newLevel = data.getExtras().getInt("CURRENT_LEVEL");
+                if(currentLevel < newLevel);
+                    currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
+                switch(gameMode) {
+                    case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
+                        break;
+                    case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
+                        break;
+                    case BaseGame.MODE_EXPERT : game.getExpertGame().setCurrentLevel(currentLevel);
+                        break;
+                    case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
+                        break;
+                }
+            }
+        }
     }
 
     @Override
