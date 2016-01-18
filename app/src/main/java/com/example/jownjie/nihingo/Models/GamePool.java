@@ -18,6 +18,7 @@ public class  GamePool implements Serializable {
     private int gameMode;
     private int level;
     private int classi;
+    private boolean answered;
 
     public GamePool(){ this.level = 0; }
 
@@ -30,6 +31,7 @@ public class  GamePool implements Serializable {
         this.gameMode = getValue(splitString[0]);
         this.level = Integer.valueOf(splitString[2]);
         this.classi = getClass(this.answer.length());
+        this.answered = false;
     }
 
     public int getImageRes() {
@@ -101,6 +103,14 @@ public class  GamePool implements Serializable {
     }
 
     public void setClassi(int classification) {this.classi = classification; }
+
+    public boolean isAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
 
     //helper methods
     private int getValue(String gameMode) {

@@ -29,16 +29,25 @@ public abstract class BaseGame implements Serializable{
     private int questionsSize;
     private int currentLevel;
     private List<GamePool> questionsPool;
+    private List<GamePool> gameQuestions_SHORT;
+    private List<GamePool> gameQuestions_MEDIUM;
+    private List<GamePool> gameQuestions_LONG;
 
 
     public abstract int getPoints(int seconds, int totalTime);
 
     public BaseGame() {
         questionsPool = new ArrayList<>();
+        gameQuestions_SHORT = new ArrayList<>();
+        gameQuestions_MEDIUM = new ArrayList<>();
+        gameQuestions_LONG = new ArrayList<>();
     }
 
     public BaseGame(int gameMode,DatabaseController dc) {
         questionsPool = new ArrayList<>();
+        gameQuestions_SHORT = new ArrayList<>();
+        gameQuestions_MEDIUM = new ArrayList<>();
+        gameQuestions_LONG = new ArrayList<>();
         retrieveQuestionsPool(gameMode,dc);
         currentLevel = 0;
         questionsSize = questionsPool.size();
@@ -64,6 +73,42 @@ public abstract class BaseGame implements Serializable{
 
     public List<GamePool> setGamePoolList(List<GamePool> gpl) {
         return questionsPool = gpl;
+    }
+
+    public List<GamePool> getGameQuestions_SHORT() {
+        return gameQuestions_SHORT;
+    }
+
+    public List<GamePool> getGameQuestions_MEDIUM() {
+        return gameQuestions_MEDIUM;
+    }
+
+    public List<GamePool> getGameQuestions_LONG() {
+        return gameQuestions_LONG;
+    }
+
+    public int getAccomplished(int gameQuestions_LENGTH) {
+        int counter = 0;
+        if(gameQuestions_LENGTH==POOL_SHORT) {
+            for(GamePool gp : gameQuestions_SHORT) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+        } else if(gameQuestions_LENGTH==POOL_MEDIUM) {
+            for(GamePool gp : gameQuestions_SHORT) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+        } else if(gameQuestions_LENGTH==POOL_LONG) {
+            for(GamePool gp : gameQuestions_SHORT) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+        } else {
+            Log.e("GAMEQ ERROR", "LENGTH IS INVALID");
+        }
+
+        return counter;
     }
 
     public boolean isAccomplished() {
@@ -110,6 +155,21 @@ public abstract class BaseGame implements Serializable{
             } catch(NullPointerException npe) {
                 npe.printStackTrace();
             }
+        }
+        initializeSubCategories();
+    }
+
+    private void initializeSubCategories() {
+        for(GamePool gp : questionsPool) {
+            final int classification = gp.getClassification();
+            if(classification==POOL_SHORT)
+                gameQuestions_SHORT.add(gp);
+            else if(classification==POOL_MEDIUM)
+                gameQuestions_MEDIUM.add(gp);
+            else if(classification==POOL_LONG)
+                gameQuestions_LONG.add(gp);
+            else
+                Log.e("CLASSIFICATION ERROR!", gp.getAnswer() + " classification is invalid!");
         }
     }
 }
