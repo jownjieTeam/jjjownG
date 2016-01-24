@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.jownjie.nihingo.Models.GamePool;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 import com.example.jownjie.nihingo.R;
 
@@ -157,6 +158,7 @@ public class DatabaseConnector {
             gl.setClassi(cursor.getInt(6));
             gamePoolList.add(gl);
         }
+        Log.e("RETRIEVE COUNT OF GAME","mode->"+gameMode+" count->"+gamePoolList.size());
         return gamePoolList;
     }
 
@@ -299,6 +301,7 @@ public class DatabaseConnector {
     }
 
     private void insertGamePoolIntoDatabase(Resources resources,SQLiteDatabase sqldb) {
+        int five=0, seven=0, nine=0, empty=0;
         List<GamePool> gamePoolList= new ArrayList<>();
         GamePool gp;
         if(resources!=null) {
@@ -312,6 +315,14 @@ public class DatabaseConnector {
                     gp.setHint("NO HINT FOR YOU!");
                     gp.setClassification(gp.getAnswer().length());
                     gamePoolList.add(gp);
+                    if(gp.getClassification()== BaseGame.POOL_SHORT)
+                        five++;
+                    else if(gp.getClassification()==BaseGame.POOL_MEDIUM)
+                        seven++;
+                    else if(gp.getClassification()==BaseGame.POOL_LONG)
+                        nine++;
+                    else
+                        empty++;
                 }
             }
             for (int i = 0; i < rawIds.length; i++) {
@@ -329,11 +340,15 @@ public class DatabaseConnector {
                 addGamePool(gpo, sqldb);
                 Log.e("insertGamePool", gpo.toString());
             }
+            Log.e("COUNT OF FIVE",five+"");
+            Log.e("COUNT OF SEVEN",seven+"");
+            Log.e("COUNT OF NINE",nine+"");
+            Log.e("COUNT OF NULL",empty+"");
         }
     }
 
     //helper method for filtering accepted images
     private static boolean validGameResource(int drawableId, Resources resources) {
-        return resources.getResourceEntryName(drawableId).contains("beginner") || resources.getResourceEntryName(drawableId).contains("advanced") || resources.getResourceEntryName(drawableId).contains("expert");
+        return resources.getResourceEntryName(drawableId).contains("generalinfo") || resources.getResourceEntryName(drawableId).contains("technology") || resources.getResourceEntryName(drawableId).contains("science");
     }
 }

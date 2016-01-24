@@ -93,10 +93,12 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
                 game.getTimer().setTotalTime(totalTime);
                 gameMode = data.getExtras().getInt("GAME_MODE");
                 int newLevel = data.getExtras().getInt("CURRENT_LEVEL");
-                if(currentLevel < newLevel);
+                if(currentLevel < newLevel)
                     currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
                 switch(gameMode) {
                     case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
+                        if(currentLevel==newLevel) {
+                        }
                         break;
                     case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
                         break;
@@ -112,7 +114,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         Button button = (Button)v;
-        int level = Integer.parseInt(button.getText().toString());
+        int level = Integer.parseInt(button.getText().toString())-1;
 
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("GAME_MODE", gameMode);
