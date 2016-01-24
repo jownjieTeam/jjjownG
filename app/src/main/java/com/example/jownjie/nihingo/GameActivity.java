@@ -16,14 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jownjie.nihingo.Game.Random;
-import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
 import com.example.jownjie.nihingo.Models.Modes.ExpertGame;
-import com.example.jownjie.nihingo.Models.Game;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -165,7 +164,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         currentAnswer = getAnswer();
-        //Toast.makeText(this,currentAnswer.toLowerCase()+" AND "+currentQuestion.getAnswer(),Toast.LENGTH_SHORT).show();
         if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime()+game.getTimer().getTime());

@@ -1,7 +1,6 @@
 package com.example.jownjie.nihingo.Game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,13 +9,6 @@ import java.util.List;
 public class Random {
     private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static java.util.Random r = new java.util.Random();
-    private static HashMap<Integer,Character> hashMapLetters;
-
-    public Random(){
-    }
-
-    public void initLetters(){
-    }
 
     public static String completeWord(String word, int max){
         String finalWord = word;

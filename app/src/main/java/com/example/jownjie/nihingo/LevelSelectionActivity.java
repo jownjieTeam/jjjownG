@@ -119,7 +119,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("GAME_MODE", gameMode);
         intent.putExtra("GAME", game);
-        intent.putExtra("CURRENT_LEVEL",level);
+        intent.putExtra("CURRENT_LEVEL",level-1);
         startActivityForResult(intent,REQUEST_CODE);
     }
 }

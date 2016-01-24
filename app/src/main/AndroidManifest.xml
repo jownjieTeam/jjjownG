@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".DifficultySelectionActivity" >
         </activity>
+        <activity android:name=".StageActivity" >
+        </activity>
     </application>
 
 </manifest>
