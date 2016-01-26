@@ -9,108 +9,140 @@
     android:background="@drawable/main_background"
     tools:context="com.example.jownjie.nihingo.DifficultySelectionActivity">
 
-    <TableLayout
+    <TextView
+        android:background="@drawable/select_diff_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
+
+    <EditText
+        android:background="@drawable/mode_border"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/playerName"
+        android:hint="NAME"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:background="@drawable/mode_border"
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playerName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
 
-        <TableRow
-            android:background="@drawable/select_diff_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="TECHNOLOGY"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/textView"
-                android:layout_alignParentTop="true" />
-        </TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:gravity="end"
+            android:id="@+id/beginnerResult" />
+    </LinearLayout>
 
-        <TableRow
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@drawable/mode_border"
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout2">
 
-            <EditText
-                android:background="@drawable/mode_border"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Name"
-                android:ems="10"
-                android:id="@+id/playerName"
-                android:layout_below="@+id/textView"
-                android:layout_centerHorizontal="true"
-                android:layout_span="2" />
-        </TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="SCIENCE" />
 
-        <TableRow
-            android:background="@drawable/mode_border"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:gravity="end"
+            android:id="@+id/advancedResult" />
+    </LinearLayout>
 
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="TECHNOLOGY"
-                android:id="@+id/level_beginner" />
+    <LinearLayout
+        android:background="@drawable/mode_border"
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true">
 
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="GENERAL INFO" />
 
-                android:id="@+id/beginnerResult" />
-        </TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:gravity="end"
+            android:id="@+id/expertResult" />
+    </LinearLayout>
 
-        <TableRow
-            android:background="@drawable/mode_border"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="SCIENCE"
-                android:id="@+id/level_advanced" />
+    <!-- test here -->
 
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/advancedResult" />
-        </TableRow>
+    <Button
+        android:background="@android:color/transparent"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_beginner"
+        android:layout_below="@+id/playerName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-        <TableRow
-            android:background="@drawable/mode_border"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:background="@android:color/transparent"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_advanced"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="GENERAL INFO"
-                android:id="@+id/level_expert" />
-
-            <TextView
-                android:textColor="#ff000000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/expertResult" />
-        </TableRow>
-
-    </TableLayout>
-
+    <Button
+        android:background="@android:color/transparent"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_expert"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

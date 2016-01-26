@@ -34,13 +34,6 @@ public class ModeActivity extends AppCompatActivity {
     @Bind(R.id.expertResult)
     TextView expert;
 
-    @Bind(R.id.level_beginner)
-    TextView mBeginner;
-    @Bind(R.id.level_advanced)
-    TextView mAdvanced;
-    @Bind(R.id.level_expert)
-    TextView mExpert;
-
     @OnClick(R.id.level_beginner)
     public void setBeginnerMode() {
         this.gameMode = BaseGame.MODE_BEGINNER;
