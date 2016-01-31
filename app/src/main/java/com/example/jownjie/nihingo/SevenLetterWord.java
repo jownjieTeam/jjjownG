@@ -1,0 +1,85 @@
+package com.example.jownjie.nihingo;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * Created by hebi5 on 1/24/2016.
+ * //TODO: this fragment is for the 7 - letter word screen.
+ */
+public class SevenLetterWord extends Fragment implements View.OnClickListener {
+    @Bind(R.id.seven_tableLayout)
+    TableLayout tableLayout;
+
+
+    View rootView;
+
+    Button[] levelBtnList;
+    TableRow[] tbls;
+    private int questionsSize=5;
+    private String gameModeString;
+
+    @OnClick(R.id.seven_button_back_menu)
+    public void back(){
+        getActivity().finish();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_7letterword, container, false);
+        ButterKnife.bind(this, rootView);
+
+        inflateLevels();
+        return rootView;
+    }
+
+    public void inflateLevels(){
+        int ctr = 1;
+        tbls = new TableRow[(questionsSize%2==0)?questionsSize/3:(questionsSize/3)+1];
+        levelBtnList = new Button[questionsSize];
+
+        for(int i = 0; i < tbls.length; i++) {
+            tbls[i] = new TableRow(getActivity());
+            tbls[i].setGravity(Gravity.CENTER);
+            tableLayout.addView(tbls[i]);
+            for(int j = 0; j < 3 && ctr <= questionsSize; j++) {
+                levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
+                levelBtnList[i].setText(ctr + "");
+                levelBtnList[i].setOnClickListener(this);
+                tbls[i].addView(levelBtnList[i]);
+                ctr++;
+            }
+        }
+    }
+
+    public SevenLetterWord getNewInstance(String gameMode){
+        SevenLetterWord sevenLetterWord = new SevenLetterWord();
+        Bundle bundle = new Bundle();
+        bundle.putString("GAME_MODE", gameMode);
+        gameModeString = gameMode;
+        Log.e("SevenLetterWord", gameMode);
+
+        sevenLetterWord.setArguments(bundle);
+
+        return sevenLetterWord;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+    }
+}

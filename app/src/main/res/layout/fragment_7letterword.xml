@@ -5,18 +5,18 @@
     android:background="@drawable/background">
 
     <Button
-        android:padding="20dp"
         android:background="@drawable/border_1"
+        android:padding="20dp"
         style="?android:attr/buttonStyleSmall"
         android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 - letter word"
+        android:text="7 - letter word"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal" />
 
     <TableLayout
-        android:id="@+id/five_tableLayout"
+        android:id="@+id/seven_tableLayout"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -27,6 +27,6 @@
         android:background="@drawable/back"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:id="@+id/five_button_back_menu"
+        android:id="@+id/seven_button_back_menu"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

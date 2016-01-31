@@ -23,8 +23,10 @@ public class HomeScreen extends AppCompatActivity {
 
     @OnClick(R.id.button_instructions)
      public void instructions(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, new InstructionsFragment(), "INSTRUCTIONS_FRAGMENT").commit();
+        /*FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, new InstructionsFragment(), "INSTRUCTIONS_FRAGMENT").commit();*/
+
+        startActivity(new Intent(this, StageActivity.class));
     }
 
     @Override

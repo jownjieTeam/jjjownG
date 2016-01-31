@@ -59,8 +59,8 @@ public class ModeActivity extends AppCompatActivity {
         if(playerName.getText().toString().length()!=0) {
             game.getTopPlayer().setPlayerName(playerName.getText().toString());
         }
-        //Intent intent = new Intent(this, GameActivity.class);
-        Intent intent = new Intent(this, LevelSelectionActivity.class);
+        //Intent intent = new Intent(this, LevelSelectionActivity.class);
+        Intent intent = new Intent(this, StageActivity.class);
         intent.putExtra("GAME_MODE", gameMode);
         intent.putExtra("GAME", game);
         intent.putExtra("CURRENT_LEVEL",currentLevel);
