@@ -68,23 +68,6 @@ public class GameActivity extends AppCompatActivity {
     @Bind(R.id.imageView)
     ImageView imageView;
 
-    @Bind(R.id.button_newGame)
-    Button newGame;
-
-    @OnClick(R.id.button_playSound)
-    public void playSound(){
-        MediaPlayer mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mp.start();
-    }
-
-    @OnClick(R.id.button_newGame)
-    public void newGame() {
-            game.getTimer().setPause(false);
-            game.getTimer().setTheTime(0);
-            newQuestion();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,12 +151,13 @@ public class GameActivity extends AppCompatActivity {
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime()+game.getTimer().getTime());
             game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
+
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESS")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            newGame();
+                            newQuestion();
                         }
                     })
                     .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
@@ -285,6 +269,7 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("GAME_MODE",gameMode);
         intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
         intent.putExtra("CURRENT_LEVEL", baseGame.getCurrentLevel());
+        intent.putExtra("GAME", baseGame);
         intent.putExtra("TIMER", game.getTimer().getTotalTime());
         this.setResult(RESULT_CODE,intent);
         super.finish();

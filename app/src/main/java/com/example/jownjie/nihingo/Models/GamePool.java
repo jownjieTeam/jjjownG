@@ -90,10 +90,6 @@ public class  GamePool implements Serializable {
         this.gameMode = getValue(gameMode.split("_")[0]);
     }
 
-    public void setLevelResource(String level) {
-        this.level = Integer.valueOf(answer.split("_")[2]);
-    }
-
     public int getClassification() {
         return classi;
     }
@@ -114,11 +110,11 @@ public class  GamePool implements Serializable {
 
     //helper methods
     private int getValue(String gameMode) {
-        if(gameMode.contentEquals("beginner"))
+        if(gameMode.contentEquals("generalinfo"))
             return BaseGame.MODE_BEGINNER;
-        else if(gameMode.contentEquals("advanced"))
+        else if(gameMode.contentEquals("technology"))
             return BaseGame.MODE_ADVANCED;
-        else if(gameMode.contentEquals("expert"))
+        else if(gameMode.contentEquals("science"))
             return BaseGame.MODE_EXPERT;
         else
             return BaseGame.MODE_NULL;

@@ -325,6 +325,7 @@ public class DatabaseConnector {
                         empty++;
                 }
             }
+            /*
             for (int i = 0; i < rawIds.length; i++) {
                 if (rawIds[i] != 0) {
                     for (GamePool gpo : gamePoolList) {
@@ -336,6 +337,8 @@ public class DatabaseConnector {
                     }
                 }
             }
+            */
+
             for(GamePool gpo : gamePoolList) {
                 addGamePool(gpo, sqldb);
                 Log.e("insertGamePool", gpo.toString());

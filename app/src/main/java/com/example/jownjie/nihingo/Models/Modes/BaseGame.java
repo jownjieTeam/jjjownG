@@ -112,15 +112,19 @@ public abstract class BaseGame implements Serializable{
     }
 
     public boolean isAccomplished() {
-        if((currentLevel+1)==questionsSize)
+        if(currentLevel==questionsSize)
             return true;
         return false;
     }
 
     public GamePool getNextLevel() {
-        if(currentLevel<questionsSize) {
-            currentLevel++;
-            return questionsPool.get(currentLevel - 1);
+        currentLevel++;
+        if(currentLevel<=questionsSize) {
+            for(GamePool gp : questionsPool) {
+                if(gp.getLevel()==currentLevel) {
+                    return gp;
+                }
+            }
         }
         return null;
     }

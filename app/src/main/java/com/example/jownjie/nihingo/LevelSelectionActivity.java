@@ -97,12 +97,13 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
                     currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
                 switch(gameMode) {
                     case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
-                        if(currentLevel==newLevel) {
-                        }
+                        game.setBeginnerGame((BaseGame) data.getExtras().getSerializable("GAME"));
                         break;
                     case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
+                        game.setAdvancedGame((BaseGame) data.getExtras().getSerializable("GAME"));
                         break;
                     case BaseGame.MODE_EXPERT : game.getExpertGame().setCurrentLevel(currentLevel);
+                        game.setExpertGame((BaseGame) data.getExtras().getSerializable("GAME"));
                         break;
                     case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
                         break;
@@ -114,7 +115,7 @@ public class LevelSelectionActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         Button button = (Button)v;
-        int level = Integer.parseInt(button.getText().toString())-1;
+        int level = Integer.parseInt(button.getText().toString());
 
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("GAME_MODE", gameMode);

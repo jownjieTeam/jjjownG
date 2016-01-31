@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true">
 
         <ImageView
-            android:src="@drawable/advanced_banana"
+            android:src="@drawable/generalinfo_above"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:id="@+id/imageView" />
