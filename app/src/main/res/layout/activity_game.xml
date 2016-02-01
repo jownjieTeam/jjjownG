@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@drawable/main_background"
+    android:background="@drawable/background"
     tools:context="com.example.jownjie.nihingo.GameActivity">
 
     <TextView
@@ -19,26 +19,36 @@
         android:id="@+id/textViewTimer"
         android:layout_gravity="center_horizontal" />
 
-    <LinearLayout
+    <RelativeLayout
         android:gravity="center"
         android:layout_weight="0.4"
         android:id="@+id/haha"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
-        <ImageView
+        <LinearLayout
+            android:gravity="center"
+            android:padding="40dp"
+            android:background="@drawable/image"
+            android:orientation="vertical"
+            android:layout_width="250dp"
+            android:layout_height="250dp">
+
+            <ImageView
             android:src="@drawable/generalinfo_above"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
     <LinearLayout
-        android:gravity="center"
+    android:gravity="center"
         android:id="@+id/ans_container"
         android:layout_weight="0.4"
         android:orientation="horizontal"
@@ -64,50 +74,50 @@
                 android:gravity="center">
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button1"
                     android:layout_column="0" />
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button2"
                     android:layout_column="1" />
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button3"
                     android:layout_column="2" />
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button4"
                     android:layout_column="3" />
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button5"
                     android:layout_column="4" />
 
                 <Button
-                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button11"
                     android:layout_column="5" />
 

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background">
 
-    <Button
-        android:background="@drawable/border_1"
-        android:padding="20dp"
-        style="?android:attr/buttonStyleSmall"
-        android:textAppearance="@android:style/TextAppearance.Medium.Inverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="7 - letter word"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+    <ImageView
+        android:background="@drawable/seven_letter_word"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true" />
 
     <TableLayout
         android:id="@+id/seven_tableLayout"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
     </TableLayout>
 
     <ImageView
         android:background="@drawable/back"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
         android:id="@+id/seven_button_back_menu"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

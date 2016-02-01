@@ -3,6 +3,7 @@ package com.example.jownjie.nihingo;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -33,6 +34,10 @@ import butterknife.OnClick;
  *  edited by hebi5 on 12/10/15: added button functionality for choosing and removing letters
  */
 public class GameActivity extends AppCompatActivity {
+
+
+    private Typeface GAME_FONT_LETTERS;
+    private Typeface GAME_FONT_NUMBERS;
     int a=0;
     private Button[] answerList;
     int[] buttonPosArr;
@@ -73,6 +78,10 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         ButterKnife.bind(this);
+
+
+        GAME_FONT_LETTERS = Typeface.createFromAsset(getAssets(), "CHERI___.TTF");
+        GAME_FONT_NUMBERS = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
         initActivity();
     }
 
@@ -91,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < size; i++) {
             final int pos = i;
             choiceList.get(i).setVisibility(View.VISIBLE);
+            choiceList.get(i).setTypeface(GAME_FONT_LETTERS);
             choiceList.get(i).setText(rand.charAt(i) + "");
             choiceList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,6 +127,7 @@ public class GameActivity extends AppCompatActivity {
             LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             btnparams.setMargins(1,0,1,0);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
+            answerList[i].setTypeface(GAME_FONT_LETTERS);
             answerList[i].setText("");
             answerList[i].setLayoutParams(btnparams);
             final int pos = i;

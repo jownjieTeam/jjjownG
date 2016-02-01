@@ -1,6 +1,8 @@
 package com.example.jownjie.nihingo;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,10 +52,12 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void inflateLevels(){
         int ctr = 1;
-        tbls = new TableRow[(questionsSize%2==0)?questionsSize/3:(questionsSize/3)+1];
+        tbls = new TableRow[(questionsSize%2==0)?questionsSize/5:(questionsSize/5)+1];
         levelBtnList = new Button[questionsSize];
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(100, 100);
 
         for(int i = 0; i < tbls.length; i++) {
             tbls[i] = new TableRow(getActivity());
@@ -61,6 +65,8 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             tableLayout.addView(tbls[i]);
             for(int j = 0; j < 3 && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
+                levelBtnList[i].setLayoutParams(layoutParams);
+                levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
                 tbls[i].addView(levelBtnList[i]);

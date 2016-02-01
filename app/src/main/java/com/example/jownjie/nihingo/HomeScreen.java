@@ -1,5 +1,6 @@
 package com.example.jownjie.nihingo;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import com.example.jownjie.nihingo.Database.DatabaseController;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends Activity {
 
     public static DatabaseController dc;
 
@@ -23,10 +24,8 @@ public class HomeScreen extends AppCompatActivity {
 
     @OnClick(R.id.button_instructions)
      public void instructions(){
-        /*FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, new InstructionsFragment(), "INSTRUCTIONS_FRAGMENT").commit();*/
-
-        startActivity(new Intent(this, StageActivity.class));
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, new InstructionsFragment(), "INSTRUCTIONS_FRAGMENT").commit();
     }
 
     @Override

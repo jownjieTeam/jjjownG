@@ -1,6 +1,7 @@
 package com.example.jownjie.nihingo;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +16,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ModeActivity extends AppCompatActivity {
+
+    private Typeface GAME_FONT_LETTERS;
+    private Typeface GAME_FONT_NUMBERS;
 
     private int gameMode;
     private Game game = null;
@@ -72,6 +76,9 @@ public class ModeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode);
         ButterKnife.bind(this);
+
+        GAME_FONT_LETTERS = Typeface.createFromAsset(getAssets(), "CHERI___.TTF");
+        GAME_FONT_NUMBERS = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
         game = new Game(HomeScreen.dc);
         initProgress();
     }
@@ -107,6 +114,10 @@ public class ModeActivity extends AppCompatActivity {
     }
 
     private void initProgress() {
+        beginner.setTypeface(GAME_FONT_NUMBERS);
+        advanced.setTypeface(GAME_FONT_NUMBERS);
+        expert.setTypeface(GAME_FONT_NUMBERS);
+
         beginner.setText((game.getBeginnerGame().getCurrentLevel()+1)+"/"+game.getBeginnerGame().getQuestionsSize());
         advanced.setText((game.getAdvancedGame().getCurrentLevel()+1)+"/"+game.getAdvancedGame().getQuestionsSize());
         expert.setText((game.getExpertGame().getCurrentLevel()+1)+"/"+game.getExpertGame().getQuestionsSize());
