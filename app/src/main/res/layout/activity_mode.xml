@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="TECHNOLOGY"/>
+            android:text="GENERAL INFO"/>
 
         <TextView
             android:layout_weight="1"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="SCIENCE" />
+            android:text="TECHNOLOGY" />
 
         <TextView
             android:layout_weight="1"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="GENERAL INFO" />
+            android:text="SCIENCE" />
 
         <TextView
             android:layout_weight="1"

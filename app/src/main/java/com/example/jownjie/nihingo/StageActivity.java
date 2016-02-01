@@ -41,9 +41,9 @@ public class StageActivity extends AppCompatActivity {
 
         gameMode = getIntent().getExtras().getInt("GAME_MODE");
         switch (gameMode){
-            case BaseGame.MODE_BEGINNER: gameModeString = "Technology";break;
-            case BaseGame.MODE_ADVANCED: gameModeString = "Science";break;
-            case BaseGame.MODE_EXPERT: gameModeString = "General Info";break;
+            case BaseGame.MODE_BEGINNER: gameModeString = "General Info";break;
+            case BaseGame.MODE_ADVANCED: gameModeString = "Technology";break;
+            case BaseGame.MODE_EXPERT: gameModeString = "Science";break;
         }
 
         mGameMode.setText(gameModeString);
