@@ -26,8 +26,6 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-
-
     <LinearLayout
         android:gravity="center"
         android:background="@drawable/generalinfo"
