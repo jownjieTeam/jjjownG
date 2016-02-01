@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by User on 12/2/2015.
  * edited by User on 12/8/2015 : removed other attributes except optionsPreference.
+ * edited by User on 1/22/2015 : other changes not recorded.
  */
 public abstract class BaseGame implements Serializable{
 
@@ -105,7 +106,7 @@ public abstract class BaseGame implements Serializable{
                     counter++;
             }
         } else {
-            Log.e("GAMEQ ERROR", "LENGTH IS INVALID");
+            Log.e("GAME ERROR", "LENGTH IS INVALID");
         }
 
         return counter;
@@ -147,33 +148,34 @@ public abstract class BaseGame implements Serializable{
     private void retrieveQuestionsPool(int gameMode,DatabaseController dc) {
         List<GamePool> gamePoolList = new ArrayList<GamePool>();
         gamePoolList = dc.getGamePool(gameMode);
-        int i = 1;
+        int SHORTCOUNTER = 1, MEDIUMCOUNTER = 1, LONGCOUNTER = 1, ERRORCOUNTER = 1;
         while(!gamePoolList.isEmpty()) {
             final int randomIndex = Random.getRandomNumber(gamePoolList.size());
             try {
-                gamePoolList.get(randomIndex).setLevel(i);
-                this.questionsPool.add(gamePoolList.get(randomIndex));
-                Log.e("GAME POOL", gamePoolList.get(randomIndex).toString());
+                GamePool gp = gamePoolList.get(randomIndex);
+                switch(gp.getClassification()) {
+                    case POOL_SHORT : gp.setLevel(SHORTCOUNTER);
+                                        SHORTCOUNTER++;
+                                        gameQuestions_SHORT.add(gp);
+                                        break;
+                    case POOL_MEDIUM: gp.setLevel(MEDIUMCOUNTER);
+                                        MEDIUMCOUNTER++;
+                                        gameQuestions_MEDIUM.add(gp);
+                                        break;
+                    case POOL_LONG: gp.setLevel(LONGCOUNTER);
+                                        LONGCOUNTER++;
+                                        gameQuestions_LONG.add(gp);
+                                        break;
+                    default: ERRORCOUNTER++;
+                            break;
+                }
+                this.questionsPool.add(gp);
+                Log.e("GAME POOL", gp.toString());
                 gamePoolList.remove(randomIndex);
-                i++;
             } catch(NullPointerException npe) {
                 npe.printStackTrace();
             }
         }
-        initializeSubCategories();
-    }
-
-    private void initializeSubCategories() {
-        for(GamePool gp : questionsPool) {
-            final int classification = gp.getClassification();
-            if(classification==POOL_SHORT)
-                gameQuestions_SHORT.add(gp);
-            else if(classification==POOL_MEDIUM)
-                gameQuestions_MEDIUM.add(gp);
-            else if(classification==POOL_LONG)
-                gameQuestions_LONG.add(gp);
-            else
-                Log.e("CLASSIFICATION ERROR!", gp.getAnswer() + " classification is invalid!");
-        }
+        Log.e("ERROR ", ERRORCOUNTER+"");
     }
 }
