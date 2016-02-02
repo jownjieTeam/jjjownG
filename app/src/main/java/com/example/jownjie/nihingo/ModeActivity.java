@@ -1,5 +1,6 @@
 package com.example.jownjie.nihingo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ModeActivity extends AppCompatActivity {
+public class ModeActivity extends Activity {
 
     private Typeface GAME_FONT_LETTERS;
     private Typeface GAME_FONT_NUMBERS;

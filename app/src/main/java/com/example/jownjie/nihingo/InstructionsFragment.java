@@ -19,7 +19,7 @@ public class InstructionsFragment extends Fragment {
 
     @OnClick(R.id.button_back_menu)
     public void homeScreen(){
-        Toast.makeText(getActivity(), "back", Toast.LENGTH_SHORT).show();
+        getActivity().getFragmentManager().beginTransaction().remove(InstructionsFragment.this);
     }
 
     @Nullable
@@ -27,8 +27,6 @@ public class InstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
         ButterKnife.bind(this, rootView);
-
-
 
         return rootView;
     }

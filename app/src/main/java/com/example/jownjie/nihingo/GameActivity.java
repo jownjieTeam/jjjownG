@@ -1,11 +1,13 @@
 package com.example.jownjie.nihingo;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -121,12 +123,13 @@ public class GameActivity extends AppCompatActivity {
      * for Button[] answerList
      */
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void initAnswerContainer(int contSize){
         answerList = new Button[contSize];
         for(int i = 0; i < currentQuestion.getAnswer().length(); i++){
-            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            btnparams.setMargins(1,0,1,0);
+            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(60, 60);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
+            answerList[i].setBackground(getResources().getDrawable(R.drawable.box));
             answerList[i].setTypeface(GAME_FONT_LETTERS);
             answerList[i].setText("");
             answerList[i].setLayoutParams(btnparams);

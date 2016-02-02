@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
@@ -21,13 +20,11 @@ public class StageActivity extends AppCompatActivity {
     @Bind(R.id.view)
     ViewPager mViewPager;
 
-    @Bind(R.id.txt_game_mode)
-    TextView mGameMode;
-
-
     private Game game;
-    private int gameMode;
-    private String gameModeString;
+    public static int gameMode;
+    public static int questionsSize;
+    public static String CURRENT_GAME_MODE;
+    public static Game CURRENT_GAME;
     private int currentLevel;
     private int REQUEST_CODE = 0;
     private int RESULT_CODE = 1;
@@ -40,16 +37,37 @@ public class StageActivity extends AppCompatActivity {
 
 
         gameMode = getIntent().getExtras().getInt("GAME_MODE");
+        game = (Game)getIntent().getExtras().getSerializable("GAME");
+        CURRENT_GAME = game;
+
         switch (gameMode){
-            case BaseGame.MODE_BEGINNER: gameModeString = "General Info";break;
-            case BaseGame.MODE_ADVANCED: gameModeString = "Technology";break;
-            case BaseGame.MODE_EXPERT: gameModeString = "Science";break;
+            case BaseGame.MODE_BEGINNER: CURRENT_GAME_MODE = "General Info";break;
+            case BaseGame.MODE_ADVANCED: CURRENT_GAME_MODE = "Technology";break;
+            case BaseGame.MODE_EXPERT: CURRENT_GAME_MODE = "Science";break;
         }
 
-        mGameMode.setText(gameModeString);
+        switch(gameMode){
+            case 0:
+                questionsSize = game.getBeginnerGame().getQuestionsSize();
+                break;
+            case 1:
+                questionsSize = game.getAdvancedGame().getQuestionsSize();
+                break;
+            case 2:
+                questionsSize = game.getExpertGame().getQuestionsSize();
+                break;
+        }
 
-        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), gameModeString));
+        Log.e("EEEEEE", questionsSize+"");
+
+        getSupportActionBar().setTitle(CURRENT_GAME_MODE);
+
+        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), CURRENT_GAME_MODE));
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+    }
+
+    public static String getGameMode() {
+        return CURRENT_GAME_MODE;
     }
 
     @Override
@@ -80,37 +98,39 @@ public class StageActivity extends AppCompatActivity {
             }
         }
     }
-}
 
-class MyPagerAdapter extends FragmentPagerAdapter{
-    private static int DEFAULT_PAGE_COUNT = 3;
-    private int pageCount = DEFAULT_PAGE_COUNT;
-    private String gameMode;
 
-    public MyPagerAdapter(FragmentManager fm, int pageCount, String gameMode) {
-        super(fm);
-        this.pageCount = pageCount;
-        this.gameMode = gameMode;
-    }
 
-    public MyPagerAdapter(FragmentManager fm, String gameMode) {
-        super(fm);
-        this.gameMode = gameMode;
-    }
+    class MyPagerAdapter extends FragmentPagerAdapter{
+        private int DEFAULT_PAGE_COUNT = 3;
+        private int pageCount = DEFAULT_PAGE_COUNT;
+        private String gameMode;
 
-    @Override
-    public Fragment getItem(int position) {
-        switch (position){
-            case 0: return new FiveLetterWord().getNewInstance(gameMode);
-            case 1: return new SevenLetterWord().getNewInstance(gameMode);
-            case 2: return new NineLetterWord().getNewInstance(gameMode);
+        public MyPagerAdapter(FragmentManager fm, int pageCount, String gameMode) {
+            super(fm);
+            this.pageCount = pageCount;
+            this.gameMode = gameMode;
         }
-        return null;
-    }
 
-    @Override
-    public int getCount() {
-        return pageCount;
+        public MyPagerAdapter(FragmentManager fm, String gameMode) {
+            super(fm);
+            this.gameMode = gameMode;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0: return new FiveLetterWord().getNewInstance(gameMode);
+                case 1: return new SevenLetterWord().getNewInstance(gameMode);
+                case 2: return new NineLetterWord().getNewInstance(gameMode);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return pageCount;
+        }
     }
 }
 

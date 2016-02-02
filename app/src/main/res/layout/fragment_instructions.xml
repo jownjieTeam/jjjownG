@@ -27,9 +27,9 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:background="@drawable/instructions_message_bg"
-        android:layout_width="288dp"
-        android:layout_height="175dp"
+        android:background="@drawable/intructions_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.19"

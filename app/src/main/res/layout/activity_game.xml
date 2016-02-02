@@ -74,6 +74,7 @@
                 android:gravity="center">
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -82,6 +83,7 @@
                     android:layout_column="0" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -90,6 +92,7 @@
                     android:layout_column="1" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -98,6 +101,7 @@
                     android:layout_column="2" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -106,6 +110,7 @@
                     android:layout_column="3" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -114,6 +119,7 @@
                     android:layout_column="4" />
 
                 <Button
+                    android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
                     android:background="@drawable/box"
                     android:layout_width="50dp"
@@ -131,48 +137,54 @@
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button6"
                     android:layout_column="0" />
 
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button7"
                     android:layout_column="1" />
 
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button8"
                     android:layout_column="2" />
 
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button9"
                     android:layout_column="3" />
 
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button10"
                     android:layout_column="4" />
 
                 <Button
                     android:visibility="gone"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/box"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:id="@+id/button12"
                     android:layout_column="5" />
             </TableRow>

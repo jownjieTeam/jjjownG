@@ -13,13 +13,4 @@
         android:id="@+id/view"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:background="@drawable/border_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/txt_game_mode"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

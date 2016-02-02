@@ -2,6 +2,7 @@ package com.example.jownjie.nihingo;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,12 +30,13 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     @Bind(R.id.five_tableLayout)
     TableLayout tableLayout;
 
-
     View rootView;
+    FiveLetterWord mFiveLetterWord;
+    private int REQUEST_CODE = 0;
 
     Button[] levelBtnList;
     TableRow[] tbls;
-    private int questionsSize=5;
+    private int questionsSize;
     private String gameModeString;
 
     @OnClick(R.id.five_button_back_menu)
@@ -48,14 +50,17 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         rootView = inflater.inflate(R.layout.fragment_5letterword, container, false);
         ButterKnife.bind(this, rootView);
 
+        // temporary
+        questionsSize = 10;
         inflateLevels();
         return rootView;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void inflateLevels(){
+        int columnNum = 5;
         int ctr = 1;
-        tbls = new TableRow[(questionsSize%2==0)?questionsSize/5:(questionsSize/5)+1];
+        tbls = new TableRow[(questionsSize%2==0)?questionsSize/columnNum:(questionsSize/columnNum)+1];
         levelBtnList = new Button[questionsSize];
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(100, 100);
 
@@ -63,7 +68,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             tbls[i] = new TableRow(getActivity());
             tbls[i].setGravity(Gravity.CENTER);
             tableLayout.addView(tbls[i]);
-            for(int j = 0; j < 3 && ctr <= questionsSize; j++) {
+            for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
                 levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
@@ -80,7 +85,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         Bundle bundle = new Bundle();
         bundle.putString("GAME_MODE", gameMode);
         gameModeString = gameMode;
-        Log.e("FiveLetterWord", gameMode);
+        //Log.e("FiveLetterWord", gameMode);
 
         fiveLetterWord.setArguments(bundle);
 
@@ -89,5 +94,13 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        Button button = (Button)v;
+        int level = Integer.parseInt(button.getText().toString());
+
+        Intent intent = new Intent(getActivity(), GameActivity.class);
+        intent.putExtra("GAME_MODE", StageActivity.gameMode);
+        intent.putExtra("GAME", StageActivity.CURRENT_GAME);
+        intent.putExtra("CURRENT_LEVEL",level-1);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

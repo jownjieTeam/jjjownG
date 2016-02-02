@@ -1,6 +1,7 @@
 package com.example.jownjie.nihingo;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,7 @@ public class HomeScreen extends Activity {
 
     @OnClick(R.id.button_instructions)
      public void instructions(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, new InstructionsFragment(), "INSTRUCTIONS_FRAGMENT").commit();
+        addFragment(new InstructionsFragment());
     }
 
     @Override
@@ -34,5 +34,12 @@ public class HomeScreen extends Activity {
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
         dc = new DatabaseController(this,1);
+    }
+
+    public void addFragment(Fragment fragment){
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment_container, fragment)
+                .commit();
     }
 }
