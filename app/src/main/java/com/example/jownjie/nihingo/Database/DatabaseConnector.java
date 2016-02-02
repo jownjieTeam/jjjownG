@@ -250,10 +250,6 @@ public class DatabaseConnector {
      * @loadAudioFiles, creates an array of audio ids from the raw resource directory.
      * @insertGamePoolIntoDatabase, inserts all of the game pool objects into the GamePool table of the database.
      */
-    public static int[] getDrawableIds() {
-        return drawableIds;
-    }
-
     public boolean firstTimeSetup(Resources resources,Class<?> drawablesResource, Class<?> rawResource, SQLiteDatabase sqldb) throws Exception {
         loadImageFiles(drawablesResource,resources);
         Log.e("SET UP PART 1", "OK!");
@@ -302,8 +298,9 @@ public class DatabaseConnector {
 
     private void insertGamePoolIntoDatabase(Resources resources,SQLiteDatabase sqldb) {
         int five=0, seven=0, nine=0, empty=0;
-        List<GamePool> gamePoolList= new ArrayList<>();
+        List<GamePool> gamePoolList = new ArrayList<>();
         GamePool gp;
+        int classification;
         if(resources!=null) {
             for (int i = 0; i < drawableIds.length; i++) {
                 if (drawableIds[i] != 0) {
@@ -315,11 +312,12 @@ public class DatabaseConnector {
                     gp.setHint("NO HINT FOR YOU!");
                     gp.setClassification(gp.getAnswer().length());
                     gamePoolList.add(gp);
-                    if(gp.getClassification()== BaseGame.POOL_SHORT)
+                    classification = gp.getClassification();
+                    if(classification== BaseGame.POOL_SHORT)
                         five++;
-                    else if(gp.getClassification()==BaseGame.POOL_MEDIUM)
+                    else if(classification==BaseGame.POOL_MEDIUM)
                         seven++;
-                    else if(gp.getClassification()==BaseGame.POOL_LONG)
+                    else if(classification==BaseGame.POOL_LONG)
                         nine++;
                     else
                         empty++;
@@ -352,7 +350,7 @@ public class DatabaseConnector {
 
     //helper method for filtering accepted images
     private static boolean validGameResource(int drawableId, Resources resources) {
-        return (resources.getResourceEntryName(drawableId).contains("generalinfo") || resources.getResourceEntryName(drawableId).contains("technology") || resources.getResourceEntryName(drawableId).contains("science")) && resources.getResourceEntryName(drawableId).split("_").length
-                 > 1;
+        String temp = resources.getResourceEntryName(drawableId);
+        return (temp.contains("generalinfo") || temp.contains("technology") || temp.contains("science")) && temp.split("_").length > 1;
     }
 }

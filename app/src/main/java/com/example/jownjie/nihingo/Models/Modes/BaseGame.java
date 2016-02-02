@@ -146,8 +146,7 @@ public abstract class BaseGame implements Serializable{
     }
 
     private void retrieveQuestionsPool(int gameMode,DatabaseController dc) {
-        List<GamePool> gamePoolList = new ArrayList<GamePool>();
-        gamePoolList = dc.getGamePool(gameMode);
+        List<GamePool> gamePoolList = dc.getGamePool(gameMode);
         int SHORTCOUNTER = 1, MEDIUMCOUNTER = 1, LONGCOUNTER = 1, ERRORCOUNTER = 1;
         while(!gamePoolList.isEmpty()) {
             final int randomIndex = Random.getRandomNumber(gamePoolList.size());

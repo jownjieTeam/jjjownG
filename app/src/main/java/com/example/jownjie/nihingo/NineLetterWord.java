@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -90,15 +92,14 @@ public class NineLetterWord extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        /*
         Button button = (Button)v;
         int level = Integer.parseInt(button.getText().toString());
 
         Intent intent = new Intent(getActivity(), GameActivity.class);
         intent.putExtra("GAME_MODE", StageActivity.gameMode);
         intent.putExtra("GAME", StageActivity.CURRENT_GAME);
+        intent.putExtra("GAME_DIFFICULTY", BaseGame.POOL_LONG);
         intent.putExtra("CURRENT_LEVEL",level-1);
         startActivityForResult(intent, REQUEST_CODE);
-        */
     }
 }

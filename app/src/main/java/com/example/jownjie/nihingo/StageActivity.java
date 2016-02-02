@@ -85,8 +85,6 @@ public class StageActivity extends AppCompatActivity {
                     currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
                 switch(gameMode) {
                     case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
-                        if(currentLevel==newLevel) {
-                        }
                         break;
                     case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
                         break;

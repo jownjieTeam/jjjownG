@@ -211,23 +211,49 @@ public class GameActivity extends AppCompatActivity {
             gameMode = getIntent().getExtras().getInt("GAME_MODE");
             game = (Game)getIntent().getExtras().getSerializable("GAME");
             int currentLevel = getIntent().getExtras().getInt("CURRENT_LEVEL");
+            int gameDifficulty = getIntent().getExtras().getInt("GAME_DIFFICULTY");
             switch(gameMode) {
                 case BaseGame.MODE_BEGINNER : baseGame = new BeginnerGame();
-                    baseGame.setGamePoolList(game.getBeginnerGame().getGamePoolList());
-                    baseGame.setQuestionsSize(game.getBeginnerGame().getQuestionsSize());
+                    switch(gameDifficulty) {
+                        case BaseGame.POOL_SHORT : baseGame.setGamePoolList(game.getBeginnerGame().getGameQuestions_SHORT());
+                            break;
+                        case BaseGame.POOL_MEDIUM : baseGame.setGamePoolList(game.getBeginnerGame().getGameQuestions_MEDIUM());
+                            break;
+                        case BaseGame.POOL_LONG : baseGame.setGamePoolList(game.getBeginnerGame().getGameQuestions_LONG());
+                            break;
+                        default: baseGame.setGamePoolList(null);
+                            break;
+                    }
                     break;
                 case BaseGame.MODE_ADVANCED : baseGame = new AdvancedGame();
-                    baseGame.setGamePoolList(game.getAdvancedGame().getGamePoolList());
-                    baseGame.setQuestionsSize(game.getAdvancedGame().getQuestionsSize());
+                    switch(gameDifficulty) {
+                        case BaseGame.POOL_SHORT : baseGame.setGamePoolList(game.getAdvancedGame().getGameQuestions_SHORT());
+                            break;
+                        case BaseGame.POOL_MEDIUM : baseGame.setGamePoolList(game.getAdvancedGame().getGameQuestions_MEDIUM());
+                            break;
+                        case BaseGame.POOL_LONG : baseGame.setGamePoolList(game.getAdvancedGame().getGameQuestions_LONG());
+                            break;
+                        default: baseGame.setGamePoolList(null);
+                            break;
+                    }
                     break;
                 case BaseGame.MODE_EXPERT : baseGame = new ExpertGame();
-                    baseGame.setGamePoolList(game.getExpertGame().getGamePoolList());
-                    baseGame.setQuestionsSize(game.getExpertGame().getQuestionsSize());
+                    switch(gameDifficulty) {
+                        case BaseGame.POOL_SHORT : baseGame.setGamePoolList(game.getExpertGame().getGameQuestions_SHORT());
+                            break;
+                        case BaseGame.POOL_MEDIUM : baseGame.setGamePoolList(game.getExpertGame().getGameQuestions_MEDIUM());
+                            break;
+                        case BaseGame.POOL_LONG : baseGame.setGamePoolList(game.getExpertGame().getGameQuestions_LONG());
+                            break;
+                        default: baseGame.setGamePoolList(null);
+                            break;
+                    }
                     break;
                 case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
                     GameActivity.this.finish();
                     break;
             }
+            baseGame.setQuestionsSize(baseGame.getGamePoolList().size());
             baseGame.setCurrentLevel(currentLevel);
             newQuestion();
             game.newT(timer);

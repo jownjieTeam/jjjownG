@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -100,6 +102,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         Intent intent = new Intent(getActivity(), GameActivity.class);
         intent.putExtra("GAME_MODE", StageActivity.gameMode);
         intent.putExtra("GAME", StageActivity.CURRENT_GAME);
+        intent.putExtra("GAME_DIFFICULTY", BaseGame.POOL_SHORT);
         intent.putExtra("CURRENT_LEVEL",level-1);
         startActivityForResult(intent, REQUEST_CODE);
     }
