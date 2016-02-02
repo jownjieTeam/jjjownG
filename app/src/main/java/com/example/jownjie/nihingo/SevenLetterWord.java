@@ -2,6 +2,7 @@ package com.example.jownjie.nihingo;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
 
     View rootView;
 
+    private Typeface GAME_FONT_NUMBERS;
     Button[] levelBtnList;
     TableRow[] tbls;
     private int questionsSize=10;
@@ -49,6 +51,7 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
         rootView = inflater.inflate(R.layout.fragment_7letterword, container, false);
         ButterKnife.bind(this, rootView);
 
+        GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
         inflateLevels();
         return rootView;
     }
@@ -68,7 +71,8 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
+                //levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
+                levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
                 tbls[i].addView(levelBtnList[i]);

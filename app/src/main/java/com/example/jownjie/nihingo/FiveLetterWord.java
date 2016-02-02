@@ -3,6 +3,7 @@ package com.example.jownjie.nihingo;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     @Bind(R.id.five_tableLayout)
     TableLayout tableLayout;
 
+    private Typeface GAME_FONT_NUMBERS;
     View rootView;
     FiveLetterWord mFiveLetterWord;
     private int REQUEST_CODE = 0;
@@ -53,6 +55,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this, rootView);
 
         // temporary
+        GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
         questionsSize = 10;
         inflateLevels();
         return rootView;
@@ -73,7 +76,8 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
+                //levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
+                levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
                 tbls[i].addView(levelBtnList[i]);

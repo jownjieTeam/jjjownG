@@ -98,7 +98,7 @@ public class GameActivity extends AppCompatActivity {
         int a = (gameMode==2)?0:2;
         int size = choiceList.size()-a;
         String rand = Random.randomize(Random.completeWord(Random.randomize(currentQuestion.getAnswer().toUpperCase()), size));
-
+        Log.e("q", currentQuestion.getAnswer().toString());
         for (int i = 0; i < size; i++) {
             final int pos = i;
             choiceList.get(i).setVisibility(View.VISIBLE);
@@ -129,8 +129,9 @@ public class GameActivity extends AppCompatActivity {
         for(int i = 0; i < currentQuestion.getAnswer().length(); i++){
             LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(60, 60);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
-            answerList[i].setBackground(getResources().getDrawable(R.drawable.box));
+            answerList[i].setBackground(getResources().getDrawable(R.drawable.border_1));
             answerList[i].setTypeface(GAME_FONT_LETTERS);
+            answerList[i].setTextSize(20);
             answerList[i].setText("");
             answerList[i].setLayoutParams(btnparams);
             final int pos = i;
