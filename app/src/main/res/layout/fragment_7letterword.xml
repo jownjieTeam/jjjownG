@@ -11,6 +11,7 @@
     android:background="@drawable/background">
 
     <ImageView
+        android:background="@drawable/seven_letter_word"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/textView"
@@ -27,6 +28,7 @@
     </TableLayout>
 
     <ImageView
+        android:background="@drawable/back"
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:id="@+id/seven_button_back_menu"
