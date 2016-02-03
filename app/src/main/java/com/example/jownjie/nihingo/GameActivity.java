@@ -269,6 +269,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void newQuestion() {
         if(!baseGame.isAccomplished()) {
+            Log.e("e", gameMode+" shit ");
             currentQuestion = baseGame.getNextLevel();
             if(currentQuestion!=null) {
                 buttonPosArr = new int[currentQuestion.getAnswer().length()];

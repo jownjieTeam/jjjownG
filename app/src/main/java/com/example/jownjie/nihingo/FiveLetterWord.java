@@ -38,7 +38,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     FiveLetterWord mFiveLetterWord;
     private int REQUEST_CODE = 0;
 
-    Button[] levelBtnList;
+    public static Button[] levelBtnList;
     TableRow[] tbls;
     private int questionsSize;
     private String gameModeString;
