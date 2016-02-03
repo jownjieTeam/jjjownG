@@ -28,7 +28,6 @@
 
     <LinearLayout
         android:gravity="center"
-        android:background="@drawable/generalinfo"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
@@ -51,7 +50,6 @@
 
     <LinearLayout
         android:gravity="center"
-        android:background="@drawable/technology"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
@@ -73,7 +71,6 @@
 
     <LinearLayout
         android:gravity="center"
-        android:background="@drawable/science"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
@@ -98,10 +95,10 @@
 
     <Button
         android:background="@android:color/transparent"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/level_beginner"
+        android:text="general info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/linearLayout"
@@ -113,6 +110,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/level_advanced"
+        android:text="technology"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/linearLayout2"
@@ -124,6 +122,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/level_expert"
+        android:text="science"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/linearLayout3"
