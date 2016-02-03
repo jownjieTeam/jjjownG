@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +32,7 @@ public class HomeScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
         dc = new DatabaseController(this,1);

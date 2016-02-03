@@ -25,6 +25,7 @@ import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
 import com.example.jownjie.nihingo.Models.Modes.ExpertGame;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
     LinearLayout ansContainer;
 
     @Bind(R.id.imageView)
-    ImageView imageView;
+    SimpleDraweeView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
 
         GAME_FONT_LETTERS = Typeface.createFromAsset(getAssets(), "CHERI___.TTF");
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
+        timer.setTypeface(GAME_FONT_NUMBERS);
         initActivity();
     }
 
@@ -102,6 +104,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < size; i++) {
             final int pos = i;
             choiceList.get(i).setVisibility(View.VISIBLE);
+            choiceList.get(i).setBackground(getResources().getDrawable(R.drawable.box));
             choiceList.get(i).setTypeface(GAME_FONT_LETTERS);
             choiceList.get(i).setText(rand.charAt(i) + "");
             choiceList.get(i).setOnClickListener(new View.OnClickListener() {

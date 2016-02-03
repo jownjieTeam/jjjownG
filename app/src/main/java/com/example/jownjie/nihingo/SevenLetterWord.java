@@ -71,7 +71,7 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                //levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
+                levelBtnList[i].setBackground(getResources().getDrawable(R.drawable.box));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
