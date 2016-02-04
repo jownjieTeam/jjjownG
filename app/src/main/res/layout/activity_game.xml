@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@mipmap/background"
     tools:context="com.example.jownjie.nihingo.GameActivity">
 
     <TextView
@@ -27,26 +27,24 @@
         android:layout_centerHorizontal="true">
 
 
-<!--
-        <LinearLayout
-            android:gravity="center"
-            android:padding="40dp"
-            android:orientation="vertical"
-            android:layout_width="250dp"
-            android:layout_height="250dp">
-
-            <ImageView
-            android:src="@drawable/generalinfo_above"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView" />
-
-        </LinearLayout>
--->
+        <!--
+                <LinearLayout
+                    android:gravity="center"
+                    android:padding="40dp"
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp">
+                    <ImageView
+                    android:src="@drawable/generalinfo_above"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView" />
+                </LinearLayout>
+        -->
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:padding="20dp"
-            fresco:backgroundImage="@drawable/image"
+            fresco:backgroundImage="@mipmap/image"
             fresco:roundedCornerRadius="5dp"
             android:layout_width="250dp"
             android:layout_height="250dp"
@@ -67,7 +65,7 @@
     </RelativeLayout>
 
     <LinearLayout
-    android:gravity="center"
+        android:gravity="center"
         android:id="@+id/ans_container"
         android:layout_weight="0.4"
         android:orientation="horizontal"
@@ -220,27 +218,23 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.4">
-
         <ImageButton
             android:src="@android:drawable/ic_lock_silent_mode_off"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button_playSound" />
-
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="show hint"
             android:id="@+id/button_showHint" />
-
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="new game"
             android:id="@+id/button_newGame" />
-
     </LinearLayout>-->
 
 </LinearLayout>

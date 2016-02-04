@@ -25,11 +25,15 @@ public class InstructionsFragment extends Fragment {
     @Bind(R.id.instructions_msg_image)
     ImageView imageView;
 
+    @Bind(R.id.textView)
+    ImageView imageView2;
+
     View rootView;
 
     @OnClick(R.id.button_back_menu)
     public void homeScreen(){
-        getActivity().getFragmentManager().beginTransaction().remove(InstructionsFragment.this);
+        HomeScreen.getInstance().removeTopFragment();
+        //getActivity().getFragmentManager().beginTransaction().remove(InstructionsFragment.this);
     }
 
     @Nullable
@@ -37,9 +41,6 @@ public class InstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_instructions, container, false);
         ButterKnife.bind(this, rootView);
-
-        imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.intructions_msg, ViewGroup.LayoutParams.WRAP_CONTENT, 500));
-        Log.e("a", "with the ultimate code");
 
         return rootView;
     }

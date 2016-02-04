@@ -11,12 +11,16 @@ import android.widget.Toast;
 import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import java.util.Stack;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeScreen extends Activity {
 
     public static DatabaseController dc;
+    public Stack<Fragment> fragmentStack;
+    public static HomeScreen instance;
 
     @OnClick(R.id.button_play)
     public void playGame(){
@@ -35,13 +39,32 @@ public class HomeScreen extends Activity {
         Fresco.initialize(this);
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
+        instance = this;
+
+        fragmentStack = new Stack();
         dc = new DatabaseController(this,1);
     }
 
+    public static HomeScreen getInstance() {
+        return instance;
+    }
+
+    public void removeTopFragment(){
+        getFragmentManager()
+                .beginTransaction()
+                .remove(fragmentStack.pop())
+                .commit();
+    }
+
     public void addFragment(Fragment fragment){
+        fragmentStack.push(fragment);
         getFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    public Stack<Fragment> getFragmentStack() {
+        return fragmentStack;
     }
 }

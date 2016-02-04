@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -104,7 +105,7 @@ public class GameActivity extends AppCompatActivity {
         for (int i = 0; i < size; i++) {
             final int pos = i;
             choiceList.get(i).setVisibility(View.VISIBLE);
-            choiceList.get(i).setBackground(getResources().getDrawable(R.drawable.box));
+            choiceList.get(i).setBackground(getResources().getDrawable(R.mipmap.box));
             choiceList.get(i).setTypeface(GAME_FONT_LETTERS);
             choiceList.get(i).setText(rand.charAt(i) + "");
             choiceList.get(i).setOnClickListener(new View.OnClickListener() {
@@ -268,8 +269,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+        /*switch(gameMode){
+            case 0: Log.e("FUCKING SHIT", baseGame.getCurrentLevel()+" answered successfully");
+                FiveLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");break;
+            //case 1: SevenLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
+            //case 2: NineLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
+        }*/
         if(!baseGame.isAccomplished()) {
-            Log.e("e", gameMode+" shit ");
             currentQuestion = baseGame.getNextLevel();
             if(currentQuestion!=null) {
                 buttonPosArr = new int[currentQuestion.getAnswer().length()];
