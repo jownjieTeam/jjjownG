@@ -2,8 +2,14 @@ package com.example.jownjie.nihingo;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +26,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,7 +78,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         tbls = new TableRow[(questionsSize%2==0)?questionsSize/columnNum:(questionsSize/columnNum)+1];
         levelBtnList = new Button[questionsSize];
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(100, 100);
-        layoutParams.setMargins(2,0,2,0);
+        layoutParams.setMargins(2, 0, 2, 0);
 
         for(int i = 0; i < tbls.length; i++) {
             tbls[i] = new TableRow(getActivity());
@@ -77,7 +87,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
+                levelBtnList[i].setBackground(getAssetImage(getActivity(), "box"));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
@@ -85,6 +95,18 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
                 ctr++;
             }
         }
+    }
+
+    public Drawable getAssetImage(Context context, String filename) {
+        AssetManager assets = getActivity().getResources().getAssets();
+        InputStream buffer = null;
+        try {
+            buffer = new BufferedInputStream((assets.open("drawable/" + filename + ".png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(buffer);
+        return new BitmapDrawable(getActivity().getResources(), bitmap);
     }
 
     public FiveLetterWord getNewInstance(String gameMode){
