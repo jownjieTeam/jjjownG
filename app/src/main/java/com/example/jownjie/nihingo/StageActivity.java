@@ -72,29 +72,87 @@ public class StageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(REQUEST_CODE == requestCode) {
             if(RESULT_CODE == resultCode) {
                 int gamePoints = data.getExtras().getInt("TOP_PLAYER");
                 game.getTopPlayer().setGamePoints(gamePoints);
                 int totalTime = data.getExtras().getInt("TIMER");
                 game.getTimer().setTotalTime(totalTime);
                 gameMode = data.getExtras().getInt("GAME_MODE");
-                Log.e("e", gameMode+"");
-                int newLevel = data.getExtras().getInt("CURRENT_LEVEL");
-                if(currentLevel < newLevel)
-                    currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
+                BaseGame temp = (BaseGame)data.getExtras().getSerializable("GAME");
+                int gameDifficulty = data.getExtras().getInt("GAME_DIFFICULTY");
                 switch(gameMode) {
-                    case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_BEGINNER :
+                                switch(gameDifficulty) {
+                                    case BaseGame.POOL_SHORT : game.getBeginnerGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                        break;
+                                    case BaseGame.POOL_MEDIUM : game.getBeginnerGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                        break;
+                                    case BaseGame.POOL_LONG : game.getBeginnerGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                        break;
+                                    default: Log.e("ERROR", "BEGINNER -> DIFFICULTY -> LENGTH INVALID.");
+                                        break;
+                                }
+                            currentLevel = game.getBeginnerGame().getAccomplished(BaseGame.POOL_SHORT)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_LONG);
+                        game.getBeginnerGame().setCurrentLevel(currentLevel);
+                        Log.e("LEVEL ", currentLevel + "");
                         break;
-                    case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_ADVANCED :
+                        switch(gameDifficulty) {
+                            case BaseGame.POOL_SHORT : game.getAdvancedGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                break;
+                            case BaseGame.POOL_MEDIUM : game.getAdvancedGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                break;
+                            case BaseGame.POOL_LONG : game.getAdvancedGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                break;
+                            default: Log.e("ERROR", "ADVANCED -> DIFFICULTY -> LENGTH INVALID.");
+                                break;
+                        }
+                        currentLevel = game.getAdvancedGame().getAccomplished(BaseGame.POOL_SHORT)+game.getAdvancedGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getAdvancedGame().getAccomplished(BaseGame.POOL_LONG);
+                        game.getAdvancedGame().setCurrentLevel(currentLevel);
+                        Log.e("LEVEL ", currentLevel + "");
                         break;
-                    case BaseGame.MODE_EXPERT : game.getExpertGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_EXPERT :
+                        switch(gameDifficulty) {
+                            case BaseGame.POOL_SHORT : game.getExpertGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                break;
+                            case BaseGame.POOL_MEDIUM : game.getExpertGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                break;
+                            case BaseGame.POOL_LONG : game.getExpertGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                break;
+                            default: Log.e("ERROR", "EXPERT -> DIFFICULTY -> LENGTH INVALID.");
+                                break;
+                        }
+                        currentLevel = game.getExpertGame().getAccomplished(BaseGame.POOL_SHORT)+game.getExpertGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getExpertGame().getAccomplished(BaseGame.POOL_LONG);
+                        game.getExpertGame().setCurrentLevel(currentLevel);
+                        Log.e("LEVEL ", currentLevel +   "");
                         break;
                     case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
                         break;
                 }
             }
+    }
+
+    @Override
+    public void finish() {
+        Intent intent = new Intent();
+        intent.putExtra("GAME_MODE",gameMode);
+        intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
+        switch(gameMode) {
+            case BaseGame.MODE_BEGINNER :
+                intent.putExtra("GAME", game.getBeginnerGame());
+                break;
+            case BaseGame.MODE_ADVANCED :
+                intent.putExtra("GAME", game.getAdvancedGame());
+                break;
+            case BaseGame.MODE_EXPERT :
+                intent.putExtra("GAME", game.getExpertGame());
+                break;
+            default: Log.e("ERROR", "GAME MODE ERROR");
+                break;
         }
+        intent.putExtra("TIMER", game.getTimer().getTotalTime());
+        this.setResult(RESULT_CODE,intent);
+        super.finish();
     }
 
 

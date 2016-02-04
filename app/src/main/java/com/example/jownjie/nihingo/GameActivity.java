@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
     int[] buttonPosArr;
 
     //For Gameplay variables
-    private int gameMode;
+    private int gameMode, gameDifficulty;
     private Game game = null;
     private BaseGame baseGame;
     private GamePool currentQuestion;
@@ -168,9 +168,9 @@ public class GameActivity extends AppCompatActivity {
         currentAnswer = getAnswer();
         if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
             game.getTimer().setPause(true);
-            game.getTimer().setTotalTime(game.getTimer().getTotalTime()+game.getTimer().getTime());
+            game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
             game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
-
+            baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<5);
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESS")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
@@ -216,7 +216,7 @@ public class GameActivity extends AppCompatActivity {
             gameMode = getIntent().getExtras().getInt("GAME_MODE");
             game = (Game)getIntent().getExtras().getSerializable("GAME");
             int currentLevel = getIntent().getExtras().getInt("CURRENT_LEVEL");
-            int gameDifficulty = getIntent().getExtras().getInt("GAME_DIFFICULTY");
+            gameDifficulty = getIntent().getExtras().getInt("GAME_DIFFICULTY");
             switch(gameMode) {
                 case BaseGame.MODE_BEGINNER : baseGame = new BeginnerGame();
                     switch(gameDifficulty) {
@@ -319,9 +319,9 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("GAME_MODE",gameMode);
         intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
-        intent.putExtra("CURRENT_LEVEL", baseGame.getCurrentLevel());
         intent.putExtra("GAME", baseGame);
         intent.putExtra("TIMER", game.getTimer().getTotalTime());
+        intent.putExtra("GAME_DIFFICULTY", gameDifficulty);
         this.setResult(RESULT_CODE,intent);
         super.finish();
     }

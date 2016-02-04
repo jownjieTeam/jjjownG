@@ -93,13 +93,12 @@ public class ModeActivity extends Activity {
                 int totalTime = data.getExtras().getInt("TIMER");
                     game.getTimer().setTotalTime(totalTime);
                 gameMode = data.getExtras().getInt("GAME_MODE");
-                currentLevel = data.getExtras().getInt("CURRENT_LEVEL");
                 switch(gameMode) {
-                    case BaseGame.MODE_BEGINNER : game.getBeginnerGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_BEGINNER : game.setBeginnerGame((BaseGame)data.getExtras().getSerializable("GAME"));
                         break;
-                    case BaseGame.MODE_ADVANCED : game.getAdvancedGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_ADVANCED : game.setAdvancedGame((BaseGame) data.getExtras().getSerializable("GAME"));
                         break;
-                    case BaseGame.MODE_EXPERT : game.getExpertGame().setCurrentLevel(currentLevel);
+                    case BaseGame.MODE_EXPERT : game.setExpertGame((BaseGame) data.getExtras().getSerializable("GAME"));
                         break;
                     case BaseGame.MODE_NULL : Log.e("ERROR", "UNIDENTIFIED GAME MODE!");
                         break;
@@ -119,8 +118,8 @@ public class ModeActivity extends Activity {
         advanced.setTypeface(GAME_FONT_NUMBERS);
         expert.setTypeface(GAME_FONT_NUMBERS);
 
-        beginner.setText((game.getBeginnerGame().getCurrentLevel()+1)+"/"+game.getBeginnerGame().getQuestionsSize());
-        advanced.setText((game.getAdvancedGame().getCurrentLevel()+1)+"/"+game.getAdvancedGame().getQuestionsSize());
-        expert.setText((game.getExpertGame().getCurrentLevel()+1)+"/"+game.getExpertGame().getQuestionsSize());
+        beginner.setText((game.getBeginnerGame().getCurrentLevel())+"/"+game.getBeginnerGame().getQuestionsSize());
+        advanced.setText((game.getAdvancedGame().getCurrentLevel())+"/"+game.getAdvancedGame().getQuestionsSize());
+        expert.setText((game.getExpertGame().getCurrentLevel())+"/"+game.getExpertGame().getQuestionsSize());
     }
 }

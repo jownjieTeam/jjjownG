@@ -88,27 +88,49 @@ public abstract class BaseGame implements Serializable{
         return gameQuestions_LONG;
     }
 
+    public void setGameQuestions_SHORT(List<GamePool> gameQuestions_SHORT) {
+        this.gameQuestions_SHORT = gameQuestions_SHORT;
+    }
+
+    public void setGameQuestions_MEDIUM(List<GamePool> gameQuestions_MEDIUM) {
+        this.gameQuestions_MEDIUM = gameQuestions_MEDIUM;
+    }
+
+    public void setGameQuestions_LONG(List<GamePool> gameQuestions_LONG) {
+        this.gameQuestions_LONG = gameQuestions_LONG;
+    }
+
     public int getAccomplished(int gameQuestions_LENGTH) {
         int counter = 0;
-        if(gameQuestions_LENGTH==POOL_SHORT) {
-            for(GamePool gp : gameQuestions_SHORT) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-        } else if(gameQuestions_LENGTH==POOL_MEDIUM) {
-            for(GamePool gp : gameQuestions_SHORT) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-        } else if(gameQuestions_LENGTH==POOL_LONG) {
-            for(GamePool gp : gameQuestions_SHORT) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-        } else {
-            Log.e("GAME ERROR", "LENGTH IS INVALID");
+        switch(gameQuestions_LENGTH) {
+            case POOL_SHORT: for(GamePool gp : gameQuestions_SHORT) {
+                                if(gp.isAnswered())
+                                    counter++;
+                            }
+                break;
+            case POOL_MEDIUM:  for(GamePool gp : gameQuestions_MEDIUM) {
+                                if(gp.isAnswered())
+                                    counter++;
+                            }
+                break;
+            case POOL_LONG:     for(GamePool gp : gameQuestions_LONG) {
+                                if(gp.isAnswered())
+                                    counter++;
+                            }
+                break;
+            default:    Log.e("GAME ERROR", "LENGTH IS INVALID");
+                break;
         }
 
+        return counter;
+    }
+
+    public int getAccomplished() {
+        int counter = 0;
+        for(GamePool gp : questionsPool) {
+            if(gp.isAnswered())
+                counter++;
+        }
         return counter;
     }
 
@@ -116,6 +138,10 @@ public abstract class BaseGame implements Serializable{
         if(currentLevel==questionsSize)
             return true;
         return false;
+    }
+
+    public GamePool getCurrentQuestion() {
+        return questionsPool.get(currentLevel-1);
     }
 
     public GamePool getNextLevel() {
