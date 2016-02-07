@@ -63,7 +63,7 @@ public class Timer extends AsyncTask<Void, Integer, Void> implements Serializabl
 
     public int getTime() { return time; }
 
-    public void setTheTime(int time) { this.time = time; }
+    public void setTheTimer(int time) { this.time = time; }
 
     public void setPause(boolean pause) { this.pause = pause; }
 }

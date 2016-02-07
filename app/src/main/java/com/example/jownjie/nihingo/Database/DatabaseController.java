@@ -3,6 +3,7 @@ package com.example.jownjie.nihingo.Database;
 import android.content.Context;
 
 import com.example.jownjie.nihingo.Models.GamePool;
+import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 
 import java.io.Serializable;
@@ -77,6 +78,6 @@ public class DatabaseController {
 
     //helper method to check validity of gameMode
     private boolean validGameMode(int gameMode) {
-        return gameMode == 0 || gameMode == 1 || gameMode == 2;
+        return gameMode == BaseGame.MODE_BEGINNER || gameMode == BaseGame.MODE_ADVANCED || gameMode == BaseGame.MODE_EXPERT;
     }
 }

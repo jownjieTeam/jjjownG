@@ -36,7 +36,6 @@ public class DatabaseConnector {
     private  final String DATA_GAMEPOOL_IMAGERES = "imageRes";
     private  final String DATA_GAMEPOOL_SOUNDRES = "soundRes";
     private  final String DATA_GAMEPOOL_ANSWER = "answer";
-    private  final String DATA_GAMEPOOL_HINT = "hint";
     private  final String DATA_GAMEPOOL_GAMEMODE = "gameMode";
     private  final String DATA_GAMEPOOL_LEVEL = "level";
     private  final String DATA_GAMEPOOL_CLASS = "class";
@@ -50,7 +49,6 @@ public class DatabaseConnector {
     private  final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
                                             "( "+ DATA_GAMEPOOL_IMAGERES +" INTEGER PRIMARY KEY," +
                                             DATA_GAMEPOOL_SOUNDRES +" INTEGER," +
-                                            DATA_GAMEPOOL_HINT +" TEXT," +
                                             DATA_GAMEPOOL_ANSWER +" TEXT," +
                                             DATA_GAMEPOOL_GAMEMODE+ " INTEGER," +
                                             DATA_GAMEPOOL_LEVEL + " INTEGER," +
@@ -62,8 +60,8 @@ public class DatabaseConnector {
                                                     DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER);";
 
     //GAMEPOOL TABLE QUERY
-    private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_HINT,
-                                                    DATA_GAMEPOOL_ANSWER,DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL,DATA_GAMEPOOL_CLASS};
+    private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_ANSWER,
+                                                DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL,DATA_GAMEPOOL_CLASS};
 
     //TOPPLAYER TABLE QUERY
     private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS};
@@ -103,7 +101,6 @@ public class DatabaseConnector {
             cv.put(DATA_GAMEPOOL_IMAGERES, gp.getImageRes());
             cv.put(DATA_GAMEPOOL_SOUNDRES, gp.getSoundRes());
             cv.put(DATA_GAMEPOOL_ANSWER, gp.getAnswer());
-            cv.put(DATA_GAMEPOOL_HINT, gp.getHint());
             cv.put(DATA_GAMEPOOL_GAMEMODE, gp.getGameMode());
             cv.put(DATA_GAMEPOOL_LEVEL, gp.getLevel());
             cv.put(DATA_GAMEPOOL_CLASS, gp.getClassification());
@@ -128,7 +125,6 @@ public class DatabaseConnector {
             GamePool gl = new GamePool();
             gl.setImageRes(cursor.getInt(0));
             gl.setSoundRes(cursor.getInt(1));
-            gl.setHint(cursor.getString(2));
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
             gl.setLevel(cursor.getInt(5));
@@ -151,7 +147,6 @@ public class DatabaseConnector {
             gl = new GamePool();
             gl.setImageRes(cursor.getInt(0));
             gl.setSoundRes(cursor.getInt(1));
-            gl.setHint(cursor.getString(2));
             gl.setAnswer(cursor.getString(3));
             gl.setGameMode(cursor.getInt(4));
             gl.setLevel(cursor.getInt(5));
@@ -309,7 +304,6 @@ public class DatabaseConnector {
                     gp.setImageRes(drawableIds[i]);
                     gp.setAnswerResource(Imagetemp);
                     gp.setGameMode(Imagetemp);
-                    gp.setHint("NO HINT FOR YOU!");
                     gp.setClassification(gp.getAnswer().length());
                     gamePoolList.add(gp);
                     classification = gp.getClassification();

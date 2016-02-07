@@ -14,7 +14,6 @@ public class  GamePool implements Serializable {
     private int imageRes;
     private int soundRes;
     private String answer;
-    private String hint;
     private int gameMode;
     private int level;
     private int classi;
@@ -22,12 +21,11 @@ public class  GamePool implements Serializable {
 
     public GamePool(){ this.level = 0; }
 
-    public GamePool(int imageRes, int soundRes, String imageDr, String hint) {
+    public GamePool(int imageRes, int soundRes, String imageDr) {
         String[] splitString = imageDr.split("_");
         this.imageRes = imageRes;
         this.soundRes = soundRes;
         this.answer = splitString[1];
-        this.hint = hint;
         this.gameMode = getValue(splitString[0]);
         this.level = Integer.valueOf(splitString[2]);
         this.classi = getClass(this.answer.length());
@@ -56,14 +54,6 @@ public class  GamePool implements Serializable {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public String getHint() {
-        return hint;
-    }
-
-    public void setHint(String hint) {
-        this.hint = hint;
     }
 
     public int getGameMode() {
@@ -133,6 +123,6 @@ public class  GamePool implements Serializable {
 
     @Override
     public String toString() {
-        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nHint: " + this.hint + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode + "\nLevel :" + this.level + "\nClassification :" + this.classi;
+        return "ImageRes: " + this.imageRes + "\nAudioRes: " + this.soundRes + "\nAnswer: " + this.answer + "\nGameMode: " + this.gameMode + "\nLevel :" + this.level + "\nClassification :" + this.classi;
     }
 }

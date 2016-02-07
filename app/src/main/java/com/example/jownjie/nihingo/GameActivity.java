@@ -262,6 +262,7 @@ public class GameActivity extends AppCompatActivity {
             baseGame.setCurrentLevel(currentLevel);
             newQuestion();
             game.newT(timer);
+            game.getTimer().setPause(true);
             game.getTimer().execute();
         } catch(NullPointerException npe) {
             npe.printStackTrace();
@@ -278,11 +279,13 @@ public class GameActivity extends AppCompatActivity {
         if(!baseGame.isAccomplished()) {
             currentQuestion = baseGame.getNextLevel();
             if(currentQuestion!=null) {
+                game.getTimer().setTheTimer(0);
                 buttonPosArr = new int[currentQuestion.getAnswer().length()];
                 initChoiceContainer(gameMode);
                 ansContainer.removeAllViews();
                 initAnswerContainer(currentQuestion.getAnswer().length());
                 imageView.setImageResource(currentQuestion.getImageRes());
+                game.getTimer().setPause(false);
             }
         } else {
             game.getTimer().cancel(true);
