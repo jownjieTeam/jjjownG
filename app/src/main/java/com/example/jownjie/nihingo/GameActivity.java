@@ -101,7 +101,6 @@ public class GameActivity extends AppCompatActivity {
         int a = (gameMode==2)?0:2;
         int size = choiceList.size()-a;
         String rand = Random.randomize(Random.completeWord(Random.randomize(currentQuestion.getAnswer().toUpperCase()), size));
-        Log.e("q", currentQuestion.getAnswer().toString());
         for (int i = 0; i < size; i++) {
             final int pos = i;
             choiceList.get(i).setVisibility(View.VISIBLE);
@@ -270,9 +269,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void newQuestion() {
+
+        //Log.e("GAGO:", StageActivity.CURRENT_GAME.getBeginnerGame().getGameQuestions_SHORT().get(0).getAnswer()+" "+StageActivity.CURRENT_GAME.getBeginnerGame().getGameQuestions_SHORT().get(0).isAnswered()+"");
         /*switch(gameMode){
             case 0: Log.e("FUCKING SHIT", baseGame.getCurrentLevel()+" answered successfully");
-                FiveLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");break;
+                //FiveLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");break;
             //case 1: SevenLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
             //case 2: NineLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
         }*/

@@ -58,7 +58,7 @@ public class StageActivity extends AppCompatActivity {
                 break;
         }
 
-        Log.e("EEEEEE", questionsSize+"");
+        //Log.e("EEEEEE", questionsSize+"");
 
         getSupportActionBar().setTitle(CURRENT_GAME_MODE);
 
@@ -94,7 +94,6 @@ public class StageActivity extends AppCompatActivity {
                                 }
                             currentLevel = game.getBeginnerGame().getAccomplished(BaseGame.POOL_SHORT)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_LONG);
                         game.getBeginnerGame().setCurrentLevel(currentLevel);
-                        Log.e("LEVEL ", currentLevel + "");
                         break;
                     case BaseGame.MODE_ADVANCED :
                         switch(gameDifficulty) {

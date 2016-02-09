@@ -125,10 +125,10 @@ public class DatabaseConnector {
             GamePool gl = new GamePool();
             gl.setImageRes(cursor.getInt(0));
             gl.setSoundRes(cursor.getInt(1));
-            gl.setAnswer(cursor.getString(3));
-            gl.setGameMode(cursor.getInt(4));
-            gl.setLevel(cursor.getInt(5));
-            gl.setClassi(cursor.getInt(6));
+            gl.setAnswer(cursor.getString(2));
+            gl.setGameMode(cursor.getInt(3));
+            gl.setLevel(cursor.getInt(4));
+            gl.setClassi(cursor.getInt(5));
             return gl;
         }
         return null;
@@ -147,10 +147,10 @@ public class DatabaseConnector {
             gl = new GamePool();
             gl.setImageRes(cursor.getInt(0));
             gl.setSoundRes(cursor.getInt(1));
-            gl.setAnswer(cursor.getString(3));
-            gl.setGameMode(cursor.getInt(4));
-            gl.setLevel(cursor.getInt(5));
-            gl.setClassi(cursor.getInt(6));
+            gl.setAnswer(cursor.getString(2));
+            gl.setGameMode(cursor.getInt(3));
+            gl.setLevel(cursor.getInt(4));
+            gl.setClassi(cursor.getInt(5));
             gamePoolList.add(gl);
         }
         Log.e("RETRIEVE COUNT OF GAME","mode->"+gameMode+" count->"+gamePoolList.size());

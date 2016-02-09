@@ -61,6 +61,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("FLW:", "onCreateView Called");
         rootView = inflater.inflate(R.layout.fragment_5letterword, container, false);
         ButterKnife.bind(this, rootView);
 
@@ -87,7 +88,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getAssetImage(getActivity(), "box"));
+                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
