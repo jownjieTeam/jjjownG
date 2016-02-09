@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
@@ -21,6 +22,7 @@ public class HomeScreen extends Activity {
     public static DatabaseController dc;
     public Stack<Fragment> fragmentStack;
     public static HomeScreen instance;
+    public boolean volume = false;
 
     @OnClick(R.id.button_play)
     public void playGame(){

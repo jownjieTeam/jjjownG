@@ -51,7 +51,7 @@
                     android:background="@drawable/volume"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:id="@+id/imageButton" />
+                    android:id="@+id/volume_btn" />
 
             </LinearLayout>
 
@@ -85,7 +85,7 @@
 
         <ImageView
             android:background="@mipmap/logo"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView4"
