@@ -31,6 +31,7 @@ import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,10 +50,21 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     FiveLetterWord mFiveLetterWord;
     private int REQUEST_CODE = 0;
 
-    public static Button[] levelBtnList;
     public static TableRow[] tbls;
     private int questionsSize;
     private String gameModeString;
+
+    @Bind({R.id.five_button1,
+            R.id.five_button2,
+            R.id.five_button3,
+            R.id.five_button4,
+            R.id.five_button5,
+            R.id.five_button6,
+            R.id.five_button7,
+            R.id.five_button8,
+            R.id.five_button9,
+            R.id.five_button10})
+    Button[] levelBtnList;
 
     @OnClick(R.id.five_button_back_menu)
     public void back(){
@@ -68,36 +80,17 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
 
         // temporary
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
-        questionsSize = 10;
-        inflateLevels();
+
         return rootView;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void inflateLevels(){
-
-        Log.e("INFLATE", "INFLATE");
-        int columnNum = 5;
-        int ctr = 1;
-        tbls = new TableRow[(questionsSize%2==0)?questionsSize/columnNum:(questionsSize/columnNum)+1];
-        levelBtnList = new Button[questionsSize];
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(100, 100);
-        layoutParams.setMargins(2, 0, 2, 0);
-
-        for(int i = 0; i < tbls.length; i++) {
-            tbls[i] = new TableRow(getActivity());
-            tbls[i].setGravity(Gravity.CENTER);
-            tableLayout.addView(tbls[i]);
-            for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
-                levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
-                levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
-                levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
-                levelBtnList[i].setText(ctr + "");
-                levelBtnList[i].setOnClickListener(this);
-                tbls[i].addView(levelBtnList[i]);
-                ctr++;
-            }
+    //because you cannot set typeface in xml report AS
+    public void initLevelList(){
+        for(int i = 0; i < levelBtnList.length; i++){
+            levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
+            levelBtnList[i].setText(i+1+"");
+            levelBtnList[i].setOnClickListener(this);
         }
     }
 
