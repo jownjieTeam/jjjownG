@@ -43,16 +43,6 @@
         -->
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:padding="20dp"
-            fresco:backgroundImage="@mipmap/image"
-            fresco:roundedCornerRadius="5dp"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:padding="60dp"
             fresco:placeholderImageScaleType="fitStart"
             fresco:backgroundImage="@color/black_overlay"
             android:layout_width="250dp"
@@ -64,15 +54,20 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <HorizontalScrollView
         android:gravity="center"
-        android:id="@+id/ans_container"
         android:layout_weight="0.4"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:id="@+id/ans_container"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_below="@id/haha"
@@ -86,6 +81,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/tableLayout">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -93,7 +89,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -102,7 +98,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -111,7 +107,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -120,7 +116,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -129,7 +125,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -139,6 +135,7 @@
                 <Button
                     android:textSize="20sp"
                     android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -154,7 +151,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -163,7 +160,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -172,7 +169,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -181,7 +178,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -190,7 +187,7 @@
 
                 <Button
                     android:textSize="20sp"
-                    android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -200,11 +197,12 @@
                 <Button
                     android:textSize="20sp"
                     android:visibility="gone"
+                    android:background="@mipmap/box"
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:id="@+id/button12"
-                    android:layout_column="5" />
+                    android:layout_column="4" />
             </TableRow>
 
         </TableLayout>

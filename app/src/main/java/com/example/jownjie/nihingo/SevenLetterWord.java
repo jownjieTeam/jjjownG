@@ -45,11 +45,23 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
     View rootView;
 
     private Typeface GAME_FONT_NUMBERS;
-    public static Button[] levelBtnList;
     TableRow[] tbls;
     private int questionsSize=10;
     private String gameModeString;
     private int REQUEST_CODE = 0;
+
+
+    @Bind({R.id.seven_button1,
+            R.id.seven_button2,
+            R.id.seven_button3,
+            R.id.seven_button4,
+            R.id.seven_button5,
+            R.id.seven_button6,
+            R.id.seven_button7,
+            R.id.seven_button8,
+            R.id.seven_button9,
+            R.id.seven_button10})
+    Button[] levelBtnList;
 
     @OnClick(R.id.seven_button_back_menu)
     public void back(){
@@ -63,35 +75,23 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, rootView);
 
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
-        inflateLevels();
+        initLevelBtnList();
         return rootView;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void inflateLevels(){
-        int columnNum = 5;
-        int ctr = 1;
-        tbls = new TableRow[(questionsSize%2==0)?questionsSize/columnNum:(questionsSize/columnNum)+1];
-        levelBtnList = new Button[questionsSize];
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(100, 100);
-
-        for(int i = 0; i < tbls.length; i++) {
-            tbls[i] = new TableRow(getActivity());
-            tbls[i].setGravity(Gravity.CENTER);
-            tableLayout.addView(tbls[i]);
-            for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
-                levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
-                levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
-                levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
-                levelBtnList[i].setText(ctr + "");
-                levelBtnList[i].setOnClickListener(this);
-                tbls[i].addView(levelBtnList[i]);
-                ctr++;
-            }
+    //because you cannot set typeface in xml report AS
+    public void initLevelBtnList(){
+        for(int i = 0; i < levelBtnList.length; i++){
+            levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
+            levelBtnList[i].setText(i+1+"");
+            levelBtnList[i].setOnClickListener(this);
         }
     }
 
+    public Button[] getLevelBtnList() {
+        return levelBtnList;
+    }
     public SevenLetterWord getNewInstance(String gameMode){
         SevenLetterWord sevenLetterWord = new SevenLetterWord();
         Bundle bundle = new Bundle();
