@@ -116,6 +116,34 @@ public class ModeActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        final boolean[] back = {false};
+        AlertDialog ad = new AlertDialog.Builder(this)
+                .setMessage("DO YOU WANT TO SAVE BEFORE GOING BACK?")
+                .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        back[0] = true;
+                        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getAccomplished()+game.getAdvancedGame().getAccomplished()+game.getExpertGame().getAccomplished());
+                        HomeScreen.dc.addTopPlayer(game.getTopPlayer());
+
+                    }
+                })
+                .setCancelable(false)
+                .create();
+        ad.show();
+
+        if(back[0])
+            super.onBackPressed();
+    }
+
+    /*@Override
     public void finish() {
         AlertDialog ad = new AlertDialog.Builder(this)
                 .setMessage("DO YOU WANT TO SAVE BEFORE GOING BACK?")
@@ -136,7 +164,7 @@ public class ModeActivity extends Activity {
                 .create();
         ad.show();
         super.finish();
-    }
+    }*/
 
     private void initProgress() {
         beginner.setTypeface(GAME_FONT_NUMBERS);

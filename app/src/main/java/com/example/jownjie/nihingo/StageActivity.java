@@ -260,8 +260,8 @@ public class StageActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0: return fiveLetterWord;
-                case 1: return new SevenLetterWord().getNewInstance(gameMode);
-                case 2: return new NineLetterWord().getNewInstance(gameMode);
+                case 1: return sevenLetterWord;
+                case 2: return nineLetterWord;
             }
             return null;
         }
