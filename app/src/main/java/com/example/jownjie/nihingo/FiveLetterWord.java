@@ -80,18 +80,22 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
 
         // temporary
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
-        initLevelList();
+        initLevelBtnList();
         return rootView;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     //because you cannot set typeface in xml report AS
-    public void initLevelList(){
+    public void initLevelBtnList(){
         for(int i = 0; i < levelBtnList.length; i++){
             levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
             levelBtnList[i].setText(i+1+"");
             levelBtnList[i].setOnClickListener(this);
         }
+    }
+
+    public Button[] getLevelBtnList() {
+        return levelBtnList;
     }
 
     public FiveLetterWord getNewInstance(String gameMode){

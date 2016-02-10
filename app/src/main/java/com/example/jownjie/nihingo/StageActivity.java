@@ -38,11 +38,19 @@ public class StageActivity extends AppCompatActivity {
     private List<Integer> sevenLetter;
     private List<Integer> nineLetter;
 
+    public static FiveLetterWord fiveLetterWord;
+    public static SevenLetterWord sevenLetterWord;
+    public static NineLetterWord nineLetterWord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
         ButterKnife.bind(this);
+
+        fiveLetterWord = new FiveLetterWord();
+        sevenLetterWord = new SevenLetterWord();
+        nineLetterWord = new NineLetterWord();
 
 
         gameMode = getIntent().getExtras().getInt("GAME_MODE");
@@ -236,7 +244,7 @@ public class StageActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0: return new FiveLetterWord().getNewInstance(gameMode);
+                case 0: return fiveLetterWord;
                 case 1: return new SevenLetterWord().getNewInstance(gameMode);
                 case 2: return new NineLetterWord().getNewInstance(gameMode);
             }
