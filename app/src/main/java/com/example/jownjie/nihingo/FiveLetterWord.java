@@ -80,7 +80,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
 
         // temporary
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
-
+        initLevelList();
         return rootView;
     }
 
