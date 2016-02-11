@@ -169,7 +169,7 @@ public class GameActivity extends AppCompatActivity {
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
             game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
-            baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<5);
+            baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<10);
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESS")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
