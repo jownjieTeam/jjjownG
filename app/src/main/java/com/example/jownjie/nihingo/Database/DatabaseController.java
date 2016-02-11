@@ -69,10 +69,9 @@ public class DatabaseController {
      * @param gameMode, type int : used as condition in query
      * @return TopPlayer[]
      */
-    public TopPlayer[] getTopPlayer(int gameMode) {
+    public TopPlayer[] getTopPlayer() {
         TopPlayer[] topPlayerArray = new TopPlayer[10];
-        if(validGameMode(gameMode))
-            topPlayerArray = dc.getTopPlayer(gameMode);
+        topPlayerArray = dc.getTopPlayer();
         return topPlayerArray;
     }
 
