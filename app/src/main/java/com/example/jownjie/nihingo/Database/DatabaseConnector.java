@@ -181,7 +181,7 @@ public class DatabaseConnector {
      * @param gameMode, type int : gameMode to be retrieved from TopPlayer table.
      * @return Array of TopPlayer size:10
      */
-    public TopPlayer[] getTopPlayer(int gameMode) {
+    public TopPlayer[] getTopPlayer() {
         TopPlayer[] topPlayerArray = new TopPlayer[10];
         Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, null, null, null, null, DATA_TOPPLAYERS_GAMEPOINTS, String.valueOf("10"));
         TopPlayer tp;

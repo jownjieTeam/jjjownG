@@ -81,6 +81,14 @@ public class StageActivity extends AppCompatActivity {
                 break;
         }
 
+        //Log.e("EEEEEE", questionsSize+"");
+
+        getSupportActionBar().setTitle(CURRENT_GAME_MODE);
+
+        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), CURRENT_GAME_MODE));
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+
         for(int i=0; i < fiveLetter.size(); i++) {
             if(fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
                 fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
@@ -95,13 +103,6 @@ public class StageActivity extends AppCompatActivity {
             if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
                 nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
         }
-
-        //Log.e("EEEEEE", questionsSize+"");
-
-        getSupportActionBar().setTitle(CURRENT_GAME_MODE);
-
-        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), CURRENT_GAME_MODE));
-        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     public static String getGameMode() {
