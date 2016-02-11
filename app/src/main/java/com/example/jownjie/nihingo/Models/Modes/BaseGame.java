@@ -121,7 +121,6 @@ public abstract class BaseGame implements Serializable{
             default:    Log.e("GAME ERROR", "LENGTH IS INVALID");
                 break;
         }
-
         return counter;
     }
 
@@ -129,24 +128,29 @@ public abstract class BaseGame implements Serializable{
         List<Integer> accomplished = new ArrayList<>();
         switch(gameQuestions_LENGTH) {
             case POOL_SHORT: for(GamePool gp : gameQuestions_SHORT) {
-                if(gp.isAnswered())
+                if(gp.isAnswered()) {
                     accomplished.add(gp.getLevel());
+                    Log.e("ACCOMPLISHED ", gp.getLevel()+"");
+                }
             }
                 break;
             case POOL_MEDIUM:  for(GamePool gp : gameQuestions_MEDIUM) {
-                if(gp.isAnswered())
+                if(gp.isAnswered()) {
                     accomplished.add(gp.getLevel());
+                    Log.e("ACCOMPLISHED ", gp.getLevel() + "");
+                }
             }
                 break;
             case POOL_LONG:     for(GamePool gp : gameQuestions_LONG) {
-                if(gp.isAnswered())
+                if(gp.isAnswered()) {
                     accomplished.add(gp.getLevel());
+                    Log.e("ACCOMPLISHED ", gp.getLevel() + "");
+                }
             }
                 break;
             default:    Log.e("GAME ERROR", "LENGTH IS INVALID");
                 break;
         }
-
         return accomplished;
     }
 

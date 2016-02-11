@@ -50,7 +50,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     private int REQUEST_CODE = 0;
 
     public static Button[] levelBtnList;
-    TableRow[] tbls;
+    public static TableRow[] tbls;
     private int questionsSize;
     private String gameModeString;
 
@@ -75,6 +75,8 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void inflateLevels(){
+
+        Log.e("INFLATE", "INFLATE");
         int columnNum = 5;
         int ctr = 1;
         tbls = new TableRow[(questionsSize%2==0)?questionsSize/columnNum:(questionsSize/columnNum)+1];
@@ -89,7 +91,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground((StageActivity.fiveLetter.contains(ctr)) ? getAssetImage(getActivity(), R.mipmap.star_box) : getAssetImage(getActivity(), R.mipmap.box));
+                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
@@ -97,18 +99,6 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
                 ctr++;
             }
         }
-    }
-
-    public Drawable getAssetImage(Context context, int filename) {
-        Resources resources = getActivity().getResources();
-        InputStream is = null;
-        try {
-            is = resources.openRawResource(filename);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(is);
-        return new BitmapDrawable(getActivity().getResources(), bitmap);
     }
 
     public FiveLetterWord getNewInstance(String gameMode){

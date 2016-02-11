@@ -45,7 +45,7 @@ public class NineLetterWord extends Fragment implements View.OnClickListener {
     View rootView;
 
     private Typeface GAME_FONT_NUMBERS;
-    Button[] levelBtnList;
+    public static Button[] levelBtnList;
     TableRow[] tbls;
     private int questionsSize=10;
     private String gameModeString;
@@ -82,7 +82,7 @@ public class NineLetterWord extends Fragment implements View.OnClickListener {
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground((StageActivity.nineLetter.contains(ctr)) ? getAssetImage(getActivity(), R.mipmap.star_box) : getAssetImage(getActivity(), R.mipmap.box));
+                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
@@ -90,18 +90,6 @@ public class NineLetterWord extends Fragment implements View.OnClickListener {
                 ctr++;
             }
         }
-    }
-
-    public Drawable getAssetImage(Context context, int filename) {
-        Resources resources = getActivity().getResources();
-        InputStream is = null;
-        try {
-            is = resources.openRawResource(filename);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(is);
-        return new BitmapDrawable(getActivity().getResources(), bitmap);
     }
 
     public NineLetterWord getNewInstance(String gameMode){

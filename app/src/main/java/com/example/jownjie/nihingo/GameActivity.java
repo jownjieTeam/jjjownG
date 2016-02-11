@@ -259,10 +259,10 @@ public class GameActivity extends AppCompatActivity {
             }
             baseGame.setQuestionsSize(baseGame.getGamePoolList().size());
             baseGame.setCurrentLevel(currentLevel);
-            newQuestion();
             game.newT(timer);
             game.getTimer().setPause(true);
             game.getTimer().execute();
+            newQuestion();
         } catch(NullPointerException npe) {
             npe.printStackTrace();
         }
