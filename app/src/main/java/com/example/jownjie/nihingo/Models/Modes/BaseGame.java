@@ -125,13 +125,29 @@ public abstract class BaseGame implements Serializable{
         return counter;
     }
 
-    public int getAccomplished() {
-        int counter = 0;
-        for(GamePool gp : questionsPool) {
-            if(gp.isAnswered())
-                counter++;
+    public List<Integer> getLevelsAccomplished(int gameQuestions_LENGTH) {
+        List<Integer> accomplished = new ArrayList<>();
+        switch(gameQuestions_LENGTH) {
+            case POOL_SHORT: for(GamePool gp : gameQuestions_SHORT) {
+                if(gp.isAnswered())
+                    accomplished.add(gp.getLevel());
+            }
+                break;
+            case POOL_MEDIUM:  for(GamePool gp : gameQuestions_MEDIUM) {
+                if(gp.isAnswered())
+                    accomplished.add(gp.getLevel());
+            }
+                break;
+            case POOL_LONG:     for(GamePool gp : gameQuestions_LONG) {
+                if(gp.isAnswered())
+                    accomplished.add(gp.getLevel());
+            }
+                break;
+            default:    Log.e("GAME ERROR", "LENGTH IS INVALID");
+                break;
         }
-        return counter;
+
+        return accomplished;
     }
 
     public boolean isAccomplished() {

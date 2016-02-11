@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -88,7 +89,7 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
             for(int j = 0; j < columnNum && ctr <= questionsSize; j++) {
                 levelBtnList[i] = new Button(getActivity(), null, android.R.attr.buttonStyleSmall);
                 levelBtnList[i].setLayoutParams(layoutParams);
-                levelBtnList[i].setBackground(getResources().getDrawable(R.mipmap.box));
+                levelBtnList[i].setBackground((StageActivity.fiveLetter.contains(ctr)) ? getAssetImage(getActivity(), R.mipmap.star_box) : getAssetImage(getActivity(), R.mipmap.box));
                 levelBtnList[i].setTypeface(GAME_FONT_NUMBERS);
                 levelBtnList[i].setText(ctr + "");
                 levelBtnList[i].setOnClickListener(this);
@@ -98,15 +99,15 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
         }
     }
 
-    public Drawable getAssetImage(Context context, String filename) {
-        AssetManager assets = getActivity().getResources().getAssets();
-        InputStream buffer = null;
+    public Drawable getAssetImage(Context context, int filename) {
+        Resources resources = getActivity().getResources();
+        InputStream is = null;
         try {
-            buffer = new BufferedInputStream((assets.open("drawable/" + filename + ".png")));
-        } catch (IOException e) {
+            is = resources.openRawResource(filename);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Bitmap bitmap = BitmapFactory.decodeStream(buffer);
+        Bitmap bitmap = BitmapFactory.decodeStream(is);
         return new BitmapDrawable(getActivity().getResources(), bitmap);
     }
 

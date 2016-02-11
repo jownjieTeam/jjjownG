@@ -13,6 +13,8 @@ import android.view.View;
 import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -29,6 +31,11 @@ public class StageActivity extends AppCompatActivity {
     private int REQUEST_CODE = 0;
     private int RESULT_CODE = 1;
 
+
+    public static List<Integer> fiveLetter;
+    public static List<Integer> sevenLetter;
+    public static List<Integer> nineLetter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,21 +47,27 @@ public class StageActivity extends AppCompatActivity {
         game = (Game)getIntent().getExtras().getSerializable("GAME");
         CURRENT_GAME = game;
 
-        switch (gameMode){
-            case BaseGame.MODE_BEGINNER: CURRENT_GAME_MODE = "General Info";break;
-            case BaseGame.MODE_ADVANCED: CURRENT_GAME_MODE = "Technology";break;
-            case BaseGame.MODE_EXPERT: CURRENT_GAME_MODE = "Science";break;
-        }
-
         switch(gameMode){
-            case 0:
+            case BaseGame.MODE_BEGINNER:
                 questionsSize = game.getBeginnerGame().getQuestionsSize();
+                CURRENT_GAME_MODE = "General Info";
+                fiveLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                sevenLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                nineLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                 break;
-            case 1:
+            case BaseGame.MODE_ADVANCED:
                 questionsSize = game.getAdvancedGame().getQuestionsSize();
+                CURRENT_GAME_MODE = "Technology";
+                fiveLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                sevenLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                nineLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                 break;
-            case 2:
+            case BaseGame.MODE_EXPERT:
                 questionsSize = game.getExpertGame().getQuestionsSize();
+                CURRENT_GAME_MODE = "Science";
+                fiveLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                sevenLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                nineLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                 break;
         }
 
@@ -84,10 +97,13 @@ public class StageActivity extends AppCompatActivity {
                     case BaseGame.MODE_BEGINNER :
                                 switch(gameDifficulty) {
                                     case BaseGame.POOL_SHORT : game.getBeginnerGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                        fiveLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
                                         break;
                                     case BaseGame.POOL_MEDIUM : game.getBeginnerGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                        sevenLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                         break;
                                     case BaseGame.POOL_LONG : game.getBeginnerGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                        nineLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                         break;
                                     default: Log.e("ERROR", "BEGINNER -> DIFFICULTY -> LENGTH INVALID.");
                                         break;
@@ -98,10 +114,13 @@ public class StageActivity extends AppCompatActivity {
                     case BaseGame.MODE_ADVANCED :
                         switch(gameDifficulty) {
                             case BaseGame.POOL_SHORT : game.getAdvancedGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                fiveLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
                                 break;
                             case BaseGame.POOL_MEDIUM : game.getAdvancedGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                sevenLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                 break;
                             case BaseGame.POOL_LONG : game.getAdvancedGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                nineLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                 break;
                             default: Log.e("ERROR", "ADVANCED -> DIFFICULTY -> LENGTH INVALID.");
                                 break;
@@ -113,10 +132,13 @@ public class StageActivity extends AppCompatActivity {
                     case BaseGame.MODE_EXPERT :
                         switch(gameDifficulty) {
                             case BaseGame.POOL_SHORT : game.getExpertGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                fiveLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
                                 break;
                             case BaseGame.POOL_MEDIUM : game.getExpertGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                sevenLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                 break;
                             case BaseGame.POOL_LONG : game.getExpertGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                nineLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                 break;
                             default: Log.e("ERROR", "EXPERT -> DIFFICULTY -> LENGTH INVALID.");
                                 break;
