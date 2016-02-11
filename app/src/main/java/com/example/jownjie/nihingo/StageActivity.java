@@ -87,13 +87,13 @@ public class StageActivity extends AppCompatActivity {
         }
 
         for(int i=0; i < sevenLetter.size(); i++) {
-            if(sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+            if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
         }
 
         for(int i=0; i < nineLetter.size(); i++) {
-            if(nineLetterWord.getBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                nineLetterWord.getBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+            if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
         }
 
         //Log.e("EEEEEE", questionsSize+"");
@@ -132,15 +132,15 @@ public class StageActivity extends AppCompatActivity {
                                     case BaseGame.POOL_MEDIUM : game.getBeginnerGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
                                         sevenLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                         for(int i=0; i < sevenLetter.size(); i++) {
-                                            if(sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                                sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                            if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                                sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                         }
                                         break;
                                     case BaseGame.POOL_LONG : game.getBeginnerGame().setGameQuestions_LONG(temp.getGamePoolList());
                                         nineLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                         for(int i=0; i < nineLetter.size(); i++) {
-                                            if(nineLetterWord.getBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                                nineLetterWord.getBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                            if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                                nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                         }
                                         break;
                                     default: Log.e("ERROR", "BEGINNER -> DIFFICULTY -> LENGTH INVALID.");
@@ -161,15 +161,15 @@ public class StageActivity extends AppCompatActivity {
                             case BaseGame.POOL_MEDIUM : game.getAdvancedGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
                                 sevenLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                 for(int i=0; i < sevenLetter.size(); i++) {
-                                    if(sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                        sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                    if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                 }
                                 break;
                             case BaseGame.POOL_LONG : game.getAdvancedGame().setGameQuestions_LONG(temp.getGamePoolList());
                                 nineLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                 for(int i=0; i < nineLetter.size(); i++) {
-                                    if(nineLetterWord.getBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                        nineLetterWord.getBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                    if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                 }
                                 break;
                             default: Log.e("ERROR", "ADVANCED -> DIFFICULTY -> LENGTH INVALID.");
@@ -191,15 +191,15 @@ public class StageActivity extends AppCompatActivity {
                             case BaseGame.POOL_MEDIUM : game.getExpertGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
                                 sevenLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
                                 for(int i=0; i < sevenLetter.size(); i++) {
-                                    if(sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                        sevenLetterWord.getBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                    if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                 }
                                 break;
                             case BaseGame.POOL_LONG : game.getExpertGame().setGameQuestions_LONG(temp.getGamePoolList());
                                 nineLetter = game.getExpertGame().getLevelsAccomplished(BaseGame.POOL_LONG);
                                 for(int i=0; i < nineLetter.size(); i++) {
-                                    if(nineLetterWord.getBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                        nineLetterWord.getBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                    if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                 }
                                 break;
                             default: Log.e("ERROR", "EXPERT -> DIFFICULTY -> LENGTH INVALID.");
@@ -219,7 +219,7 @@ public class StageActivity extends AppCompatActivity {
     public void finish() {
         Intent intent = new Intent();
         intent.putExtra("GAME_MODE",gameMode);
-        intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
+        //intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
         switch(gameMode) {
             case BaseGame.MODE_BEGINNER :
                 intent.putExtra("GAME", game.getBeginnerGame());

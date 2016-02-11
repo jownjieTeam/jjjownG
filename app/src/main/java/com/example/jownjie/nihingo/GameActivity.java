@@ -168,7 +168,7 @@ public class GameActivity extends AppCompatActivity {
         if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
-            game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
+            //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
             baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<10);
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESS")
@@ -313,16 +313,15 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         game.getTimer().cancel(true);
-
+        super.onBackPressed();
     }
 
     @Override
     public void finish() {
         Intent intent = new Intent();
         intent.putExtra("GAME_MODE",gameMode);
-        intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
+        //intent.putExtra("TOP_PLAYER", game.getTopPlayer().getGamePoints());
         intent.putExtra("GAME", baseGame);
         intent.putExtra("TIMER", game.getTimer().getTotalTime());
         intent.putExtra("GAME_DIFFICULTY", gameDifficulty);

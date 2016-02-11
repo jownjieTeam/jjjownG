@@ -154,6 +154,23 @@ public abstract class BaseGame implements Serializable{
         return accomplished;
     }
 
+    public int getAccomplished() {
+        int counter = 0;
+            for(GamePool gp : gameQuestions_SHORT) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+            for(GamePool gp : gameQuestions_MEDIUM) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+            for(GamePool gp : gameQuestions_LONG) {
+                if(gp.isAnswered())
+                    counter++;
+            }
+        return counter;
+    }
+
     public boolean isAccomplished() {
         if(currentLevel==questionsSize)
             return true;

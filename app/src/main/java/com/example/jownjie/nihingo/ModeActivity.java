@@ -1,6 +1,8 @@
 package com.example.jownjie.nihingo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -69,7 +71,7 @@ public class ModeActivity extends Activity {
         intent.putExtra("GAME_MODE", gameMode);
         intent.putExtra("GAME", game);
         intent.putExtra("CURRENT_LEVEL",currentLevel);
-        startActivityForResult(intent,REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
@@ -88,8 +90,8 @@ public class ModeActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(REQUEST_CODE == requestCode) {
             if(RESULT_CODE == resultCode) {
-                int gamePoints = data.getExtras().getInt("TOP_PLAYER");
-                    game.getTopPlayer().setGamePoints(gamePoints);
+                //int gamePoints = data.getExtras().getInt("TOP_PLAYER");
+                    //game.getTopPlayer().setGamePoints(gamePoints);
                 int totalTime = data.getExtras().getInt("TIMER");
                     game.getTimer().setTotalTime(totalTime);
                 gameMode = data.getExtras().getInt("GAME_MODE");
@@ -111,6 +113,29 @@ public class ModeActivity extends Activity {
     protected void onResume() {
         initProgress();
         super.onResume();
+    }
+
+    @Override
+    public void finish() {
+        AlertDialog ad = new AlertDialog.Builder(this)
+                .setMessage("DO YOU WANT TO SAVE BEFORE GOING BACK?")
+                .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getAccomplished()+game.getAdvancedGame().getAccomplished()+game.getExpertGame().getAccomplished());
+                        HomeScreen.dc.addTopPlayer(game.getTopPlayer());
+                    }
+                })
+                .setCancelable(false)
+                .create();
+        ad.show();
+        super.finish();
     }
 
     private void initProgress() {
