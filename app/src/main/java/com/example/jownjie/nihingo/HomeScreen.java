@@ -29,11 +29,13 @@ public class HomeScreen extends Activity {
     public void playGame(){
         //TODO: diri tong new play game2 shit wtf bro
         startActivity(new Intent(this, ModeActivity.class));
+        //startActivity(new Intent(this, RankingActivity.class));
     }
 
     @OnClick(R.id.button_instructions)
      public void instructions(){
-        addFragment(new InstructionsFragment());
+        //addFragment(new InstructionsFragment());
+        startActivity(new Intent(this, RankingActivity.class));
     }
 
     @Override

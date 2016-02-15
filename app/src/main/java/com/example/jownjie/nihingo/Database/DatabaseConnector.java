@@ -183,7 +183,7 @@ public class DatabaseConnector {
      */
     public TopPlayer[] getTopPlayer() {
         TopPlayer[] topPlayerArray = new TopPlayer[10];
-        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, null, null, null, null, DATA_TOPPLAYERS_GAMEPOINTS, String.valueOf("10"));
+        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, null, null, null, null, DATA_TOPPLAYERS_GAMEPOINTS + " DESC", "10");
         TopPlayer tp;
         int count = 0;
         while(cursor.moveToNext()) {
@@ -191,6 +191,7 @@ public class DatabaseConnector {
             tp.setPlayerName(cursor.getString(0));
             tp.setGamePoints(cursor.getInt(1));
             topPlayerArray[count++] = tp;
+            Log.e("PLAYER NAME", tp.getPlayerName()+"");
         }
         return topPlayerArray;
     }

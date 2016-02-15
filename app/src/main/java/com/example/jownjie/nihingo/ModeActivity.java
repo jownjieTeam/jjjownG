@@ -63,9 +63,6 @@ public class ModeActivity extends Activity {
     }
 
     private void startNewActivity() {
-        if(playerName.getText().toString().length()!=0) {
-            game.getTopPlayer().setPlayerName(playerName.getText().toString());
-        }
         //Intent intent = new Intent(this, LevelSelectionActivity.class);
         Intent intent = new Intent(this, StageActivity.class);
         intent.putExtra("GAME_MODE", gameMode);
@@ -130,17 +127,17 @@ public class ModeActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         back[0] = true;
-                        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getAccomplished()+game.getAdvancedGame().getAccomplished()+game.getExpertGame().getAccomplished());
-                        HomeScreen.dc.addTopPlayer(game.getTopPlayer());
-
+                        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
+                        if(playerName.getText().toString().length()!=0 && game.getTopPlayer().getGamePoints()>0) {
+                            game.getTopPlayer().setPlayerName(playerName.getText().toString());
+                            HomeScreen.dc.addTopPlayer(game.getTopPlayer());
+                            ModeActivity.this.finish();
+                        }
                     }
                 })
                 .setCancelable(false)
                 .create();
         ad.show();
-
-        if(back[0])
-            super.onBackPressed();
     }
 
     /*@Override
