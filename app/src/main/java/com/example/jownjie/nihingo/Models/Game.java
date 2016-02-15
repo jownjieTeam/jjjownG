@@ -47,17 +47,23 @@ public class Game implements Serializable {
         return beginnerGame;
     }
 
-    public void setBeginnerGame(BaseGame beginnerGame) { this.beginnerGame.setCurrentLevel(beginnerGame.getCurrentLevel()); }
+    public void setBeginnerGameLevel(BaseGame beginnerGame) { this.beginnerGame.setCurrentLevel(beginnerGame.getCurrentLevel()); }
+
+    public void setBeginnerGame(BaseGame beginnerGame) { this.beginnerGame = beginnerGame; }
 
     public BaseGame getAdvancedGame() {
         return advancedGame;
     }
 
-    public void setAdvancedGame(BaseGame advancedGame) { this.advancedGame.setCurrentLevel(advancedGame.getCurrentLevel()); }
+    public void setAdvancedGameLevel(BaseGame advancedGame) { this.advancedGame.setCurrentLevel(advancedGame.getCurrentLevel()); }
+
+    public void setAdvancedGame(BaseGame advancedGame) { this.advancedGame = advancedGame; }
 
     public BaseGame getExpertGame() {
         return expertGame;
     }
 
-    public void setExpertGame(BaseGame expertGame) { this.expertGame.setCurrentLevel(expertGame.getCurrentLevel()); }
+    public void setExpertGameLevel(BaseGame expertGame) { this.expertGame.setCurrentLevel(expertGame.getCurrentLevel()); }
+
+    public void setExpertGame(BaseGame expertGame) { this.expertGame = expertGame; }
 }
