@@ -290,7 +290,8 @@ public class GameActivity extends AppCompatActivity {
             }
         } else {
             game.getTimer().cancel(true);
-            AlertDialog ad = new AlertDialog.Builder(this)
+
+            /*AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESSULLY ANSWERED ALL QUESTIONS!")
                     .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
                         @Override
@@ -307,7 +308,7 @@ public class GameActivity extends AppCompatActivity {
                     })
                     .setCancelable(false)
                     .create();
-            ad.show();
+            ad.show();*/
         }
     }
 
