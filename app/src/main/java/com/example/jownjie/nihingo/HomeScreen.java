@@ -34,9 +34,11 @@ public class HomeScreen extends Activity {
 
     @OnClick(R.id.button_instructions)
      public void instructions(){
-        //addFragment(new InstructionsFragment());
-        startActivity(new Intent(this, RankingActivity.class));
+        addFragment(new InstructionsFragment());
     }
+
+    @OnClick(R.id.ranking_btn)
+    public void ranking(){ startActivity(new Intent(this, RankingActivity.class));}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

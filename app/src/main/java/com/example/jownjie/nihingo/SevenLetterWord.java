@@ -28,6 +28,7 @@ import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,6 +51,7 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
     private String gameModeString;
     private int REQUEST_CODE = 0;
 
+    private List<Integer> levelsAccomplishedList;
 
     @Bind({R.id.seven_button1,
             R.id.seven_button2,
@@ -73,6 +75,31 @@ public class SevenLetterWord extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_7letterword, container, false);
         ButterKnife.bind(this, rootView);
+
+        switch(StageActivity.gameMode){
+            case BaseGame.MODE_BEGINNER:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if (levelBtnList[levelsAccomplishedList.get(i) - 1].getBackground() != this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i) - 1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+            case BaseGame.MODE_ADVANCED:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if(levelBtnList[levelsAccomplishedList.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+            case BaseGame.MODE_EXPERT:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getExpertGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if(levelBtnList[levelsAccomplishedList.get(i)-1].getBackground() != this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+
+        }
 
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");
         initLevelBtnList();

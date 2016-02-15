@@ -11,11 +11,17 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RankingActivity extends AppCompatActivity {
     @Bind(R.id.listView)ListView listView;
 
     ArrayList<String> topPlayerList = new ArrayList<>();
+
+    @OnClick(R.id.button_back_menu_rank)
+    public void back(){
+        onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class RankingActivity extends AppCompatActivity {
         for(int i = 0; i < topPlayers.length; i++){
             if(topPlayers[i]!=null) {
                 if(topPlayers[i].getPlayerName()!=null) {
-                    topPlayerList.add(topPlayers[i].getPlayerName() + " " + topPlayers[i].getGamePoints());
+                    topPlayerList.add("Player: "+topPlayers[i].getPlayerName() + " Points: " + topPlayers[i].getGamePoints());
                 }
             }
         }

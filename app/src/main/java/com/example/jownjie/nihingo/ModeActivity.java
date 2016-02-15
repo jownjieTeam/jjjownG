@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
@@ -24,7 +25,8 @@ public class ModeActivity extends Activity {
     private Typeface GAME_FONT_NUMBERS;
 
     private int gameMode;
-    private Game game = null;
+    //public static Game CURRENT_GAME;
+    public Game game = null;
     private int currentLevel;
     private int REQUEST_CODE = 0;
     private int RESULT_CODE = 1;
@@ -43,23 +45,45 @@ public class ModeActivity extends Activity {
 
     @OnClick(R.id.level_beginner)
     public void setBeginnerMode() {
-        this.gameMode = BaseGame.MODE_BEGINNER;
-        currentLevel = game.getBeginnerGame().getCurrentLevel();
-        startNewActivity();
+        if(playerName.getText().toString().length() < 1){
+            Toast.makeText(ModeActivity.this, "please input your name!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            this.gameMode = BaseGame.MODE_BEGINNER;
+            currentLevel = game.getBeginnerGame().getCurrentLevel();
+            startNewActivity();
+        }
     }
 
     @OnClick(R.id.level_advanced)
     public void setAdvancedMode() {
-        this.gameMode = BaseGame.MODE_ADVANCED;
-        currentLevel = game.getAdvancedGame().getCurrentLevel();
-        startNewActivity();
+        if(playerName.getText().toString().length() < 1){
+            Toast.makeText(ModeActivity.this, "please input your name!", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            this.gameMode = BaseGame.MODE_ADVANCED;
+            currentLevel = game.getAdvancedGame().getCurrentLevel();
+            startNewActivity();
+        }
     }
 
     @OnClick(R.id.level_expert)
     public void setExpertMode() {
-        this.gameMode = BaseGame.MODE_EXPERT;
-        currentLevel = game.getExpertGame().getCurrentLevel();
-        startNewActivity();
+        if(playerName.getText().toString().length() < 1){
+            Toast.makeText(ModeActivity.this, "please input your name!", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            this.gameMode = BaseGame.MODE_EXPERT;
+            currentLevel = game.getExpertGame().getCurrentLevel();
+            startNewActivity();
+        }
+    }
+
+    @OnClick(R.id.button_back_menu_mode)
+    public void back(){
+        onBackPressed();
     }
 
     private void startNewActivity() {
@@ -116,26 +140,35 @@ public class ModeActivity extends Activity {
     public void onBackPressed() {
         final boolean[] back = {false};
         AlertDialog ad = new AlertDialog.Builder(this)
-                .setMessage("DO YOU WANT TO SAVE BEFORE GOING BACK?")
-                .setNegativeButton("BACK", new DialogInterface.OnClickListener() {
+                .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
+                .setMessage("Your progress will be deleted once you go back")
+                .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
-                .setNeutralButton("YES", new DialogInterface.OnClickListener() {
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ModeActivity.this.finish();
+                    }
+                })
+                .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         back[0] = true;
                         game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
-                        if(playerName.getText().toString().length()!=0 && game.getTopPlayer().getGamePoints()>0) {
+                        //if (playerName.getText().toString().length() != 0 && game.getTopPlayer().getGamePoints() > 0) {
                             game.getTopPlayer().setPlayerName(playerName.getText().toString());
                             HomeScreen.dc.addTopPlayer(game.getTopPlayer());
+                            Toast.makeText(ModeActivity.this, "Progress saved!", Toast.LENGTH_SHORT).show();
                             ModeActivity.this.finish();
-                        }
+                        //}
+
                     }
                 })
-                .setCancelable(false)
+                .setCancelable(true)
                 .create();
         ad.show();
     }

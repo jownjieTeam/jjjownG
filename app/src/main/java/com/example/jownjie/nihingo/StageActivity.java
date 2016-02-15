@@ -25,7 +25,12 @@ public class StageActivity extends AppCompatActivity {
     ViewPager mViewPager;
 
     private Game game;
+    private BaseGame gameTest;
+
     public static int gameMode;
+    BaseGame temp;
+    int gameDifficulty;
+
     public static int questionsSize;
     public static String CURRENT_GAME_MODE;
     public static Game CURRENT_GAME;
@@ -55,7 +60,10 @@ public class StageActivity extends AppCompatActivity {
 
         gameMode = getIntent().getExtras().getInt("GAME_MODE");
         game = (Game)getIntent().getExtras().getSerializable("GAME");
+        //gameTest = (BaseGame)getIntent().getExtras().getSerializable("GAME");
         CURRENT_GAME = game;
+
+        //updateAccomplishedLevels(gameMode, gameDifficulty, game);
 
         switch(gameMode){
             case BaseGame.MODE_BEGINNER:
@@ -81,7 +89,7 @@ public class StageActivity extends AppCompatActivity {
                 break;
         }
 
-        for(int i=0; i < fiveLetter.size(); i++) {
+        /*for(int i=0; i < fiveLetter.size(); i++) {
             if(fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
                 fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
         }
@@ -94,9 +102,7 @@ public class StageActivity extends AppCompatActivity {
         for(int i=0; i < nineLetter.size(); i++) {
             if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
                 nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
-        }
-
-        //Log.e("EEEEEE", questionsSize+"");
+        }*/
 
         getSupportActionBar().setTitle(CURRENT_GAME_MODE);
 
@@ -121,32 +127,32 @@ public class StageActivity extends AppCompatActivity {
                 int gameDifficulty = data.getExtras().getInt("GAME_DIFFICULTY");
                 switch(gameMode) {
                     case BaseGame.MODE_BEGINNER :
-                                switch(gameDifficulty) {
-                                    case BaseGame.POOL_SHORT : game.getBeginnerGame().setGameQuestions_SHORT(temp.getGamePoolList());
-                                        fiveLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
-                                        for(int i=0; i < fiveLetter.size(); i++) {
-                                            if(fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                                fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
-                                        }
-                                        break;
-                                    case BaseGame.POOL_MEDIUM : game.getBeginnerGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
-                                        sevenLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
-                                        for(int i=0; i < sevenLetter.size(); i++) {
-                                            if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                                sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
-                                        }
-                                        break;
-                                    case BaseGame.POOL_LONG : game.getBeginnerGame().setGameQuestions_LONG(temp.getGamePoolList());
-                                        nineLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_LONG);
-                                        for(int i=0; i < nineLetter.size(); i++) {
-                                            if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                                nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
-                                        }
-                                        break;
-                                    default: Log.e("ERROR", "BEGINNER -> DIFFICULTY -> LENGTH INVALID.");
-                                        break;
+                        switch(gameDifficulty) {
+                            case BaseGame.POOL_SHORT : game.getBeginnerGame().setGameQuestions_SHORT(temp.getGamePoolList());
+                                fiveLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                                for(int i=0; i < fiveLetter.size(); i++) {
+                                    if(fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
                                 }
-                            currentLevel = game.getBeginnerGame().getAccomplished(BaseGame.POOL_SHORT)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_LONG);
+                                break;
+                            case BaseGame.POOL_MEDIUM : game.getBeginnerGame().setGameQuestions_MEDIUM(temp.getGamePoolList());
+                                sevenLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_MEDIUM);
+                                for(int i=0; i < sevenLetter.size(); i++) {
+                                    if(sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        sevenLetterWord.getLevelBtnList()[sevenLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                }
+                                break;
+                            case BaseGame.POOL_LONG : game.getBeginnerGame().setGameQuestions_LONG(temp.getGamePoolList());
+                                nineLetter = game.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_LONG);
+                                for(int i=0; i < nineLetter.size(); i++) {
+                                    if(nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                                        nineLetterWord.getLevelBtnList()[nineLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                }
+                                break;
+                            default: Log.e("ERROR", "BEGINNER -> DIFFICULTY -> LENGTH INVALID.");
+                                break;
+                        }
+                        currentLevel = game.getBeginnerGame().getAccomplished(BaseGame.POOL_SHORT)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_MEDIUM)+game.getBeginnerGame().getAccomplished(BaseGame.POOL_LONG);
                         game.getBeginnerGame().setCurrentLevel(currentLevel);
                         break;
                     case BaseGame.MODE_ADVANCED :

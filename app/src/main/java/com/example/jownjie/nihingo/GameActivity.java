@@ -77,6 +77,18 @@ public class GameActivity extends AppCompatActivity {
     @Bind(R.id.imageView)
     SimpleDraweeView imageView;
 
+    private MediaPlayer mp;
+
+    /*@OnClick(R.id.button_playSound)
+    public void playSound(){
+        if(!mp.isPlaying()) {
+            //Log.e("qwe", currentQuestion.getSoundRes() + " sound");
+            mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
+            mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mp.start();
+        }
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,9 +181,9 @@ public class GameActivity extends AppCompatActivity {
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
             //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
-            baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<10);
+            baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime() < 10);
             AlertDialog ad = new AlertDialog.Builder(this)
-                    .setMessage((baseGame.getCurrentQuestion().isAnswered())? "Excellent!" : "Good Job, Dodong!")
+                    .setMessage((baseGame.getCurrentQuestion().isAnswered()) ? "Excellent!" : "Good Job! Try a bit faster next time :)")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

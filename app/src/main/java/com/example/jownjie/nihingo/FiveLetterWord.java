@@ -1,36 +1,22 @@
 package com.example.jownjie.nihingo;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import butterknife.Bind;
@@ -54,6 +40,8 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     private int questionsSize;
     private String gameModeString;
 
+    private List<Integer> levelsAccomplishedList;
+
     @Bind({R.id.five_button1,
             R.id.five_button2,
             R.id.five_button3,
@@ -74,9 +62,33 @@ public class FiveLetterWord extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e("FLW:", "onCreateView Called");
         rootView = inflater.inflate(R.layout.fragment_5letterword, container, false);
         ButterKnife.bind(this, rootView);
+
+        switch(StageActivity.gameMode){
+            case BaseGame.MODE_BEGINNER:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getBeginnerGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if (levelBtnList[levelsAccomplishedList.get(i) - 1].getBackground() != this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i) - 1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+            case BaseGame.MODE_ADVANCED:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if(levelBtnList[levelsAccomplishedList.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+            case BaseGame.MODE_EXPERT:
+                levelsAccomplishedList = StageActivity.CURRENT_GAME.getExpertGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
+                for(int i=0; i < levelsAccomplishedList.size(); i++) {
+                    if(levelBtnList[levelsAccomplishedList.get(i)-1].getBackground() != this.getResources().getDrawable(R.mipmap.star_box))
+                        levelBtnList[levelsAccomplishedList.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                }
+                break;
+
+        }
 
         // temporary
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getActivity().getAssets(), "KOMIKAX_.ttf");

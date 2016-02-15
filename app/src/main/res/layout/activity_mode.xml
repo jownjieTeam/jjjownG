@@ -41,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:background="@mipmap/generalinfo"
             android:layout_width="500dp"
             android:layout_height="200dp"
@@ -75,7 +75,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout2">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:background="@mipmap/technology"
             android:layout_width="500dp"
             android:layout_height="200dp"
@@ -110,7 +110,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout3">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:background="@mipmap/science"
             android:layout_width="500dp"
             android:layout_height="200dp"
@@ -132,6 +132,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="50dp"
             android:layout_marginEnd="50dp"/>
+
 
     </RelativeLayout>
 
@@ -169,4 +170,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/linearLayout3"
         android:layout_alignTop="@+id/linearLayout3" />
+
+    <ImageView
+        android:background="@drawable/back"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:id="@+id/button_back_menu_mode"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

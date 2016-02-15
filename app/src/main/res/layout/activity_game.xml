@@ -208,31 +208,11 @@
         </TableLayout>
     </LinearLayout>
 
-    <!--
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.4">
-        <ImageButton
-            android:src="@android:drawable/ic_lock_silent_mode_off"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_playSound" />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="show hint"
-            android:id="@+id/button_showHint" />
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="new game"
-            android:id="@+id/button_newGame" />
-    </LinearLayout>-->
+    <ImageButton
+        android:layout_gravity="center"
+        android:src="@android:drawable/ic_lock_silent_mode_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_playSound" />
 
 </LinearLayout>
