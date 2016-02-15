@@ -171,7 +171,7 @@ public class GameActivity extends AppCompatActivity {
             //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
             baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime()<10);
             AlertDialog ad = new AlertDialog.Builder(this)
-                    .setMessage("SUCCESS")
+                    .setMessage((baseGame.getCurrentQuestion().isAnswered())? "Excellent!" : "Good Job, Dodong!")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -290,7 +290,7 @@ public class GameActivity extends AppCompatActivity {
             }
         } else {
             game.getTimer().cancel(true);
-
+            GameActivity.this.finish();
             /*AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage("SUCCESSULLY ANSWERED ALL QUESTIONS!")
                     .setNegativeButton("BACK", new DialogInterface.OnClickListener() {

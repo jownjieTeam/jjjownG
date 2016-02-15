@@ -15,7 +15,7 @@ import java.util.List;
  * edited by User on 12/8/2015 : removed other attributes except optionsPreference.
  * edited by User on 1/22/2015 : other changes not recorded.
  */
-public abstract class BaseGame implements Serializable{
+public abstract class   BaseGame implements Serializable{
 
     public static final int MODE_BEGINNER = 0;
     public static final int MODE_ADVANCED = 1;
@@ -152,23 +152,6 @@ public abstract class BaseGame implements Serializable{
                 break;
         }
         return accomplished;
-    }
-
-    public int getAccomplished() {
-        int counter = 0;
-            for(GamePool gp : gameQuestions_SHORT) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-            for(GamePool gp : gameQuestions_MEDIUM) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-            for(GamePool gp : gameQuestions_LONG) {
-                if(gp.isAnswered())
-                    counter++;
-            }
-        return counter;
     }
 
     public boolean isAccomplished() {

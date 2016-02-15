@@ -249,10 +249,10 @@ public class DatabaseConnector {
     public boolean firstTimeSetup(Resources resources,Class<?> drawablesResource, Class<?> rawResource, SQLiteDatabase sqldb) throws Exception {
         loadImageFiles(drawablesResource,resources);
         Log.e("SET UP PART 1", "OK!");
-        //loadAudioFiles(rawResource);
-        //Log.e("SET UP PART 2", "OK!");
-        insertGamePoolIntoDatabase(resources,sqldb);
+        loadAudioFiles(rawResource);
         Log.e("SET UP PART 2", "OK!");
+        insertGamePoolIntoDatabase(resources,sqldb);
+        Log.e("SET UP PART 3", "OK!");
         return true;
     }
 
@@ -274,7 +274,7 @@ public class DatabaseConnector {
         }
     }
 
-    /*private void loadAudioFiles(Class<?> rawResource) {
+    private void loadAudioFiles(Class<?> rawResource) {
         final Field[] fields = rawResource.getDeclaredFields();
         rawIds = new int[fields.length];
         int i = 0;
@@ -290,7 +290,7 @@ public class DatabaseConnector {
                 i++;
             }
         }
-    }*/
+    }
 
     private void insertGamePoolIntoDatabase(Resources resources,SQLiteDatabase sqldb) {
         int five=0, seven=0, nine=0, empty=0;
@@ -318,7 +318,7 @@ public class DatabaseConnector {
                         empty++;
                 }
             }
-            /*
+
             for (int i = 0; i < rawIds.length; i++) {
                 if (rawIds[i] != 0) {
                     for (GamePool gpo : gamePoolList) {
@@ -330,7 +330,7 @@ public class DatabaseConnector {
                     }
                 }
             }
-            */
+
 
             for(GamePool gpo : gamePoolList) {
                 addGamePool(gpo, sqldb);
