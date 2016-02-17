@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
+import com.example.jownjie.nihingo.Models.TopPlayer;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,9 +50,10 @@ public class ModeActivity extends Activity {
             Toast.makeText(ModeActivity.this, "please input your name!", Toast.LENGTH_SHORT).show();
         }
         else {
-            this.gameMode = BaseGame.MODE_BEGINNER;
-            currentLevel = game.getBeginnerGame().getCurrentLevel();
-            startNewActivity();
+
+                this.gameMode = BaseGame.MODE_BEGINNER;
+                currentLevel = game.getBeginnerGame().getCurrentLevel();
+                startNewActivity();
         }
     }
 
@@ -62,9 +64,10 @@ public class ModeActivity extends Activity {
 
         }
         else {
-            this.gameMode = BaseGame.MODE_ADVANCED;
-            currentLevel = game.getAdvancedGame().getCurrentLevel();
-            startNewActivity();
+
+                this.gameMode = BaseGame.MODE_ADVANCED;
+                currentLevel = game.getAdvancedGame().getCurrentLevel();
+                startNewActivity();
         }
     }
 
@@ -75,15 +78,28 @@ public class ModeActivity extends Activity {
 
         }
         else {
-            this.gameMode = BaseGame.MODE_EXPERT;
-            currentLevel = game.getExpertGame().getCurrentLevel();
-            startNewActivity();
+                this.gameMode = BaseGame.MODE_EXPERT;
+                currentLevel = game.getExpertGame().getCurrentLevel();
+                startNewActivity();
         }
     }
 
     @OnClick(R.id.button_back_menu_mode)
     public void back(){
         onBackPressed();
+    }
+
+    public boolean isUniqueName(String name){
+        boolean flag = true;
+
+        TopPlayer[] playerList = HomeScreen.dc.getTopPlayer();
+        for(int i = 0; i < playerList.length; i++){
+            if(name.equals(playerList[i].getPlayerName())){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
     }
 
     private void startNewActivity() {
@@ -139,38 +155,41 @@ public class ModeActivity extends Activity {
     @Override
     public void onBackPressed() {
         final boolean[] back = {false};
-        AlertDialog ad = new AlertDialog.Builder(this)
-                .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
-                .setMessage("Your progress will be deleted once you go back")
-                .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ModeActivity.this.finish();
-                    }
-                })
-                .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        back[0] = true;
-                        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
-                        //if (playerName.getText().toString().length() != 0 && game.getTopPlayer().getGamePoints() > 0) {
+        if (playerName.getText().toString().length() != 0 && game.getTopPlayer().getGamePoints() > 0) {
+            AlertDialog ad = new AlertDialog.Builder(this)
+                    .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
+                    .setMessage("Your progress will be deleted once you go back")
+                    .setNeutralButton("BACK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ModeActivity.this.finish();
+                        }
+                    })
+                    .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            back[0] = true;
+                            game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
+
                             game.getTopPlayer().setPlayerName(playerName.getText().toString());
                             HomeScreen.dc.addTopPlayer(game.getTopPlayer());
                             Toast.makeText(ModeActivity.this, "Progress saved!", Toast.LENGTH_SHORT).show();
                             ModeActivity.this.finish();
-                        //}
-
-                    }
-                })
-                .setCancelable(true)
-                .create();
-        ad.show();
+                        }
+                    })
+                    .setCancelable(true)
+                    .create();
+            ad.show();
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 
     /*@Override

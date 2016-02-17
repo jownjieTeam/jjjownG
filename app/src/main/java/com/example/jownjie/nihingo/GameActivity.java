@@ -77,17 +77,16 @@ public class GameActivity extends AppCompatActivity {
     @Bind(R.id.imageView)
     SimpleDraweeView imageView;
 
-    private MediaPlayer mp;
 
-    /*@OnClick(R.id.button_playSound)
+
+    @OnClick(R.id.button_playSound)
     public void playSound(){
-        if(!mp.isPlaying()) {
-            //Log.e("qwe", currentQuestion.getSoundRes() + " sound");
-            mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
+        if(currentQuestion.getSoundRes()!=0) {
+            MediaPlayer mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
             mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mp.start();
         }
-    }*/
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void initChoiceContainer(int gameMode){
         int a = (gameMode==2)?0:2;
-        int size = choiceList.size()-a;
+        int size = choiceList.size()-2;
         String rand = Random.randomize(Random.completeWord(Random.randomize(currentQuestion.getAnswer().toUpperCase()), size));
         for (int i = 0; i < size; i++) {
             final int pos = i;

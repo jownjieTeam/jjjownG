@@ -56,6 +56,16 @@ public class HomeScreen extends Activity {
         return instance;
     }
 
+    @Override
+    public void onBackPressed() {
+        if(!fragmentStack.empty()){
+            removeTopFragment();
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
     public void removeTopFragment(){
         getFragmentManager()
                 .beginTransaction()

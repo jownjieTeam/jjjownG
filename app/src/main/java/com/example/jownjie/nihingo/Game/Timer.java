@@ -24,7 +24,7 @@ public class Timer extends AsyncTask<Void, Integer, Void> implements Serializabl
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        tvTimer.setText(setTime(values[0]));
+        //tvTimer.setText(setTime(values[0]));
     }
 
     private String setTime(int value) {
