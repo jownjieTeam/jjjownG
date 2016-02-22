@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -201,6 +203,11 @@ public class GameActivity extends AppCompatActivity {
         }
         currentAnswer = getAnswer();
         if(currentQuestion.getAnswer().contentEquals(currentAnswer.toLowerCase())){
+            if(HomeScreen.sound) {
+                MediaPlayer successPlayer = MediaPlayer.create(this, R.raw.success_sound);
+                successPlayer.start();
+            }
+
             game.getTimer().setPause(true);
             game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
             //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
@@ -215,42 +222,28 @@ public class GameActivity extends AppCompatActivity {
             textNumber.setText("level in " + game.getTimer().getTime() + " seconds");
 
             if(baseGame.getCurrentQuestion().isAnswered()){
+                Animation a = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+                a.setDuration(500);
+
                 star1.setVisibility(View.VISIBLE);
+                star1.setAnimation(a);
+                a.start();
+
                 star2.setVisibility(View.VISIBLE);
+                star2.setAnimation(a);
+                a.start();
+
                 star3.setVisibility(View.VISIBLE);
+                star3.setAnimation(a);
+                a.start();
+
+
             }
             else{
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
             }
-
-            /*AlertDialog ad = new AlertDialog.Builder(this)
-                    .setMessage((baseGame.getCurrentQuestion().isAnswered()) ? "Excellent!" : "Good Job! Try a bit faster next time :)")
-                    .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            newQuestion();
-                        }
-                    })
-                    .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            game.getTimer().cancel(true);
-                            GameActivity.this.finish();
-                        }
-                    })
-                    .setNeutralButton("RETRY", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            GameActivity.this.recreate();
-                        }
-                    })
-                    .setCancelable(false)
-                    .create();
-            ad.show();*/
-
         }
     }
 
@@ -362,6 +355,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        game.getTimer().setPause(true);
         game.getTimer().cancel(true);
         super.onBackPressed();
     }
