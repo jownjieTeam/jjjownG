@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Models.TopPlayer;
 
@@ -56,12 +57,19 @@ public class RankingActivity extends AppCompatActivity {
             }
         }
 
-        if(topPlayers.length>0) {
-            RankingAdapter adapter = new RankingAdapter(this, topPlayerList, topPointsList);
-            listView.setAdapter(adapter);
+        if(topPlayerList.size()>0) {
+
+            try {
+                RankingAdapter adapter = new RankingAdapter(this, topPlayerList, topPointsList);
+
+                listView.setAdapter(adapter);
+            }catch(Exception e){
+                Toast.makeText(RankingActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+            }
         }else{
             listView.setVisibility(View.GONE);
             tv.setTypeface(GAME_FONT_LETTERS);
+            tv.setVisibility(View.VISIBLE);
             tv.setText("no players found!");
         }
     }
@@ -138,13 +146,13 @@ public class RankingActivity extends AppCompatActivity {
                     mHolder.textViewRank.setTextSize(20);break;
 
             }
-            mHolder.textViewRank.setText((position+1)+"");
+
+            mHolder.textViewRank.setText((position + 1)+"");
 
             mHolder.textViewPlayerName.setText(mPlayerList.get(position));
             mHolder.textViewPlayerPoints.setText(mPointList.get(position));
 
 
-            Log.e("asd", "done");
             return rootView;
         }
     }

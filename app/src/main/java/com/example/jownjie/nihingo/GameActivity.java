@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.jownjie.nihingo.Game.Random;
@@ -77,14 +78,35 @@ public class GameActivity extends AppCompatActivity {
     @Bind(R.id.imageView)
     SimpleDraweeView imageView;
 
+    @Bind(R.id.page1)LinearLayout gamePage;
+    @Bind(R.id.page2)RelativeLayout successPage;
+    @Bind(R.id.tv_excellent)TextView textNumber;
+    @Bind(R.id.tv_successText)TextView textSuccess;
+    @Bind(R.id.textView8)TextView textView8;
 
+    @Bind(R.id.imageView2)ImageView star1;
+    @Bind(R.id.imageView3)ImageView star2;
+    @Bind(R.id.imageView4)ImageView star3;
+
+    @OnClick(R.id.button_next_level_succ)
+    public void nextLevel(){
+        successPage.setVisibility(View.GONE);
+        newQuestion();
+    }
+
+    @OnClick(R.id.button_back_menu_succ)
+    public void back(){
+        onBackPressed();
+    }
 
     @OnClick(R.id.button_playSound)
     public void playSound(){
-        if(currentQuestion.getSoundRes()!=0) {
-            MediaPlayer mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
-            mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mp.start();
+        if(HomeScreen.sound) {
+            if (currentQuestion.getSoundRes() != 0) {
+                MediaPlayer mp = MediaPlayer.create(this, currentQuestion.getSoundRes());
+                mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mp.start();
+            }
         }
     }
 
@@ -141,7 +163,8 @@ public class GameActivity extends AppCompatActivity {
     public void initAnswerContainer(int contSize){
         answerList = new Button[contSize];
         for(int i = 0; i < currentQuestion.getAnswer().length(); i++){
-            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(60, 60);
+            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(70, 70);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
             answerList[i].setBackground(getResources().getDrawable(R.drawable.border_1));
             answerList[i].setTypeface(GAME_FONT_LETTERS);
@@ -156,6 +179,7 @@ public class GameActivity extends AppCompatActivity {
                     answerList[pos].setText("");
                 }
             });
+
             ansContainer.addView(answerList[i]);
         }
     }
@@ -181,7 +205,27 @@ public class GameActivity extends AppCompatActivity {
             game.getTimer().setTotalTime(game.getTimer().getTotalTime() + game.getTimer().getTime());
             //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
             baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime() < 10);
-            AlertDialog ad = new AlertDialog.Builder(this)
+
+            successPage.setVisibility(View.VISIBLE);
+            textNumber.setTypeface(GAME_FONT_NUMBERS);
+            textView8.setTypeface(GAME_FONT_NUMBERS);
+            textSuccess.setTypeface(GAME_FONT_NUMBERS);
+
+            textSuccess.setText((baseGame.getCurrentQuestion().isAnswered()) ? "Excellent!" : "Success");
+            textNumber.setText("level in " + game.getTimer().getTime() + " seconds");
+
+            if(baseGame.getCurrentQuestion().isAnswered()){
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                star3.setVisibility(View.VISIBLE);
+            }
+            else{
+                star1.setVisibility(View.GONE);
+                star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
+            }
+
+            /*AlertDialog ad = new AlertDialog.Builder(this)
                     .setMessage((baseGame.getCurrentQuestion().isAnswered()) ? "Excellent!" : "Good Job! Try a bit faster next time :)")
                     .setPositiveButton("CONTINUE", new DialogInterface.OnClickListener() {
                         @Override
@@ -205,7 +249,7 @@ public class GameActivity extends AppCompatActivity {
                     })
                     .setCancelable(false)
                     .create();
-            ad.show();
+            ad.show();*/
 
         }
     }
@@ -281,13 +325,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void newQuestion() {
 
-        //Log.e("GAGO:", StageActivity.CURRENT_GAME.getBeginnerGame().getGameQuestions_SHORT().get(0).getAnswer()+" "+StageActivity.CURRENT_GAME.getBeginnerGame().getGameQuestions_SHORT().get(0).isAnswered()+"");
-        /*switch(gameMode){
-            case 0: Log.e("FUCKING SHIT", baseGame.getCurrentLevel()+" answered successfully");
-                //FiveLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");break;
-            //case 1: SevenLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
-            //case 2: NineLetterWord.levelBtnList[baseGame.getCurrentLevel()].setText("R");
-        }*/
         if(!baseGame.isAccomplished()) {
             currentQuestion = baseGame.getNextLevel();
             if(currentQuestion!=null) {

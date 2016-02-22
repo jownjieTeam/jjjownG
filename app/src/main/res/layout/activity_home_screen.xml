@@ -48,7 +48,7 @@
 
 
                 <com.facebook.drawee.view.SimpleDraweeView
-                    android:background="@drawable/volume"
+                    android:background="@mipmap/volume_up"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:id="@+id/volume_btn" />

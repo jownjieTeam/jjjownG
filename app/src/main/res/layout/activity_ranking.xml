@@ -8,14 +8,24 @@
     android:background="@mipmap/background"
     tools:context="com.example.jownjie.nihingo.RankingActivity">
 
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:background="@mipmap/ranking_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/button_back_menu" />
+        android:layout_above="@+id/button_back_menu"
+        android:layout_below="@+id/textView" />
 
 
     <ImageView
@@ -34,16 +44,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="505dp"
-        android:layout_marginStart="505dp"></RelativeLayout>
+        android:layout_marginStart="505dp"
+        android:id="@+id/relativeLayout"></RelativeLayout>
 
     <TextView
         android:visibility="gone"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="NO PLAYERS FOUND"
         android:id="@+id/textView6"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

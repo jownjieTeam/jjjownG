@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Stack;
 
@@ -23,13 +24,30 @@ public class HomeScreen extends Activity {
     public static DatabaseController dc;
     public Stack<Fragment> fragmentStack;
     public static HomeScreen instance;
+    public static Boolean sound = new Boolean(true);
     public boolean volume = false;
 
     @OnClick(R.id.button_play)
     public void playGame(){
-        //TODO: diri tong new play game2 shit wtf bro
         startActivity(new Intent(this, ModeActivity.class));
         //startActivity(new Intent(this, RankingActivity.class));
+    }
+
+    @OnClick(R.id.button_exit)
+    public void exitGame(){
+        HomeScreen.this.finish();
+    }
+
+    @OnClick(R.id.volume_btn)
+    public void toggleMusic(SimpleDraweeView view){
+        if(sound){
+            view.setBackground(getResources().getDrawable(R.mipmap.volume_down));
+            sound = false;
+        }
+        else{
+            view.setBackground(getResources().getDrawable(R.mipmap.volume_up));
+            sound = true;
+        }
     }
 
     @OnClick(R.id.button_instructions)
@@ -47,6 +65,8 @@ public class HomeScreen extends Activity {
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
         instance = this;
+
+
 
         fragmentStack = new Stack();
         dc = new DatabaseController(this,1);
