@@ -23,6 +23,14 @@ public class Game implements Serializable {
     private BaseGame advancedGame;
     private BaseGame expertGame;
 
+    public Game(Game game) {
+        this.topPlayer = game.getTopPlayer();
+        this.timer = game.getTimer();
+        this.beginnerGame = game.getBeginnerGame();
+        this.advancedGame = game.getAdvancedGame();
+        this.expertGame = game.getExpertGame();
+    }
+
     public Game(DatabaseController dc) {
         beginnerGame = new BeginnerGame(BaseGame.MODE_BEGINNER,dc);
         advancedGame = new AdvancedGame(BaseGame.MODE_ADVANCED,dc);

@@ -75,6 +75,16 @@ public class DatabaseController {
         return topPlayerArray;
     }
 
+    /*
+     * retrieves data (TopPlayer)
+     * @param palyerName, type string : used as condition in query
+     * @return TopPlayer
+     */
+    public TopPlayer getTopPlayer(String playerName) {
+        TopPlayer tp = dc.getTopPlayer(playerName);
+        return tp;
+    }
+
     //helper method to check validity of gameMode
     private boolean validGameMode(int gameMode) {
         return gameMode == BaseGame.MODE_BEGINNER || gameMode == BaseGame.MODE_ADVANCED || gameMode == BaseGame.MODE_EXPERT;

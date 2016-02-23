@@ -7,13 +7,24 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.JsonWriter;
 import android.util.Log;
 
+import com.example.jownjie.nihingo.Models.Game;
 import com.example.jownjie.nihingo.Models.GamePool;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.TopPlayer;
 import com.example.jownjie.nihingo.R;
 
+import org.json.JSONObject;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,6 +55,7 @@ public class DatabaseConnector {
     private  final String DATA_TOPPLAYERS_NAME = "TopPlayers";
     private  final String DATA_TOPPLAYERS_GAMEPOINTS = "gamePoints";
     private  final String DATA_TOPPLAYERS_PLAYERNAME = "playerName";
+    private  final String DATA_TOPPLAYERS_GAMEPROGRESS = "game";
 
     //GAMEPOOL TABLE CREATION
     private  final String TABLE_GAMEPOOL = "CREATE TABLE IF NOT EXISTS "+ DATA_GAMEPOOL_NAME +
@@ -56,15 +68,16 @@ public class DatabaseConnector {
 
     //TOPPLAYER TABLE CREATION
     private  final String TABLE_TOPPLAYERS = "CREATE TABLE IF NOT EXISTS "+ DATA_TOPPLAYERS_NAME +
-                                                    "( "+ DATA_TOPPLAYERS_PLAYERNAME+" TEXT," +
-                                                    DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER);";
+                                                    "( "+ DATA_TOPPLAYERS_PLAYERNAME+" TEXT PRIMARY KEY," +
+                                                    DATA_TOPPLAYERS_GAMEPOINTS+" INTEGER," +
+                                                    DATA_TOPPLAYERS_GAMEPROGRESS+" BLOB);";
 
     //GAMEPOOL TABLE QUERY
     private  final String[] QUERY_GAMEPOOL = {DATA_GAMEPOOL_IMAGERES,DATA_GAMEPOOL_SOUNDRES,DATA_GAMEPOOL_ANSWER,
                                                 DATA_GAMEPOOL_GAMEMODE,DATA_GAMEPOOL_LEVEL,DATA_GAMEPOOL_CLASS};
 
     //TOPPLAYER TABLE QUERY
-    private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS};
+    private  final String[] QUERY_TOPPLAYERS = {DATA_TOPPLAYERS_PLAYERNAME,DATA_TOPPLAYERS_GAMEPOINTS, DATA_TOPPLAYERS_GAMEPROGRESS};
 
     //GAME OPTIONS TABLE
     private  final String DATA_BASEGAME_OPTIONSPREFERENCE = "optionsPreference";
@@ -163,12 +176,21 @@ public class DatabaseConnector {
      * @return bool
      */
     public boolean addTopPlayer(TopPlayer tp) {
+
+        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, DATA_TOPPLAYERS_PLAYERNAME + "=?", new String[]{tp.getPlayerName()}, null, null, null, "1");
         ContentValues cv = new ContentValues();
         try {
             cv.put(DATA_TOPPLAYERS_PLAYERNAME, tp.getPlayerName());
             cv.put(DATA_TOPPLAYERS_GAMEPOINTS, tp.getGamePoints());
+            cv.put(DATA_TOPPLAYERS_GAMEPROGRESS, serializeObject(tp.getGameProgress()));
 
-            sqldb.insert(DATA_TOPPLAYERS_NAME, null, cv);
+            if(cursor.moveToNext()) {
+                cursor.close();
+                sqldb.update(DATA_TOPPLAYERS_NAME, cv, DATA_TOPPLAYERS_PLAYERNAME + "='"+ tp.getPlayerName()+"'", null);
+            }
+            else {
+                sqldb.insert(DATA_TOPPLAYERS_NAME, null, cv);
+            }
             return true;
         } catch(NullPointerException e) {
             e.printStackTrace();
@@ -190,10 +212,62 @@ public class DatabaseConnector {
             tp = new TopPlayer();
             tp.setPlayerName(cursor.getString(0));
             tp.setGamePoints(cursor.getInt(1));
+            tp.setGameProgress((Game) retrieveObject(cursor.getBlob(2)));
             topPlayerArray[count++] = tp;
-            Log.e("PLAYER NAME", tp.getPlayerName()+"");
+            Log.e("PLAYER NAME", tp.getPlayerName() + "");
         }
         return topPlayerArray;
+    }
+
+    /*
+     * retrieves data from TopPlayer table.
+     * @param playerName, type string : playerName to be retrieved.
+     * @return TopPlayer object
+     */
+    public TopPlayer getTopPlayer(String playerName) {
+        Cursor cursor = sqldb.query(DATA_TOPPLAYERS_NAME, QUERY_TOPPLAYERS, DATA_TOPPLAYERS_PLAYERNAME + "=?", new String[]{playerName}, null, null, null, "1");
+        TopPlayer tp = null;
+        if(cursor.moveToFirst()) {
+            tp = new TopPlayer();
+            tp.setPlayerName(cursor.getString(0));
+            tp.setGamePoints(cursor.getInt(1));
+            tp.setGameProgress((Game) retrieveObject(cursor.getBlob(2)));
+        }
+        return tp;
+    }
+
+    //CREATE BYTES FROM OBJECT
+    public static byte[] serializeObject(Object o) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        try {
+            ObjectOutput out = new ObjectOutputStream(bos);
+            out.writeObject(o);
+            out.close();
+
+            // Get the bytes of the serialized object
+            byte[] buf = bos.toByteArray();
+
+            return buf;
+        } catch (IOException ioe) {
+            Log.e("serializeObject", "error", ioe);
+
+            return null;
+        }
+    }
+
+    //RETRIEVE BYTES FROM BLOB
+    public static Object retrieveObject(byte[] blob) {
+        ByteArrayInputStream bos = new ByteArrayInputStream(blob);
+        try {
+            ObjectInput input = new ObjectInputStream(bos);
+            return input.readObject();
+        } catch(IOException ioe) {
+            Log.e("serializeObject", "error", ioe);
+        } catch(ClassNotFoundException cnfe) {
+            Log.e("serializeObject", "error", cnfe);
+        }
+        return null;
     }
 
     //SQL helper class

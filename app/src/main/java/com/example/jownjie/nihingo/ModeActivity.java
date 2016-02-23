@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,9 +30,12 @@ public class ModeActivity extends Activity {
     private int gameMode;
     //public static Game CURRENT_GAME;
     public Game game = null;
+    public Game createdGame = null;
     private int currentLevel;
     private int REQUEST_CODE = 0;
     private int RESULT_CODE = 1;
+
+    private TopPlayer player;
 
     @Bind(R.id.playerName)
     EditText playerName;
@@ -117,10 +122,38 @@ public class ModeActivity extends Activity {
         setContentView(R.layout.activity_mode);
         ButterKnife.bind(this);
 
+
         GAME_FONT_LETTERS = Typeface.createFromAsset(getAssets(), "CHERI___.TTF");
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
-        game = new Game(HomeScreen.dc);
-        initProgress();
+
+        createdGame = new Game(HomeScreen.dc);
+
+        playerName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                player = new TopPlayer();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                player.setPlayerName(s.toString());
+                Log.e("ERROR", " " + s.toString());
+                player = HomeScreen.dc.getTopPlayer(player.getPlayerName());
+                if(player!=null) {
+                    game = player.getGameProgress();
+                } else {
+                    game = createdGame;
+                }
+
+
+                initProgress();
+            }
+        });
     }
 
     @Override
@@ -148,13 +181,16 @@ public class ModeActivity extends Activity {
 
     @Override
     protected void onResume() {
-        initProgress();
+        if(game!=null)
+            initProgress();
         super.onResume();
     }
 
     @Override
     public void onBackPressed() {
         final boolean[] back = {false};
+        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
+        game.getTopPlayer().setPlayerName(playerName.getText().toString());
         if (playerName.getText().toString().length() != 0 && game.getTopPlayer().getGamePoints() > 0) {
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
@@ -175,10 +211,11 @@ public class ModeActivity extends Activity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             back[0] = true;
-                            game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
-
-                            game.getTopPlayer().setPlayerName(playerName.getText().toString());
-                            HomeScreen.dc.addTopPlayer(game.getTopPlayer());
+                            player = new TopPlayer();
+                            player.setGameProgress(game);
+                            player.setPlayerName(game.getTopPlayer().getPlayerName());
+                            player.setGamePoints(game.getTopPlayer().getGamePoints());
+                            HomeScreen.dc.addTopPlayer(player);
                             Toast.makeText(ModeActivity.this, "Progress saved!", Toast.LENGTH_SHORT).show();
                             ModeActivity.this.finish();
                         }

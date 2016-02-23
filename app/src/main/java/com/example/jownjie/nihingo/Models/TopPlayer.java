@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class TopPlayer implements Serializable {
     private int gamePoints;
     private String playerName;
+    private Game gameProgress;
 
     public TopPlayer() {
     }
@@ -30,6 +31,14 @@ public class TopPlayer implements Serializable {
     }
 
     public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+        this.playerName = playerName.toUpperCase();
+    }
+
+    public Game getGameProgress() {
+        return gameProgress;
+    }
+
+    public void setGameProgress(Game gameProgress) {
+        this.gameProgress = gameProgress;
     }
 }
