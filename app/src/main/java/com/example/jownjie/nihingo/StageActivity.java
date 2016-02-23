@@ -160,8 +160,9 @@ public class StageActivity extends AppCompatActivity {
                             case BaseGame.POOL_SHORT : game.getAdvancedGame().setGameQuestions_SHORT(temp.getGamePoolList());
                                 fiveLetter = game.getAdvancedGame().getLevelsAccomplished(BaseGame.POOL_SHORT);
                                 for(int i=0; i < fiveLetter.size(); i++) {
-                                    if(fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].getBackground()!=this.getResources().getDrawable(R.mipmap.star_box))
-                                        fiveLetterWord.getLevelBtnList()[fiveLetter.get(i)-1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+                                    if (fiveLetterWord.getLevelBtnList()[fiveLetter.get(i) - 1].getBackground() != this.getResources().getDrawable(R.mipmap.star_box))
+                                        fiveLetterWord.getLevelBtnList()[fiveLetter.get(i) - 1].setBackground(this.getResources().getDrawable(R.mipmap.star_box));
+
                                 }
                                 break;
                             case BaseGame.POOL_MEDIUM : game.getAdvancedGame().setGameQuestions_MEDIUM(temp.getGamePoolList());

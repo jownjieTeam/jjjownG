@@ -45,6 +45,9 @@ public class GameActivity extends AppCompatActivity {
 
     private Typeface GAME_FONT_LETTERS;
     private Typeface GAME_FONT_NUMBERS;
+    private int REQUEST_CODE = 0;
+    private int RESULT_CODE = 1;
+
     int a=0;
     private Button[] answerList;
     int[] buttonPosArr;
@@ -54,7 +57,6 @@ public class GameActivity extends AppCompatActivity {
     private Game game = null;
     private BaseGame baseGame;
     private GamePool currentQuestion;
-    private int RESULT_CODE = 1;
 
     @Bind({R.id.button1,
             R.id.button2,
@@ -123,6 +125,13 @@ public class GameActivity extends AppCompatActivity {
         GAME_FONT_NUMBERS = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
         timer.setTypeface(GAME_FONT_NUMBERS);
         initActivity();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        nextLevel();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -131,6 +140,8 @@ public class GameActivity extends AppCompatActivity {
      * List<Button> choiceList
      * @param gameMode
      */
+
+
 
     public void initChoiceContainer(int gameMode){
         int a = (gameMode==2)?0:2;
@@ -165,12 +176,12 @@ public class GameActivity extends AppCompatActivity {
     public void initAnswerContainer(int contSize){
         answerList = new Button[contSize];
         for(int i = 0; i < currentQuestion.getAnswer().length(); i++){
-            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            //LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(70, 70);
+            //LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams btnparams = new LinearLayout.LayoutParams(80, 80);
             answerList[i] = new Button(this, null, android.R.attr.buttonStyleSmall);
             answerList[i].setBackground(getResources().getDrawable(R.drawable.border_1));
             answerList[i].setTypeface(GAME_FONT_LETTERS);
-            answerList[i].setTextSize(20);
+            answerList[i].setTextSize(15);
             answerList[i].setText("");
             answerList[i].setLayoutParams(btnparams);
             final int pos = i;
@@ -213,6 +224,7 @@ public class GameActivity extends AppCompatActivity {
             //game.getTopPlayer().setGamePoints(game.getTopPlayer().getGamePoints() + baseGame.getPoints(game.getTimer().getTime(), game.getTimer().getTotalTime()));
             baseGame.getCurrentQuestion().setAnswered(game.getTimer().getTime() < 10);
 
+            //startActivityForResult(new Intent(this, SuccessActivity.class), REQUEST_CODE);
             successPage.setVisibility(View.VISIBLE);
             textNumber.setTypeface(GAME_FONT_NUMBERS);
             textView8.setTypeface(GAME_FONT_NUMBERS);

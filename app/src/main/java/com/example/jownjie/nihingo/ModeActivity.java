@@ -191,7 +191,7 @@ public class ModeActivity extends Activity {
         final boolean[] back = {false};
         game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
         game.getTopPlayer().setPlayerName(playerName.getText().toString());
-        if (playerName.getText().toString().length() != 0 && game.getTopPlayer().getGamePoints() > 0) {
+        if (playerName.getText().toString().length() > 0) {
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
                     .setMessage("Your progress will be deleted once you go back")

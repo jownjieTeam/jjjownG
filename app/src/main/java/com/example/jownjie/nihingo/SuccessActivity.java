@@ -13,11 +13,21 @@ public class SuccessActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    @OnClick(R.id.button_next_level_succ)
+    public void nextLevel(){
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_success);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
     }
 
     @Override
