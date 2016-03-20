@@ -144,7 +144,7 @@ public class ModeActivity extends Activity {
                 player.setPlayerName(s.toString());
                 Log.e("ERROR", " " + s.toString());
                 player = HomeScreen.dc.getTopPlayer(player.getPlayerName());
-                if(player!=null) {
+                if (player != null) {
                     game = player.getGameProgress();
                 } else {
                     game = createdGame;
@@ -189,9 +189,9 @@ public class ModeActivity extends Activity {
     @Override
     public void onBackPressed() {
         final boolean[] back = {false};
-        game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
-        game.getTopPlayer().setPlayerName(playerName.getText().toString());
         if (playerName.getText().toString().length() > 0) {
+            game.getTopPlayer().setGamePoints(game.getBeginnerGame().getCurrentLevel() + game.getAdvancedGame().getCurrentLevel() + game.getExpertGame().getCurrentLevel());
+            game.getTopPlayer().setPlayerName(playerName.getText().toString());
             AlertDialog ad = new AlertDialog.Builder(this)
                     .setTitle("DO YOU WANT TO SAVE BEFORE GOING BACK?")
                     .setMessage("Your progress will be deleted once you go back")

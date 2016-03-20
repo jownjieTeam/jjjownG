@@ -29,7 +29,6 @@ import com.example.jownjie.nihingo.Models.Modes.AdvancedGame;
 import com.example.jownjie.nihingo.Models.Modes.BaseGame;
 import com.example.jownjie.nihingo.Models.Modes.BeginnerGame;
 import com.example.jownjie.nihingo.Models.Modes.ExpertGame;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -80,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
     LinearLayout ansContainer;
 
     @Bind(R.id.imageView)
-    SimpleDraweeView imageView;
+    ImageView imageView;
 
     @Bind(R.id.page1)LinearLayout gamePage;
     @Bind(R.id.page2)RelativeLayout successPage;

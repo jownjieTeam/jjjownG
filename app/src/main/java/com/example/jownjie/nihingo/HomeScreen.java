@@ -8,11 +8,10 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jownjie.nihingo.Database.DatabaseController;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Stack;
 
@@ -39,7 +38,7 @@ public class HomeScreen extends Activity {
     }
 
     @OnClick(R.id.volume_btn)
-    public void toggleMusic(SimpleDraweeView view){
+    public void toggleMusic(ImageView view){
         if(sound){
             view.setBackground(getResources().getDrawable(R.mipmap.volume_down));
             sound = false;
@@ -61,7 +60,6 @@ public class HomeScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.activity_home_screen);
         ButterKnife.bind(this);
         instance = this;
